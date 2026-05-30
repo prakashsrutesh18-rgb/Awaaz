@@ -86,21 +86,39 @@
         };
     </script>
     
-    <!-- Cyber-Brutalist Theme Styling -->
+    <!-- Refined Human-Centered Styling -->
     <style>
+        :root {
+            --bg: #f4f1ec;
+            --panel: rgba(255, 255, 255, 0.82);
+            --text: #171717;
+            --muted: #5f6368;
+            --border: rgba(17, 24, 39, 0.10);
+            --accent: #6d28d9;
+            --shadow: 0 12px 30px rgba(17, 24, 39, 0.08);
+            --shadow-strong: 0 18px 40px rgba(17, 24, 39, 0.14);
+        }
+        html, body {
+            background:
+                radial-gradient(circle at top left, rgba(109, 40, 217, 0.06), transparent 28%),
+                radial-gradient(circle at top right, rgba(14, 165, 233, 0.05), transparent 24%),
+                var(--bg);
+            color: var(--text);
+        }
         .grid-paper {
             background-image: 
-                linear-gradient(to right, #E5E5E5 1px, transparent 1px),
-                linear-gradient(to bottom, #E5E5E5 1px, transparent 1px);
-            background-size: 32px 32px;
+                linear-gradient(to right, rgba(17, 24, 39, 0.035) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(17, 24, 39, 0.035) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
         .scanlines {
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.03) 50%);
-            background-size: 100% 4px;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 50%, rgba(255, 255, 255, 0.02) 50%);
+            background-size: 100% 6px;
             pointer-events: none;
-            z-index: 999;
+            z-index: 1;
+            opacity: 0.25;
         }
         .clipped-corner {
             clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
@@ -109,35 +127,97 @@
             clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
         }
         .brutalist-card {
-            box-shadow: 4px 4px 0px #000000;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: var(--shadow);
+            transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
         }
         .brutalist-card:active {
-            transform: translate(2px, 2px);
-            box-shadow: 0px 0px 0px #000000;
+            transform: translateY(1px);
+            box-shadow: var(--shadow);
         }
         .brutalist-card-lg {
-            box-shadow: 8px 8px 0px #000000;
-            transition: transform 0.1s ease, box-shadow 0.1s ease;
+            box-shadow: var(--shadow-strong);
+            transition: transform 180ms ease, box-shadow 180ms ease;
+            border-radius: 24px;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(18px);
         }
         .brutalist-card-lg:hover {
-            transform: translate(-2px, -2px);
-            box-shadow: 12px 12px 0px #8127cf;
+            transform: translateY(-3px);
+            box-shadow: 0 22px 50px rgba(109, 40, 217, 0.12);
         }
         .neon-glow:hover {
-            box-shadow: 0px 0px 12px #8127cf;
+            box-shadow: 0 0 0 1px rgba(109, 40, 217, 0.2), 0 12px 30px rgba(109, 40, 217, 0.14);
         }
         .view-pane {
-            animation: glitch-fade 0.25s ease-out;
+            animation: view-fade 220ms ease-out;
         }
-        @keyframes glitch-fade {
-            0% { opacity: 0.8; filter: hue-rotate(90deg); transform: translate(1px, 1px); }
-            50% { opacity: 0.9; filter: none; transform: translate(-1px, -1px); }
-            100% { opacity: 1; transform: translate(0, 0); }
+        @keyframes view-fade {
+            0% { opacity: 0; transform: translateY(6px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        header, aside, footer, #chat-panel, #consent-banner {
+            background: var(--panel) !important;
+            backdrop-filter: blur(18px);
+            border-color: var(--border) !important;
+        }
+        header {
+            box-shadow: 0 8px 28px rgba(17, 24, 39, 0.06) !important;
+        }
+        aside {
+            box-shadow: 8px 0 24px rgba(17, 24, 39, 0.05);
+        }
+        footer {
+            box-shadow: 0 -8px 28px rgba(17, 24, 39, 0.08) !important;
+            color: #111827;
+        }
+        button, input, textarea, .chat-prompt {
+            border-radius: 14px;
+        }
+        button {
+            transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+        }
+        button:hover {
+            transform: translateY(-1px);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        input, textarea {
+            background: rgba(255,255,255,0.92) !important;
+            border-color: rgba(17, 24, 39, 0.12) !important;
+            box-shadow: none !important;
+        }
+        #chat-panel {
+            overflow: hidden;
+            box-shadow: var(--shadow-strong) !important;
+        }
+        #chat-open-btn {
+            box-shadow: 0 16px 30px rgba(109, 40, 217, 0.28) !important;
+            border-radius: 9999px;
+        }
+        #toast-container > div {
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        .hero-card {
+            background: rgba(255,255,255,0.72);
+            border: 1px solid rgba(17, 24, 39, 0.08);
+            border-radius: 28px;
+            box-shadow: var(--shadow-strong);
+            backdrop-filter: blur(18px);
+        }
+        .avatar-frame {
+            border-radius: 18px;
+            overflow: hidden;
+            border: 1px solid rgba(109, 40, 217, 0.22);
+            box-shadow: 0 10px 24px rgba(17, 24, 39, 0.08);
         }
         ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #eeeeee; border-left: 2px solid #1b1b1b; }
-        ::-webkit-scrollbar-thumb { background: #1b1b1b; }
+        ::-webkit-scrollbar-track { background: rgba(17, 24, 39, 0.04); border: none; }
+        ::-webkit-scrollbar-thumb { background: rgba(17, 24, 39, 0.26); border-radius: 9999px; }
         
         .material-symbols-outlined {
             font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -146,12 +226,15 @@
             font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
         }
     </style>
+    <!-- Leaflet for map pins demo -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 </head>
 <body class="bg-background font-body-lg text-on-surface grid-paper min-h-screen antialiased overflow-x-hidden">
     <div class="scanlines"></div>
     
     <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 w-full h-16 bg-surface z-50 flex justify-between items-center px-gutter border-b-border-thick border-on-surface shadow-[4px_4px_0px_0_rgba(0,0,0,1)]">
+    <header class="fixed top-0 left-0 w-full h-16 bg-surface z-50 flex justify-between items-center px-gutter border-b border-on-surface/10 shadow-none">
         <div class="flex items-center gap-4">
             <span class="font-display-lg text-headline-md font-bold tracking-tighter text-on-surface cursor-pointer select-none" id="shell-logo">AWAAZ//OS</span>
             <div class="hidden md:flex gap-4 ml-8">
@@ -167,18 +250,19 @@
                 <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm">search</span>
                 <input class="bg-surface border-border-thin border-on-surface pl-10 pr-4 py-1 font-data-mono text-data-mono focus:ring-primary focus:border-primary outline-none uppercase" placeholder="QUERY_SYSTEM..." id="shell-search" type="text"/>
             </div>
-            <button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 border-border-thin border-on-surface hover:translate-x-[1px] hover:translate-y-[1px] shadow-[2px_2px_0px_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" id="btn-report-violation">
+            <button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 border border-on-surface/10 hover:bg-[#5b21b6] shadow-none" id="btn-report-violation">
                 REPORT_VIOLATION
             </button>
+            <button id="btn-open-login" class="ml-2 bg-on-surface text-surface font-label-caps text-label-caps px-3 py-2 border border-on-surface/10 hover:bg-primary hover:text-on-primary transition-all">LOGIN</button>
         </div>
     </header>
     
     <!-- Sidebar Navigation -->
-    <aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-low border-r-border-thick border-on-surface z-40 flex flex-col hidden md:flex">
+    <aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-low border-r border-on-surface/10 z-40 flex flex-col hidden md:flex">
         <!-- Operator Details -->
         <div class="p-6 border-b-border-thin border-on-surface bg-surface-bright">
             <div class="flex items-center gap-3">
-                <div class="w-12 h-12 border-border-thin border-on-surface bg-primary p-0.5 shadow-[2px_2px_0px_#000]">
+                <div class="w-12 h-12 avatar-frame bg-primary p-0.5">
                     <img alt="Operator Avatar" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxYQjWkyaZNC4h4_VR4UltrRf4Hv2P3WreRw3D_nNwCb-aEsqvs_jdjJGmLhauStBBLX07dq1g9aq0TfU3s4AWT-y9HNbS8-d6lCUjOoSeLlCvvqSEtjO_VwkmPCG-r5S_SSkVMnmRty3yDfFXhWZy8acK-qSB_qywShjorooMZXOAvWBlHWqgQx-EObbij3DQPySjV5etmzFxcNROACw3aCxKTZbXlvbdvoJerCig6I2T3-wmtS_4GWlZK1wZauJjHJc4tBOrjw"/>
                 </div>
                 <div>
@@ -244,7 +328,7 @@
     <main class="md:ml-64 pt-16 min-h-screen relative pb-16" id="main-content">
         <!-- Views will load dynamically here -->
         <div class="flex items-center justify-center min-h-[calc(100vh-128px)]">
-            <div class="text-center font-data-mono text-primary p-12 border-border-thick border-dashed border-primary bg-white brutalist-card">
+            <div class="text-center font-data-mono text-primary p-12 border border-primary/15 bg-white brutalist-card hero-card">
                 <span class="material-symbols-outlined text-5xl animate-spin mb-4">sync</span>
                 <p class="font-black text-lg">INITIALIZING AWAAZ//OS KERNEL...</p>
                 <p class="text-[10px] text-on-surface-variant mt-2">LOADING SYSTEM BUFFERS & LOCAL MAP OVERLAYS</p>
@@ -253,7 +337,7 @@
     </main>
     
     <!-- Status Footer Bar -->
-    <footer class="fixed bottom-0 left-0 md:left-64 right-0 h-12 bg-on-surface text-white z-50 px-6 flex items-center justify-between font-data-mono text-[10px] border-t-border-thin border-on-background shadow-[0_-4px_8px_rgba(0,0,0,0.1)]">
+    <footer class="fixed bottom-0 left-0 md:left-64 right-0 h-12 bg-on-surface text-white z-50 px-6 flex items-center justify-between font-data-mono text-[10px] border-t border-on-surface/10 shadow-none">
         <div class="flex items-center gap-8">
             <div class="flex items-center gap-2">
                 <span class="text-primary font-bold">LATENCY:</span>
@@ -281,7 +365,7 @@
     </footer>
     
     <!-- Mobile Bottom Navigation (Hidden on desktop) -->
-    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t-border-thick border-on-background flex justify-around py-3 z-50">
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-on-surface/10 flex justify-around py-3 z-50">
         <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary" href="#dashboard">
             <span class="material-symbols-outlined text-xl">dashboard</span>
             <span class="text-[8px] font-bold uppercase">Home</span>
@@ -300,7 +384,72 @@
         </a>
     </nav>
     
+    <!-- Socket.IO client (for realtime new-report events) -->
+    <script src="/socket.io/socket.io.js"></script>
     <!-- Core Application Driver Script -->
     <script src="app.js"></script>
+
+    <!-- Toast container -->
+    <div id="toast-container" aria-live="polite" class="fixed bottom-20 right-6 z-50 flex flex-col gap-2"></div>
+
+    <!-- Consent / Privacy Banner -->
+    <div id="consent-banner" class="fixed bottom-0 left-0 right-0 bg-white border-t border-on-surface/10 p-4 flex items-center justify-between z-60 shadow-none">
+        <div class="font-data-mono text-[13px]">
+            We use local features to show maps and demo functionality. No personal data is sent to external services by default. By using this demo you consent to loading external assets (fonts, icons, map tiles). <a href="#" class="text-primary underline">Privacy</a>
+        </div>
+        <div class="flex items-center gap-3">
+            <button id="btn-consent-accept" class="bg-primary text-on-primary px-4 py-2 font-bold">Accept</button>
+            <button id="btn-consent-decline" class="bg-on-surface text-surface px-4 py-2 font-bold">Decline</button>
+        </div>
+    </div>
+
+    <!-- Chat widget -->
+    <div id="chat-widget" class="fixed bottom-24 right-6 z-60 flex flex-col items-end gap-3">
+        <button id="chat-open-btn" class="w-14 h-14 rounded-full bg-primary text-on-primary flex items-center justify-center text-xl border border-on-surface/10">💬</button>
+        <div id="chat-panel" class="hidden w-[23rem] max-w-[calc(100vw-2rem)] h-[36rem] bg-white border border-on-surface/10 flex flex-col overflow-hidden">
+            <div class="p-3 border-b border-on-surface/10 bg-surface-container-low flex justify-between items-center gap-3">
+                <div>
+                    <div class="font-bold text-sm">Awaaz Assistant</div>
+                    <div class="text-[10px] font-data-mono text-on-surface-variant">Indian rights, reporting help, and next steps</div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="chat-clear" class="text-[10px] font-bold border border-on-surface px-2 py-1 hover:bg-surface-container">Clear</button>
+                    <button id="chat-close" class="text-sm font-bold border border-on-surface px-2 py-1 hover:bg-surface-container">✕</button>
+                </div>
+            </div>
+            <div class="p-3 border-b border-on-surface/10 bg-surface-container-low">
+                <div class="flex flex-wrap gap-2" id="chat-quick-prompts">
+                    <button class="chat-prompt text-[10px] border border-on-surface/10 px-2 py-1 hover:bg-primary hover:text-on-primary">What are my rights?</button>
+                    <button class="chat-prompt text-[10px] border border-on-surface/10 px-2 py-1 hover:bg-primary hover:text-on-primary">How do I report a camera?</button>
+                    <button class="chat-prompt text-[10px] border border-on-surface/10 px-2 py-1 hover:bg-primary hover:text-on-primary">What is DPDP?</button>
+                </div>
+            </div>
+            <div id="chat-messages" class="flex-1 overflow-y-auto p-3 space-y-3 text-sm font-data-mono bg-gradient-to-b from-white to-surface-container-low"></div>
+            <div class="p-3 border-t border-on-surface/10 bg-white flex gap-2 items-end">
+                <textarea id="chat-input" rows="2" class="flex-1 resize-none border border-on-surface/10 p-2 text-sm font-data-mono outline-none focus:border-primary" placeholder="Ask about legal rights or reporting..."></textarea>
+                <button id="chat-send" class="bg-primary text-on-primary px-3 py-2 font-bold border border-on-surface/10">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Consent banner handlers
+        document.addEventListener('DOMContentLoaded', () => {
+            const banner = document.getElementById('consent-banner');
+            const accept = document.getElementById('btn-consent-accept');
+            const decline = document.getElementById('btn-consent-decline');
+            accept.addEventListener('click', () => {
+                banner.style.display = 'none';
+                localStorage.setItem('awaaz_consent', 'accepted');
+            });
+            decline.addEventListener('click', () => {
+                banner.style.display = 'none';
+                localStorage.setItem('awaaz_consent', 'declined');
+            });
+
+            // Auto-hide if already accepted
+            if (localStorage.getItem('awaaz_consent')) banner.style.display = 'none';
+        });
+    </script>
 </body>
 </html>

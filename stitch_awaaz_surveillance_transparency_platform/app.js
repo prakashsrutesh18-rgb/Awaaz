@@ -12,6 +12,27 @@ const appState = {
     viewIntervals: [] // Track intervals to clean them up on view swap
 };
 
+// Non-blocking toast notifications (replace alert())
+function showToast(message, level = 'info', timeout = 4500) {
+    const container = document.getElementById('toast-container');
+    if (!container) return console.log(message);
+
+    const toast = document.createElement('div');
+    toast.className = `max-w-sm p-3 rounded shadow-[4px_4px_0px_#000] bg-white border border-on-surface font-data-mono text-[13px]`;
+    if (level === 'error') toast.style.borderColor = '#ba1a1a';
+    if (level === 'success') toast.style.borderColor = '#2a9d8f';
+
+    toast.textContent = message;
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.transition = 'opacity 250ms, transform 250ms';
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(8px)';
+        setTimeout(() => container.removeChild(toast), 300);
+    }, timeout);
+}
+
 // Route Mapping
 const routes = {
     'dashboard': 'views/dashboard.html',
@@ -20,7 +41,9 @@ const routes = {
     'scanner': 'views/scanner.html',
     'archive': 'views/archive.html',
     'manifesto': 'views/manifesto.html',
-    'join': 'views/join.html'
+    'join': 'views/join.html',
+    'login': 'views/login.html',
+    'admin': 'views/admin.html'
 };
 
 // Initialize Application
@@ -36,11 +59,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Setup Routing listener
     window.addEventListener('hashchange', handleRouting);
     
-    // Initial Route
-    handleRouting();
+    // Initial Route - only route if a hash present to avoid auto-navigating
+    if (window.location.hash && window.location.hash.length > 1) {
+        handleRouting();
+    } else {
+        // Do not auto-load views on initial page load to prevent unexpected navigation
+        appState.currentView = null;
+    }
     
     // Bind Shell Button Actions
     setupShellButtons();
+    // Initialize chat widget handlers
+    initChatWidget();
 });
 
 // Setup Clock in Footer
@@ -86,7 +116,7 @@ function setupShellButtons() {
     document.getElementById('btn-quick-scan').addEventListener('click', () => {
         window.location.hash = '#scanner';
         setTimeout(() => {
-            alert("INITIATING BROADBAND SATELLITE SWEEP... TARGET: ENCRYPTED CHANNELS");
+            showToast("INITIATING BROADBAND SATELLITE SWEEP... TARGET: ENCRYPTED CHANNELS", 'info');
         }, 150);
     });
     
@@ -94,6 +124,26 @@ function setupShellButtons() {
     document.getElementById('shell-logo').addEventListener('click', () => {
         window.location.hash = '#dashboard';
     });
+
+    // Open login view
+    const authBtn = document.getElementById('btn-open-login');
+    if (authBtn) {
+        const updateAuthLabel = () => {
+            const token = localStorage.getItem('awaaz_token');
+            authBtn.textContent = token ? 'LOGOUT' : 'LOGIN';
+        };
+        updateAuthLabel();
+        authBtn.addEventListener('click', () => {
+            const token = localStorage.getItem('awaaz_token');
+            if (token) {
+                localStorage.removeItem('awaaz_token');
+                showToast('Logged out', 'success');
+                updateAuthLabel();
+            } else {
+                window.location.hash = '#login';
+            }
+        });
+    }
 }
 
 // Route Handler
@@ -229,6 +279,12 @@ function initializeView(viewName) {
         case 'join':
             initJoinController();
             break;
+        case 'admin':
+            initAdminController();
+            break;
+        case 'login':
+            initLoginController();
+            break;
         case 'submit':
             initSubmitController();
             break;
@@ -290,7 +346,7 @@ function initDashboardController() {
     document.querySelectorAll('.btn-verify-node').forEach(btn => {
         btn.addEventListener('click', () => {
             const node = btn.getAttribute('data-node');
-            alert(`CONFIRMED AUDIT SIG FOR NODE: ${node}`);
+            showToast(`CONFIRMED AUDIT SIG FOR NODE: ${node}`, 'success');
             btn.innerHTML = 'VERIFIED <span class="material-symbols-outlined text-[10px]">check</span>';
             btn.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
         });
@@ -313,7 +369,7 @@ function initHeatmapController() {
     // Map overlay interactive markers console logs
     document.querySelectorAll('[group] cursor-pointer').forEach(el => {
         el.addEventListener('click', () => {
-            alert("LOCATING DEVICE NODES ON GRID SYSTEM...");
+            showToast("LOCATING DEVICE NODES ON GRID SYSTEM...", 'info');
         });
     });
 }
@@ -324,7 +380,7 @@ function initRegistryController() {
     document.querySelectorAll('.btn-decrypt-node').forEach(btn => {
         btn.addEventListener('click', () => {
             const nodeName = btn.getAttribute('data-node');
-            alert(`UPLINK HANDSHAKE IN PROGRESS... DECRYPTING META DETAILS OF: ${nodeName}`);
+            showToast(`UPLINK HANDSHAKE IN PROGRESS... DECRYPTING META DETAILS OF: ${nodeName}`, 'info');
             btn.textContent = 'DECRYPTED // 0xAF92';
             btn.classList.add('bg-primary-container', 'text-on-primary-container');
         });
@@ -442,7 +498,7 @@ function initScannerController() {
     const abortBtn = document.getElementById('btn-abort-scan-t');
     if (abortBtn) {
         abortBtn.addEventListener('click', () => {
-            alert("EMERGENCY SCAN TERMINATION SIGNALLING INTERCEPTORS SHUTDOWN NOW!");
+            showToast("EMERGENCY SCAN TERMINATION SIGNALLING INTERCEPTORS SHUTDOWN NOW!", 'error');
         });
     }
 }
@@ -455,7 +511,7 @@ function initArchiveController() {
         row.addEventListener('click', () => {
             const targetId = row.cells[1].textContent;
             const violation = row.cells[2].textContent;
-            alert(`FETCHING CASE ARCHIVE REPORT FOR ${targetId} [${violation}]`);
+            showToast(`FETCHING CASE ARCHIVE REPORT FOR ${targetId} [${violation}]`, 'info');
         });
     });
 }
@@ -484,7 +540,7 @@ function initManifestoController() {
     const subBtn = document.getElementById('btn-subscribe-man');
     if (subBtn) {
         subBtn.addEventListener('click', () => {
-            alert("SUBSCRIBED TO ENCRYPTED BROADCAST CHANNELS");
+            showToast("SUBSCRIBED TO ENCRYPTED BROADCAST CHANNELS", 'success');
             subBtn.textContent = "SUBSCRIBED";
             subBtn.className = "bg-tertiary text-on-tertiary font-bold px-6 py-3 border-2 border-on-surface cursor-default uppercase text-xs";
         });
@@ -558,14 +614,38 @@ function initJoinController() {
     // Activate Action
     const activateBtn = document.getElementById('btn-activate-node-join');
     if (activateBtn) {
-        activateBtn.addEventListener('click', () => {
-            const alias = aliasInput ? aliasInput.value : '';
+        activateBtn.addEventListener('click', async () => {
+            const alias = aliasInput ? aliasInput.value.trim() : '';
             if (!alias) {
-                alert("ERROR: TERMINAL ALIAS FIELD IS EMPTY // IDENTITY REQUIRED");
+                showToast("ERROR: TERMINAL ALIAS FIELD IS EMPTY // IDENTITY REQUIRED", 'error');
                 return;
             }
-            alert(`LINKING TERMINAL [${alias}] TO DISTRICT MESH CLUSTERS... SUCCESS // OP CERT ISSUED.`);
-            window.location.hash = '#dashboard';
+
+            // Simple auto-register + login flow for hackathon demo
+            try {
+                const randomPass = Math.random().toString(36).slice(-8);
+                // Register
+                await fetch('/api/register', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: alias, password: randomPass })
+                }).catch(()=>{});
+
+                // Login
+                const loginRes = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username: alias, password: randomPass }) });
+                if (!loginRes.ok) {
+                    showToast('Auto-login failed. Please register manually.', 'error');
+                    return;
+                }
+                const data = await loginRes.json();
+                if (data && data.token) {
+                    localStorage.setItem('awaaz_token', data.token);
+                    showToast(`LINKED AND LOGGED IN AS ${alias}`, 'success');
+                    window.location.hash = '#dashboard';
+                }
+            } catch (e) {
+                console.error(e);
+                showToast('Activation failed', 'error');
+            }
         });
     }
 }
@@ -607,7 +687,7 @@ function initSubmitController() {
     const dropZone = document.getElementById('drop-zone');
     if (dropZone) {
         dropZone.addEventListener('click', () => {
-            alert("MOCK UPLOAD TRIGGERED // EV_LOG_DUMP.RAW ASSOCIATED");
+            showToast("MOCK UPLOAD TRIGGERED // EV_LOG_DUMP.RAW ASSOCIATED", 'info');
             dropZone.innerHTML = `
                 <span class="material-symbols-outlined text-4xl text-tertiary">description</span>
                 <div class="font-bold text-[10px] text-tertiary">EV_LOG_DUMP.RAW SUCCESSFULLY INDEXED</div>
@@ -619,18 +699,283 @@ function initSubmitController() {
     // Transmit button action
     const transmitBtn = document.getElementById('btn-transmit-report');
     if (transmitBtn) {
-        transmitBtn.addEventListener('click', () => {
+        transmitBtn.addEventListener('click', async () => {
+            const token = localStorage.getItem('awaaz_token');
+            if (!token) {
+                showToast('You must be logged in to submit a report. Use the Join/Register flow.', 'error');
+                return;
+            }
+
+            // Gather payload
+            const title = document.querySelector('#incident-type-selector button.bg-primary') ?
+                document.querySelector('#incident-type-selector button.bg-primary').textContent.trim() : 'REPORT';
+            const narrative = document.getElementById('ipt-narrative') ? document.getElementById('ipt-narrative').value : '';
+            const latRaw = latInput ? latInput.value : '';
+            const lonRaw = lonInput ? lonInput.value : '';
+            // parse numeric lat/lon from strings like '17.3850° N' or plain numbers
+            const parseCoord = (s) => parseFloat(s.replace(/[^0-9.-]/g, ''));
+            const lat = parseCoord(latRaw);
+            const lon = parseCoord(lonRaw);
+
             transmitBtn.innerHTML = 'TRANSMITTING ENCRYPTED PACKETS...';
             transmitBtn.classList.add('opacity-70');
-            setTimeout(() => {
+
+            try {
+                const res = await fetch('/api/reports', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + token
+                    },
+                    body: JSON.stringify({ title, description: narrative, lat, lon, tags: [] })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json().catch(()=>({ error: 'Unknown' }));
+                    showToast('Failed to submit report: ' + (err.error || res.statusText), 'error');
+                    transmitBtn.innerHTML = 'TRANSMIT_REPORT';
+                    transmitBtn.classList.remove('opacity-70');
+                    return;
+                }
+
+                const json = await res.json();
                 transmitBtn.innerHTML = 'TRANSMISSION SUCCESSFUL <span class="material-symbols-outlined text-sm">check_circle</span>';
                 transmitBtn.className = "bg-tertiary text-on-tertiary font-bold px-10 py-4 flex items-center justify-center gap-3 border-2 border-on-background shadow-[4px_4px_0px_#000] cursor-default text-xs";
-                
-                setTimeout(() => {
-                    alert("REPORT REGISTERED // DISTRIBUTED LEDGER HAS BEEN SYNCED");
-                    window.location.hash = '#dashboard';
-                }, 1000);
-            }, 2000);
+                showToast('Report submitted successfully', 'success');
+                setTimeout(() => { window.location.hash = '#dashboard'; }, 800);
+            } catch (e) {
+                console.error(e);
+                showToast('Submission failed: network error', 'error');
+                transmitBtn.innerHTML = 'TRANSMIT_REPORT';
+                transmitBtn.classList.remove('opacity-70');
+            }
         });
     }
+}
+
+// Login / Register Controller
+function initLoginController() {
+    const usr = document.getElementById('login-username');
+    const pwd = document.getElementById('login-password');
+    const btnLogin = document.getElementById('btn-login-submit');
+    const btnRegister = document.getElementById('btn-register-submit');
+
+    if (btnLogin) {
+        btnLogin.addEventListener('click', async () => {
+            const username = usr ? usr.value.trim() : '';
+            const password = pwd ? pwd.value : '';
+            if (!username || !password) return showToast('Enter username and password', 'error');
+            try {
+                const r = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+                const j = await r.json();
+                if (!r.ok) return showToast('Login failed: ' + (j.error || 'unknown'), 'error');
+                localStorage.setItem('awaaz_token', j.token);
+                showToast('Login successful', 'success');
+                window.location.hash = '#dashboard';
+            } catch (e) {
+                console.error(e);
+                showToast('Login error', 'error');
+            }
+        });
+    }
+
+    if (btnRegister) {
+        btnRegister.addEventListener('click', async () => {
+            const username = usr ? usr.value.trim() : '';
+            const password = pwd ? pwd.value : '';
+            if (!username || !password) return showToast('Enter username and password', 'error');
+            try {
+                const r = await fetch('/api/register', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ username, password }) });
+                const j = await r.json();
+                if (!r.ok) return showToast('Register failed: ' + (j.error || 'unknown'), 'error');
+                showToast('Registration successful — you can now log in', 'success');
+            } catch (e) {
+                console.error(e);
+                showToast('Registration error', 'error');
+            }
+        });
+    }
+}
+
+// Chat widget initialization
+function initChatWidget() {
+    const openBtn = document.getElementById('chat-open-btn');
+    const panel = document.getElementById('chat-panel');
+    const closeBtn = document.getElementById('chat-close');
+    const clearBtn = document.getElementById('chat-clear');
+    const sendBtn = document.getElementById('chat-send');
+    const input = document.getElementById('chat-input');
+    const messages = document.getElementById('chat-messages');
+    const promptButtons = document.querySelectorAll('.chat-prompt');
+
+    const storageKey = 'awaaz_chat_history';
+
+    const safeText = (value) => String(value || '').replace(/[&<>'"]/g, (character) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        "'": '&#39;',
+        '"': '&quot;'
+    }[character]));
+
+    function loadHistory() {
+        try {
+            return JSON.parse(localStorage.getItem(storageKey) || '[]');
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function saveHistory(history) {
+        localStorage.setItem(storageKey, JSON.stringify(history.slice(-30)));
+    }
+
+    function renderBubble(role, text, meta = '') {
+        const bubble = document.createElement('div');
+        const isUser = role === 'user';
+        bubble.className = `flex ${isUser ? 'justify-end' : 'justify-start'}`;
+        bubble.innerHTML = `
+            <div class="max-w-[85%] ${isUser ? 'bg-primary text-on-primary' : 'bg-surface-container-low text-on-surface'} border border-on-surface shadow-[3px_3px_0px_#000] px-3 py-2 ${isUser ? 'rounded-tl-2xl rounded-tr-2xl rounded-bl-2xl' : 'rounded-tr-2xl rounded-tl-2xl rounded-br-2xl'}">
+                <div class="text-[10px] uppercase tracking-widest opacity-70 mb-1 font-bold">${isUser ? 'You' : 'Awaaz Assistant'}</div>
+                <div class="whitespace-pre-wrap leading-relaxed">${safeText(text)}</div>
+                ${meta ? `<div class="text-[9px] opacity-70 mt-2">${safeText(meta)}</div>` : ''}
+            </div>`;
+        messages.appendChild(bubble);
+        messages.scrollTop = messages.scrollHeight;
+        return bubble;
+    }
+
+    function renderWelcome() {
+        const history = loadHistory();
+        messages.innerHTML = '';
+        if (history.length > 0) {
+            history.forEach(item => renderBubble(item.role, item.text, item.meta));
+            return;
+        }
+
+        renderBubble(
+            'assistant',
+            'Ask about your rights, how to report surveillance, or what to do next. I can give step-by-step guidance and summarize the basics of the IT Act and DPDP Act.',
+            'Starter prompt'
+        );
+    }
+
+    if (!openBtn) return;
+    openBtn.addEventListener('click', () => {
+        panel.classList.toggle('hidden');
+        if (!panel.classList.contains('hidden')) renderWelcome();
+    });
+    if (closeBtn) closeBtn.addEventListener('click', () => panel.classList.add('hidden'));
+    if (clearBtn) clearBtn.addEventListener('click', () => {
+        localStorage.removeItem(storageKey);
+        renderWelcome();
+        showToast('Chat cleared', 'success');
+    });
+
+    promptButtons.forEach(btn => btn.addEventListener('click', () => {
+        if (!input) return;
+        input.value = btn.textContent.trim();
+        panel.classList.remove('hidden');
+        input.focus();
+    }));
+
+    async function postQuestion(q) {
+        if (!q) return;
+        const history = loadHistory();
+        const timestamp = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        history.push({ role: 'user', text: q, meta: timestamp });
+        saveHistory(history);
+        renderBubble('user', q, timestamp);
+
+        const typingBubble = renderBubble('assistant', 'Typing...', 'Please wait');
+        try {
+            const res = await fetch('/api/chat', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ question: q }) });
+            const j = await res.json();
+            typingBubble.remove();
+
+            const reply = j.body || j.title || 'No response';
+            const replyMeta = j.title || 'Response';
+            history.push({ role: 'assistant', text: reply, meta: replyMeta });
+            saveHistory(history);
+            renderBubble('assistant', reply, replyMeta);
+        } catch (e) {
+            console.error(e);
+            typingBubble.remove();
+            showToast('Chat request failed', 'error');
+            renderBubble('assistant', 'I could not reach the assistant. Please try again in a moment.', 'Network error');
+        }
+    }
+
+    if (sendBtn && input) {
+        sendBtn.addEventListener('click', () => {
+            const q = input.value.trim();
+            if (!q) return;
+            postQuestion(q);
+            input.value = '';
+        });
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendBtn.click();
+            }
+        });
+    }
+
+    renderWelcome();
+}
+
+// Admin controller
+function initAdminController() {
+    const container = document.getElementById('admin-list');
+    if (!container) return;
+    container.innerHTML = '<div class="font-data-mono">Loading reports...</div>';
+
+    async function load() {
+        try {
+            const token = localStorage.getItem('awaaz_token');
+            const res = await fetch('/api/admin/reports', { headers: { 'Authorization': token ? 'Bearer ' + token : '' } });
+            if (res.status === 403 || res.status === 401) {
+                container.innerHTML = '<div class="text-error font-data-mono">Forbidden — admin access required.</div>';
+                return;
+            }
+            const list = await res.json();
+            if (!Array.isArray(list) || list.length === 0) { container.innerHTML = '<div class="font-data-mono">No reports found.</div>'; return; }
+            container.innerHTML = '';
+            list.forEach(r => {
+                const el = document.createElement('div');
+                el.className = 'bg-white p-4 border-2 border-black brutalist-card flex justify-between items-start';
+                el.innerHTML = `<div class="flex-1">
+                    <div class="font-bold">${r.title}</div>
+                    <div class="text-[12px] text-on-surface-variant">${r.description || ''}</div>
+                    <div class="text-[11px] font-data-mono mt-2">${r.lat}, ${r.lon} — ${new Date(r.createdAt).toLocaleString()}</div>
+                </div>
+                <div class="flex flex-col gap-2 ml-4">
+                    <button data-id="${r.id}" class="btn-delete bg-error text-white px-3 py-1">Delete</button>
+                    <button data-id="${r.id}" class="btn-flag bg-secondary text-white px-3 py-1">Flag</button>
+                </div>`;
+                container.appendChild(el);
+            });
+
+            // Attach handlers
+            document.querySelectorAll('.btn-delete').forEach(b => b.addEventListener('click', async (e) => {
+                const id = b.getAttribute('data-id');
+                if (!confirm) { /* noop to avoid polyfills */ }
+                if (!window.confirm('Delete report?')) return;
+                const token = localStorage.getItem('awaaz_token');
+                const res = await fetch('/api/admin/reports/' + id, { method: 'DELETE', headers: { 'Authorization': token ? 'Bearer ' + token : '' } });
+                if (res.ok) { showToast('Deleted', 'success'); load(); } else showToast('Delete failed', 'error');
+            }));
+            document.querySelectorAll('.btn-flag').forEach(b => b.addEventListener('click', async (e) => {
+                const id = b.getAttribute('data-id');
+                const token = localStorage.getItem('awaaz_token');
+                const res = await fetch('/api/admin/flag/' + id, { method: 'POST', headers: { 'Authorization': token ? 'Bearer ' + token : '' } });
+                if (res.ok) { showToast('Flagged', 'success'); load(); } else showToast('Flag failed', 'error');
+            }));
+
+        } catch (e) {
+            console.error(e);
+            container.innerHTML = '<div class="text-error">Error loading reports</div>';
+        }
+    }
+    load();
 }
