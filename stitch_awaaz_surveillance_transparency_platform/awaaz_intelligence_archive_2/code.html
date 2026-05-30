@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ | Intelligence Archive</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grid-bg {
+            background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .scanline {
+            width: 100%;
+            height: 2px;
+            background: rgba(129, 39, 207, 0.1);
+            position: absolute;
+            animation: scan 8s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 10% 100%, 0 90%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#131f00",
+                      "on-primary-fixed-variant": "#6900b3",
+                      "on-tertiary-container": "#faffe8",
+                      "inverse-on-surface": "#f1f1f1",
+                      "on-tertiary-fixed-variant": "#354e00",
+                      "inverse-surface": "#303030",
+                      "surface-dim": "#dadada",
+                      "tertiary-fixed-dim": "#a4d64c",
+                      "surface-container-highest": "#e2e2e2",
+                      "surface-container-high": "#e8e8e8",
+                      "on-primary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-secondary-fixed": "#001f25",
+                      "surface": "#f9f9f9",
+                      "primary": "#8127cf",
+                      "on-surface-variant": "#4d4354",
+                      "surface-container": "#eeeeee",
+                      "outline": "#7e7385",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "tertiary-container": "#598000",
+                      "on-primary-container": "#fffbff",
+                      "error-container": "#ffdad6",
+                      "primary-container": "#9c48ea",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#2fd9f4",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed": "#bff365",
+                      "outline-variant": "#cfc2d6",
+                      "on-error-container": "#93000a",
+                      "on-error": "#ffffff",
+                      "surface-container-low": "#f3f3f3",
+                      "on-surface": "#1b1b1b",
+                      "surface-tint": "#842bd2",
+                      "on-primary-fixed": "#2c0051",
+                      "secondary-fixed": "#a2eeff",
+                      "on-background": "#1b1b1b",
+                      "surface-bright": "#f9f9f9",
+                      "secondary-container": "#3fe1fd",
+                      "on-secondary-container": "#00616f",
+                      "inverse-primary": "#ddb7ff",
+                      "background": "#f9f9f9",
+                      "surface-variant": "#e2e2e2",
+                      "on-secondary": "#ffffff",
+                      "secondary": "#006877",
+                      "tertiary": "#456500",
+                      "primary-fixed-dim": "#ddb7ff",
+                      "primary-fixed": "#f0dbff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "border-thick": "4px",
+                      "gutter": "16px",
+                      "unit": "4px",
+                      "margin-desktop": "40px",
+                      "border-thin": "2px"
+              },
+              "fontFamily": {
+                      "label-caps": ["JetBrains Mono"],
+                      "headline-md": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"],
+                      "headline-lg": ["Space Grotesk"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "data-mono": ["JetBrains Mono"],
+                      "body-sm": ["JetBrains Mono"],
+                      "body-lg": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-lg overflow-x-hidden grid-bg">
+<!-- TopAppBar -->
+<header class="fixed top-0 left-0 w-full h-16 flex justify-between items-center px-margin-desktop bg-surface border-b-border-thick border-on-background drop-shadow-[4px_4px_0px_#1b1b1b] z-50">
+<div class="font-headline-md text-headline-md text-primary tracking-tighter">SYS_WATCH_V2</div>
+<nav class="hidden md:flex gap-8 items-center h-full">
+<a class="font-data-mono text-data-mono text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors px-4 py-2" href="#">MAP_OS</a>
+<a class="font-data-mono text-data-mono text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors px-4 py-2" href="#">REGISTRY</a>
+<a class="font-data-mono text-data-mono text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors px-4 py-2" href="#">AI_LINK</a>
+<a class="font-data-mono text-data-mono text-primary font-bold border-b-border-thin border-primary px-4 py-2" href="#">INTEL</a>
+</nav>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 border-border-thin border-on-background active:translate-x-unit active:translate-y-unit active:shadow-none hover:drop-shadow-[4px_4px_0px_#000] transition-all">
+            REPORT_VIOLATION
+        </button>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container border-r-border-thick border-on-background flex flex-col z-40">
+<div class="p-6 border-b-border-thin border-on-background">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 bg-primary border-border-thin border-on-background">
+<img alt="SYSTEM_ADMIN_AVATAR" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA8GiOIexFgaj8rg-0untrdCjBJODdkqF_bThWRDIjvZiiUTk_Yr8Dg8ux084o5uYctSYMSgCo-3BjmNfNbtXI71osWqMitlQM313hUO1SMOJIAAQ4VrqsuREJ1yFE-R70ytKsJ6GmcflGrne3KedLq-q4XPvWPw__Ut7H4sou34BaU9V5FsK9D9d-taNAK_b6ThoCjqKPUBMMPF8mr3IvIgYTTy3Cw3B39EXRAS4R_Ud58TsK-bIJqPPWQ_msGoCsmZ9eoQGGFUQ"/>
+</div>
+<div>
+<p class="font-headline-md text-headline-md text-on-surface leading-none">NODE_01</p>
+<p class="font-label-caps text-label-caps text-tertiary mt-1">STATUS: ACTIVE</p>
+</div>
+</div>
+<button class="w-full bg-surface border-border-thin border-on-background font-label-caps text-label-caps py-2 hover:bg-secondary-container hover:text-on-secondary-container transition-all active:bg-tertiary-container">
+                SYSTEM_REBOOT
+            </button>
+</div>
+<nav class="flex-grow">
+<a class="flex items-center gap-gutter text-on-surface-variant p-4 border-b-border-thin border-outline-variant hover:bg-secondary-container transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span> DASHBOARD
+            </a>
+<a class="flex items-center gap-gutter text-on-surface-variant p-4 border-b-border-thin border-outline-variant hover:bg-secondary-container transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span> LIVE_FEED
+            </a>
+<a class="flex items-center gap-gutter text-on-surface-variant p-4 border-b-border-thin border-outline-variant hover:bg-secondary-container transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="thermostat">thermostat</span> HEATMAP
+            </a>
+<a class="flex items-center gap-gutter text-on-surface-variant p-4 border-b-border-thin border-outline-variant hover:bg-secondary-container transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="hub">hub</span> NODE_STATUS
+            </a>
+<a class="flex items-center gap-gutter bg-primary text-on-primary p-4 border-b-border-thin border-on-background font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span> ARCHIVE
+            </a>
+</nav>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 mt-16 p-margin-desktop min-h-screen relative">
+<div class="scanline"></div>
+<!-- Header Section -->
+<section class="mb-gutter border-border-thick border-on-background bg-surface p-8 drop-shadow-[8px_8px_0px_#000]">
+<div class="flex justify-between items-start">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface mb-2 uppercase tracking-tighter">SECURE VAULT: ARCHIVE</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                        Comprehensive repository of statewide surveillance activity, algorithmic governance patterns, and community-sourced violation reports. Data integrity verified via distributed ledger.
+                    </p>
+</div>
+<div class="text-right">
+<p class="font-label-caps text-label-caps text-on-surface-variant">ACCESS_LEVEL</p>
+<p class="font-headline-md text-headline-md text-primary font-bold">LEVEL_04_CLEARANCE</p>
+</div>
+</div>
+</section>
+<!-- Data Summary Bento Grid -->
+<section class="grid grid-cols-12 gap-gutter mb-gutter">
+<div class="col-span-12 md:col-span-4 bg-primary border-border-thick border-on-background p-6 drop-shadow-[4px_4px_0px_#000] text-on-primary flex flex-col justify-between">
+<p class="font-label-caps text-label-caps opacity-80">&gt; TOTAL_DATA_POINTS</p>
+<div class="mt-4">
+<span class="font-display-lg text-display-lg block leading-none">1.2M+</span>
+<span class="font-label-caps text-label-caps">SECURED_PACKETS</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-tertiary-container border-border-thick border-on-background p-6 drop-shadow-[4px_4px_0px_#000] text-on-tertiary-container flex flex-col justify-between">
+<p class="font-label-caps text-label-caps opacity-80">&gt; RTI_SUCCESS_RATE</p>
+<div class="mt-4">
+<span class="font-display-lg text-display-lg block leading-none">482</span>
+<span class="font-label-caps text-label-caps">LEGAL_VICTORIES</span>
+</div>
+</div>
+<div class="col-span-12 md:col-span-4 bg-secondary-container border-border-thick border-on-background p-6 drop-shadow-[4px_4px_0px_#000] text-on-secondary-container flex flex-col justify-between">
+<p class="font-label-caps text-label-caps opacity-80">&gt; NODE_UPTIME</p>
+<div class="mt-4">
+<span class="font-display-lg text-display-lg block leading-none">99.9%</span>
+<span class="font-label-caps text-label-caps">ARCHIVE_STABILITY</span>
+</div>
+</div>
+</section>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Intelligence Log (Table) -->
+<section class="col-span-12 lg:col-span-8">
+<div class="bg-surface border-border-thick border-on-background overflow-hidden drop-shadow-[8px_8px_0px_#000]">
+<div class="bg-on-background p-4 flex justify-between items-center">
+<h2 class="font-data-mono text-data-mono text-on-primary uppercase flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span> INTELLIGENCE_LOG_STREAM
+                        </h2>
+<span class="bg-primary px-2 py-0.5 text-[10px] font-bold text-on-primary">REAL-TIME_UPDATE</span>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left font-data-mono text-data-mono">
+<thead class="bg-surface-container border-b-border-thin border-on-background">
+<tr>
+<th class="p-4 uppercase border-r-border-thin border-on-background">Timestamp</th>
+<th class="p-4 uppercase border-r-border-thin border-on-background">Target ID</th>
+<th class="p-4 uppercase border-r-border-thin border-on-background">Violation Type</th>
+<th class="p-4 uppercase">Status</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 border-r-border-thin border-on-background">2024-05-20 14:22:01</td>
+<td class="p-4 border-r-border-thin border-on-background">#XJ-992</td>
+<td class="p-4 border-r-border-thin border-on-background">FACIAL_RECOGNITION</td>
+<td class="p-4"><span class="bg-error text-on-error px-2 py-1 text-[10px] clipped-corner">ENCRYPTED</span></td>
+</tr>
+<tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 border-r-border-thin border-on-background">2024-05-20 14:18:55</td>
+<td class="p-4 border-r-border-thin border-on-background">#BL-044</td>
+<td class="p-4 border-r-border-thin border-on-background">BIOMETRIC_SWEEP</td>
+<td class="p-4"><span class="bg-tertiary text-on-tertiary px-2 py-1 text-[10px] clipped-corner">DECRYPTED</span></td>
+</tr>
+<tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 border-r-border-thin border-on-background">2024-05-20 13:59:12</td>
+<td class="p-4 border-r-border-thin border-on-background">#ZK-112</td>
+<td class="p-4 border-r-border-thin border-on-background">PACKET_SNIFFING</td>
+<td class="p-4"><span class="bg-on-surface-variant text-on-surface px-2 py-1 text-[10px] clipped-corner">REDACTED</span></td>
+</tr>
+<tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+<td class="p-4 border-r-border-thin border-on-background">2024-05-20 13:45:00</td>
+<td class="p-4 border-r-border-thin border-on-background">#XJ-992</td>
+<td class="p-4 border-r-border-thin border-on-background">THERMAL_IMAGING</td>
+<td class="p-4"><span class="bg-error text-on-error px-2 py-1 text-[10px] clipped-corner">ENCRYPTED</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Evidence Repository -->
+<div class="mt-gutter">
+<div class="flex justify-between items-center mb-4">
+<h2 class="font-headline-md text-headline-md text-on-surface uppercase tracking-tight">DIGITAL_EVIDENCE_REPOSITORY</h2>
+<button class="text-primary font-label-caps text-label-caps border-b-border-thin border-primary">VIEW_ALL_FILES</button>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="group relative bg-on-background border-border-thin border-on-background aspect-square overflow-hidden cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="A high-contrast macro shot of glowing green circuit board traces in a dark server room environment. The image uses a cyber-brutalist aesthetic with sharp lines and intense digital neon colors. The mood is clinical and technologically dense, fitting a surveillance data theme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAkI3CEd4cuJ1TXpk-KFqMAPogH916T_oSSV56BfTP7bcfPC80F3B6fjDZtHv7gotFMW0VKlcOczUQeEqWAjYHRdAAzBC5-US1K5avDjPADsxo4-EMnH2Hju_ApLo4bnAezGse9wR31Qo5qg7ClhaJxZa1cWVlKhfzpBrrqWyNiAIYzZxYXzcC2hXU51EQ0GLleCNhYaol_QES1YsbAPuG3dG58XxEudn1E8WlrER1OJ49QJqv3a7PIg1yc6tGL-Hzs5mhvCV1emw"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/90 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
+<p class="text-[10px] font-data-mono text-on-primary">PACKET_DUMP_01.SH</p>
+</div>
+</div>
+<div class="group relative bg-on-background border-border-thin border-on-background aspect-square overflow-hidden cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="A grainy, monochrome CCTV frame capturing a street intersection at night. High-contrast security footage style with digital timestamp overlays and noise interference patterns. The visual is stark, brutalist, and emphasizes surveillance culture and data collection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABdRwUEjv3c7BPmMd5yyZO4ipvfvo1v9l17wrVxYDGnmq3dUn2kV3VXbo6JMumJ_8wcL_To11fv7yWTuLGVaXkkX45BrDLSfRyrKvyZ9Js3_zlBzI_fSqyOAmkKpH5SPpz2SNVwg6N25Txk6Xs5h9kEQABeZoG12mM8AUxyH5CgTYm0qxdyt-R1tmedL3PwfH-4P51AkeCeP7wAG6jzeKaongiDotMgmDTLjBcL1bZKpaY23na7POPYm6NHqUztiR4P-PipDwtsw"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/90 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
+<p class="text-[10px] font-data-mono text-on-primary">CCTV_CAM_092.IMG</p>
+</div>
+</div>
+<div class="group relative bg-on-background border-border-thin border-on-background aspect-square overflow-hidden cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="A blue-tinted digital visualization of global data streams and networking nodes. The image is highly abstract, featuring sharp geometric lines and glowing points of light against a deep black background. It embodies a futuristic, cyber-brutalist intelligence archive aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCEOdnoiRVLR7pP8May1qYyRRnEFqXSUe--pjCCSgKTEARp0SNtPyBjmDth5wZ2fu0HSc0jQdJxHN0rCBM1hnRn8VrlzI-sV4UOC6Q63WHecwZXBSJeJeDyaKT3D-z-6V1Cgg2Q85V-qtP7BfCHm_oBp1bK_8snnYVIG64jfNp7Uu1R_gbP7OIxZyoY5Ddmh_tRZHTJlMN6swvlqdvgX9hzH8UMnSXy4b-0EGPicYKAXmNWz2w0RQ3x0uXfSjfiT_ndDPTkubFTMQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/90 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
+<p class="text-[10px] font-data-mono text-on-primary">NODE_TRAFFIC.LOG</p>
+</div>
+</div>
+<div class="group relative bg-on-background border-border-thin border-on-background aspect-square overflow-hidden cursor-pointer active:scale-95 transition-all">
+<img class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity" data-alt="A close-up shot of several legal documents with heavy black redacted lines across the text. The lighting is harsh and direct, creating deep shadows. The paper texture is visible, emphasizing the raw, physical nature of documented surveillance violations in a brutalist style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSo65xogazOdzDvVgbcWjmM8kpD1nobRKDOR77EoK9EPZ83AhLtNPOgXyY0sZy5qWcJzHtWqsHDdknWZTlyDsDcT-KKg1DDs00AUvkwgcMpum2ay4UeQ2xLbnwkdyUf9MNbi0S4Bg9zdsU2204P0B18NkgbMexfg0y7GgnzgoeWU5KAAC7REEv_bH7XlPT7E1Z8TXabbHBWjQzBm5_-5by7g38D0FaYPVDwg_D75lqcnqszSmYOQjynl8M8ecXlZZ8qdkDt8jZGQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-primary/90 p-2 transform translate-y-full group-hover:translate-y-0 transition-transform">
+<p class="text-[10px] font-data-mono text-on-primary">LEGAL_REDACTED.PDF</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Vault Diagnostics Sidebar -->
+<section class="col-span-12 lg:col-span-4 space-y-gutter">
+<!-- Status Card -->
+<div class="bg-surface border-border-thick border-on-background p-6 drop-shadow-[8px_8px_0px_#000]">
+<h3 class="font-label-caps text-label-caps mb-6 flex items-center gap-2">
+<span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span> VAULT_DIAGNOSTICS
+                    </h3>
+<div class="space-y-6">
+<div>
+<div class="flex justify-between font-data-mono text-data-mono mb-2">
+<span>ENCRYPTION: AES-256</span>
+<span class="text-tertiary">STABLE</span>
+</div>
+<div class="w-full h-4 bg-surface-container border-border-thin border-on-background flex">
+<div class="h-full bg-primary w-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between font-data-mono text-data-mono mb-2">
+<span>UPLINK_STABILITY</span>
+<span>99.98%</span>
+</div>
+<div class="w-full h-4 bg-surface-container border-border-thin border-on-background flex">
+<div class="h-full bg-secondary-container w-[99%]"></div>
+<div class="h-full bg-surface-container w-[1%]"></div>
+</div>
+</div>
+<div class="p-4 bg-surface-container border-border-thin border-on-background">
+<p class="font-label-caps text-label-caps mb-3">DATA_INTEGRITY_CHECK</p>
+<div class="font-data-mono text-[11px] space-y-1">
+<p class="text-on-surface-variant flex gap-2">
+<span class="text-tertiary">[OK]</span> BLOCK_772_VALIDATED
+                                </p>
+<p class="text-on-surface-variant flex gap-2">
+<span class="text-tertiary">[OK]</span> HASH_SUM_MATCHED
+                                </p>
+<p class="text-on-surface-variant flex gap-2">
+<span class="text-primary">[WRN]</span> LATENCY_SPIKE_NODE_04
+                                </p>
+<p class="text-on-surface-variant flex gap-2">
+<span class="text-tertiary">[OK]</span> ARCHIVE_SYNC_COMPLETE
+                                </p>
+</div>
+</div>
+</div>
+<button class="w-full mt-8 bg-on-background text-on-primary font-label-caps text-label-caps py-4 border-border-thin border-on-background hover:bg-primary transition-colors flex items-center justify-center gap-2 active:translate-x-unit active:translate-y-unit active:shadow-none">
+<span class="material-symbols-outlined">security</span> RUN_SYSTEM_SCAN
+                    </button>
+</div>
+<!-- Technical Readout Card -->
+<div class="bg-surface-variant border-border-thick border-on-background p-6 relative overflow-hidden">
+<div class="absolute top-2 right-2 flex gap-1">
+<div class="w-1 h-1 bg-on-surface"></div>
+<div class="w-1 h-1 bg-on-surface"></div>
+<div class="w-1 h-1 bg-on-surface"></div>
+</div>
+<p class="font-data-mono text-[10px] text-on-surface-variant mb-4">SYSTEM_ID: VAULT_SRV_8892</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="border-border-thin border-outline p-2 bg-surface">
+<p class="font-label-caps text-[10px]">TEMP</p>
+<p class="font-headline-md text-headline-md">32°C</p>
+</div>
+<div class="border-border-thin border-outline p-2 bg-surface">
+<p class="font-label-caps text-[10px]">THREAT</p>
+<p class="font-headline-md text-headline-md text-error">LOW</p>
+</div>
+</div>
+<div class="mt-4 border-t-border-thin border-on-background pt-4 font-data-mono text-[11px] text-on-surface">
+                        $ DECRYPT --FILE 0X992A<br/>
+                        &gt; SUCCESS: 28KB EXTRACTED<br/>
+                        $ VIEW --METADATA --ALL<br/>
+                        &gt; LOADING_SYSTEM_REGISTRY...
+                    </div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Micro-interaction: Table row hover glow and console effect
+        document.querySelectorAll('tbody tr').forEach(row => {
+            row.addEventListener('mouseenter', () => {
+                row.style.boxShadow = 'inset 4px 0 0 #8127cf';
+            });
+            row.addEventListener('mouseleave', () => {
+                row.style.boxShadow = 'none';
+            });
+        });
+
+        // Atmospheric effect: Randomly update diagnostic log
+        const logEntries = [
+            "[OK] PACKET_441_SCRUBBED",
+            "[WRN] UNAUTHORIZED_QUERY_BLOCKED",
+            "[OK] NODE_01_HEARTBEAT_STABLE",
+            "[OK] REGISTRY_DB_REPLICATED",
+            "[ERR] PING_TIMEOUT_EXTERNAL_WIFI"
+        ];
+        
+        setInterval(() => {
+            const logContainer = document.querySelector('.space-y-1');
+            if (logContainer) {
+                const newEntry = document.createElement('p');
+                newEntry.className = 'text-on-surface-variant flex gap-2 animate-pulse';
+                const randomEntry = logEntries[Math.floor(Math.random() * logEntries.length)];
+                const status = randomEntry.includes('[OK]') ? 'text-tertiary' : (randomEntry.includes('[WRN]') ? 'text-primary' : 'text-error');
+                const statusIcon = randomEntry.match(/\[(.*?)\]/)[0];
+                const text = randomEntry.split('] ')[1];
+                
+                newEntry.innerHTML = `<span class="${status}">${statusIcon}</span> ${text}`;
+                
+                if (logContainer.children.length > 5) {
+                    logContainer.removeChild(logContainer.children[0]);
+                }
+                logContainer.appendChild(newEntry);
+            }
+        }, 4000);
+    </script>
+</body></html>

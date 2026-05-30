@@ -1,0 +1,239 @@
+<div class="p-8 select-none">
+    <!-- View Header and Sub-Tabs -->
+    <header class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end border-b-border-thick border-on-surface pb-4 gap-6">
+        <div>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tighter uppercase leading-none">
+                <span class="text-primary">&gt;</span> INTEL_VAULT
+            </h1>
+            <p class="font-data-mono text-body-sm text-on-surface-variant mt-2">
+                Decrypted telemetry data, community violation audits, and case law archives
+            </p>
+        </div>
+        
+        <!-- Sub-Tabs Switcher -->
+        <div class="flex flex-wrap gap-2 border-2 border-on-surface p-1.5 bg-surface-container font-data-mono text-xs">
+            <button class="px-4 py-2 border border-on-surface bg-primary text-on-primary font-bold shadow-[2px_2px_0px_#000] subtab-btn" data-target="arch-vault">VAULT_ARCHIVE</button>
+            <button class="px-4 py-2 border border-on-surface hover:bg-surface-variant transition-colors subtab-btn" data-target="arch-threat">THREAT_INTELLIGENCE</button>
+        </div>
+    </header>
+
+    <!-- Sub-Tab 1: Vault Archive (awaaz_intelligence_archive_1) -->
+    <div id="arch-vault" class="sub-pane grid grid-cols-12 gap-8">
+        <!-- Main Stats Summary -->
+        <div class="col-span-12 flex flex-col md:flex-row justify-between gap-6 border border-on-surface p-6 bg-white brutalist-card mb-4">
+            <div>
+                <h2 class="font-headline-md text-headline-md uppercase tracking-tighter mb-2 text-on-surface">Secure Vault: ARCHIVE</h2>
+                <p class="font-data-mono text-body-sm text-on-surface-variant max-w-2xl border-l-4 border-primary pl-4">
+                    Comprehensive repository of historical surveillance data, community resistance reports, and decrypted intelligence units.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-4 font-data-mono">
+                <div class="bg-surface border-border-thick border-on-surface p-4 flex flex-col items-center min-w-[160px] shadow-[4px_4px_0px_0px_rgba(129,39,207,1)]">
+                    <span class="text-primary text-[10px] font-bold">TOTAL_DATA</span>
+                    <span class="font-display-lg text-2xl font-black mt-1">1.2M+</span>
+                    <span class="text-[9px] opacity-75">DATA POINTS SECURED</span>
+                </div>
+                <div class="bg-surface border-border-thick border-on-surface p-4 flex flex-col items-center min-w-[160px] shadow-[4px_4px_0px_0px_rgba(164,214,76,1)]">
+                    <span class="text-tertiary text-[10px] font-bold">LEGAL_WINS</span>
+                    <span class="font-display-lg text-2xl font-black mt-1">482</span>
+                    <span class="text-[9px] opacity-75">RTI SUCCESSES</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Table Logs -->
+        <div class="col-span-12 lg:col-span-8 space-y-6">
+            <div class="bg-white border-border-thick border-on-surface overflow-hidden brutalist-card">
+                <div class="bg-on-surface px-4 py-2 flex justify-between items-center text-white">
+                    <h3 class="font-label-caps text-label-caps font-bold">GLOBAL_INTELLIGENCE_LOG</h3>
+                    <span class="text-primary font-data-mono text-[10px] font-bold animate-pulse">● LIVE_SYNCING</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-data-mono text-body-sm">
+                        <thead class="bg-surface-variant border-b-border-thin border-on-surface font-bold">
+                            <tr>
+                                <th class="px-4 py-3 border-r-border-thin border-on-surface">TIMESTAMP</th>
+                                <th class="px-4 py-3 border-r-border-thin border-on-surface">TARGET_ID</th>
+                                <th class="px-4 py-3 border-r-border-thin border-on-surface">VIOLATION</th>
+                                <th class="px-4 py-3">SECURITY_STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b-border-thin border-on-surface hover:bg-surface-container transition-all">
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">2024.08.12.1402</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">#XJ-992</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface text-error font-bold">FACIAL_RECOGNITION</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 text-[9px] font-bold border border-on-surface">DECRYPTED</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b-border-thin border-on-surface hover:bg-surface-container transition-all">
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">2024.08.12.1158</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">#PT-004</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface text-secondary font-bold">UNAUTHORIZED_DRONE</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-surface-dim text-on-surface-variant px-2 py-0.5 text-[9px] font-bold border border-on-surface">REDACTED</span>
+                                </td>
+                            </tr>
+                            <tr class="border-b-border-thin border-on-surface hover:bg-surface-container transition-all">
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">2024.08.11.2344</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface">#MK-112</td>
+                                <td class="px-4 py-3 border-r-border-thin border-on-surface text-error font-bold">BIOMETRIC_SWEEP</td>
+                                <td class="px-4 py-3">
+                                    <span class="bg-primary text-on-primary px-2 py-0.5 text-[9px] font-bold border border-on-surface">ENCRYPTED</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Digital Evidence Repos -->
+            <div class="space-y-4">
+                <h3 class="font-headline-md uppercase border-b-border-thick border-primary inline-block text-on-surface font-extrabold text-[20px]">Digital_Evidence_Repository</h3>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                    <div class="group relative bg-on-background border-border-thin border-on-surface overflow-hidden aspect-video shadow-[2px_2px_0px_#000]">
+                        <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3RLFggBzGQgfak_QnUNwgD4B4VTRBwYcerDLkb0bAgoJIleUyVEbdMA0LQ-JPiXsvZaPNsME7QEK7kPXSp8nn8ts9JCrbcw1_cCAb7_i09U7R58HGyusFa2GRxIf_t5248lOSU56pMLcTXIKGRb7473hVvt7CNeXM9ngijR3xHBrewy40tTpdt7HLFAiWmBFBkZWxmBHFCboAVSFnroC9fhFvVZskb_lJcXcnHIYsJcodQ7mOzAI1BlOU0IUm_mUb-5UlQJUmxg"/>
+                        <div class="absolute bottom-0 left-0 right-0 p-2 bg-on-surface/90 text-[9px] font-data-mono text-white flex justify-between">
+                            <span>CAM_FEED_01.MP4</span>
+                            <span class="text-primary font-bold">LOCKED</span>
+                        </div>
+                    </div>
+                    <div class="group relative bg-on-background border-border-thin border-on-surface overflow-hidden aspect-video shadow-[2px_2px_0px_#000]">
+                        <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsxh-j1pm-6x1V7rChypvGEhXeappp-ImfllexPTcNpMwlrOCD4VnQ_rUPerBqkBpvXAlQdEpEEsEcoKwhxUqtDeCJLc34dXMnJ_LfAYS8QeymQMeNgETX0btXKCnylz2AH7GNMswgW4ouqDwRHQ6B3BzfL46WhBb7R9L1VWkTciXE5BXuK7U9nlt7vN_3Vq2GplvnC10hVzmuFXAn5puvwuaV99oirtxECxFuPpEWUKnYSE82w0zVsKwy3ax-xyYyrRT31qGDpg"/>
+                        <div class="absolute bottom-0 left-0 right-0 p-2 bg-on-surface/90 text-[9px] font-data-mono text-white flex justify-between">
+                            <span>PACKET_DUMP.LOG</span>
+                            <span class="text-tertiary font-bold">OPEN</span>
+                        </div>
+                    </div>
+                    <div class="group relative bg-on-background border-border-thin border-on-surface overflow-hidden aspect-video shadow-[2px_2px_0px_#000]">
+                        <img class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity grayscale hover:grayscale-0" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDo1n5vCQti5yRa1FQWvocbw67cSVJnom_88aSl860_gSz-tSAZsfXkhHjEZMH2a6kjmrZ2bVT7MFczabPTUq4M3H1GZXUzZGDzMA3vFsi5Tj38RJlvBFfiLdKkgzemOIWgQfffg-eeLWj4daCxDZVdI7aCELbCpsb_98xOiWaoTswlcBW7Dpk-nytWLNAbdLem6tGHwQdO1y9NQ3nb4NF838USnAqOkPqYeIhZVUsctR9h2EMMq11TrfWI-9x9kMVhMcs-BSjoAQ"/>
+                        <div class="absolute bottom-0 left-0 right-0 p-2 bg-on-surface/90 text-[9px] font-data-mono text-white flex justify-between">
+                            <span>LEGAL_REDACTED.PDF</span>
+                            <span class="text-secondary font-bold">READY</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side legal Victories -->
+        <div class="col-span-12 lg:col-span-4 space-y-6">
+            <div class="bg-white border-border-thick border-on-surface p-6 brutalist-card shadow-[4px_4px_0px_#bff365]">
+                <div class="flex items-center gap-2 mb-6 font-data-mono">
+                    <span class="material-symbols-outlined text-tertiary flex text-xl">gavel</span>
+                    <h3 class="font-headline-md text-headline-md uppercase text-on-surface font-extrabold text-[18px]">Legal_Victories</h3>
+                </div>
+                <div class="space-y-4 font-data-mono">
+                    <div class="p-3 border-l-border-thick border-tertiary bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
+                        <p class="text-[9px] font-bold text-tertiary mb-1">CASE_ID: AW-2024-012</p>
+                        <h4 class="font-body-lg font-bold leading-tight mb-1 text-on-surface text-sm">RTI Victory: Sector 7 Camera Shutdown</h4>
+                        <p class="text-[10px] text-on-surface-variant leading-tight">32 illegal surveillance nodes dismantled after community filing.</p>
+                    </div>
+                    <div class="p-3 border-l-border-thick border-tertiary bg-surface-container-low hover:bg-surface-container transition-all cursor-pointer">
+                        <p class="text-[9px] font-bold text-tertiary mb-1">CASE_ID: AW-2023-098</p>
+                        <h4 class="font-body-lg font-bold leading-tight mb-1 text-on-surface text-sm">Data Deletion Order: Urban Intelligence Co.</h4>
+                        <p class="text-[10px] text-on-surface-variant leading-tight">Court mandated deletion of 4.2TB of biometrically tagged data.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sub-Tab 2: Threat Intelligence (awaaz_intelligence_archive_2) -->
+    <div id="arch-threat" class="sub-pane hidden grid grid-cols-12 gap-8 font-data-mono">
+        <div class="col-span-12 flex flex-col md:flex-row justify-between gap-6 border border-on-surface p-6 bg-white brutalist-card mb-4">
+            <div>
+                <h2 class="font-headline-md text-headline-md uppercase tracking-tighter mb-2 text-on-surface">SYS_WATCH_V2 // THREAT VAULT</h2>
+                <p class="font-body-sm text-on-surface-variant max-w-2xl border-l-4 border-primary pl-4">
+                    Analytical intelligence stream mapping distributed packet sniffers, threat exposure indexes, and real-time ledger validations.
+                </p>
+            </div>
+            <div class="text-right text-xs">
+                <span class="text-on-surface-variant block font-bold">ACCESS_LEVEL:</span>
+                <span class="text-primary font-black text-lg">LEVEL_04_CLEARANCE</span>
+            </div>
+        </div>
+
+        <!-- Counters Summary -->
+        <section class="col-span-12 grid grid-cols-1 md:grid-cols-3 gap-gutter">
+            <div class="bg-primary border-border-thick border-on-background p-5 text-white brutalist-card">
+                <p class="text-[10px] opacity-85 font-bold">&gt; TOTAL_DATA_POINTS</p>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="font-display-lg text-3xl font-black">1.2M+</span>
+                    <span class="text-[9px] bg-white text-primary px-1.5 py-0.5 font-bold">SECURE</span>
+                </div>
+            </div>
+            <div class="bg-tertiary-container border-border-thick border-on-background p-5 text-on-tertiary-container brutalist-card">
+                <p class="text-[10px] opacity-85 font-bold">&gt; RTI_SUCCESS_RATE</p>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="font-display-lg text-3xl font-black">482</span>
+                    <span class="text-[9px] bg-on-surface text-white px-1.5 py-0.5 font-bold">WINS</span>
+                </div>
+            </div>
+            <div class="bg-secondary-container border-border-thick border-on-background p-5 text-on-secondary-container brutalist-card">
+                <p class="text-[10px] opacity-85 font-bold">&gt; NODE_UPTIME</p>
+                <div class="mt-2 flex items-baseline justify-between">
+                    <span class="font-display-lg text-3xl font-black">99.9%</span>
+                    <span class="text-[9px] bg-white text-secondary px-1.5 py-0.5 font-bold">STABLE</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Threat Logs Table -->
+        <section class="col-span-12 lg:col-span-8 space-y-6">
+            <div class="bg-white border-border-thick border-on-background overflow-hidden brutalist-card">
+                <div class="bg-on-background p-4 flex justify-between items-center text-white">
+                    <h2 class="text-on-primary uppercase flex items-center gap-2 font-bold text-xs">
+                        <span class="material-symbols-outlined text-sm">terminal</span> INTELLIGENCE_LOG_STREAM
+                    </h2>
+                    <span class="bg-primary px-2 py-0.5 text-[9px] font-bold text-on-primary">REAL-TIME_UPDATE</span>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left font-data-mono text-body-sm">
+                        <thead class="bg-surface-container border-b-border-thin border-on-surface font-bold">
+                            <tr>
+                                <th class="p-4 border-r-border-thin border-on-surface">TIMESTAMP</th>
+                                <th class="p-4 border-r-border-thin border-on-surface">TARGET_ID</th>
+                                <th class="p-4 border-r-border-thin border-on-surface">VIOLATION TYPE</th>
+                                <th class="p-4">STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 border-r-border-thin border-on-surface">2024-05-20 14:22:01</td>
+                                <td class="p-4 border-r-border-thin border-on-surface">#XJ-992</td>
+                                <td class="p-4 border-r-border-thin border-on-surface text-error font-bold">FACIAL_RECOGNITION</td>
+                                <td class="p-4"><span class="bg-error text-white border border-on-surface px-2 py-0.5 text-[9px] font-bold clipped-corner-sm">ENCRYPTED</span></td>
+                            </tr>
+                            <tr class="border-b-border-thin border-outline-variant hover:bg-surface-container-low transition-colors">
+                                <td class="p-4 border-r-border-thin border-on-surface">2024-05-20 14:18:55</td>
+                                <td class="p-4 border-r-border-thin border-on-surface">#BL-044</td>
+                                <td class="p-4 border-r-border-thin border-on-surface text-secondary font-bold">BIOMETRIC_SWEEP</td>
+                                <td class="p-4"><span class="bg-tertiary text-on-tertiary px-2 py-0.5 text-[9px] font-bold border border-on-surface">DECRYPTED</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Threat Diagnostics Sidebar -->
+        <section class="col-span-12 lg:col-span-4 space-y-6">
+            <div class="bg-white border-border-thick border-on-background p-6 brutalist-card">
+                <h3 class="font-label-caps text-label-caps mb-4 flex items-center gap-2 font-bold">
+                    <span class="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span> THREAT_DIAGNOSTICS
+                </h3>
+                <div class="space-y-4 text-xs font-bold">
+                    <div class="flex justify-between items-center">
+                        <span>STRENGTH</span>
+                        <span class="text-tertiary">98.4% STABLE</span>
+                    </div>
+                    <div class="w-full bg-surface-container border-border-thin border-on-background h-3 p-[2px]">
+                        <div class="h-full bg-primary" style="width: 98.4%;"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

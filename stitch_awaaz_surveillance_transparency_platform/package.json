@@ -1,0 +1,11 @@
+{
+  "name": "stitch-awaaz-surveillance-transparency-platform",
+  "version": "1.0.0",
+  "description": "Unified cyber-brutalist transparency portal for AWAAZ",
+  "main": "server.js",
+  "scripts": {
+    "dev": "node server.js"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}

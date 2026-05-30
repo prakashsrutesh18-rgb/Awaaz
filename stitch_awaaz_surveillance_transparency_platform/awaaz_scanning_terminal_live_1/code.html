@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ | NODE_STATUS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;family=JetBrains+Mono:wght@100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#842bd2",
+                      "on-error-container": "#93000a",
+                      "surface-variant": "#e2e2e2",
+                      "primary-fixed": "#f0dbff",
+                      "on-tertiary-fixed": "#131f00",
+                      "tertiary-fixed": "#bff365",
+                      "on-surface": "#1b1b1b",
+                      "tertiary-container": "#598000",
+                      "background": "#f9f9f9",
+                      "on-surface-variant": "#4d4354",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#fffbff",
+                      "on-secondary-container": "#00616f",
+                      "on-error": "#ffffff",
+                      "tertiary": "#456500",
+                      "secondary-fixed": "#a2eeff",
+                      "on-background": "#1b1b1b",
+                      "error-container": "#ffdad6",
+                      "surface-bright": "#f9f9f9",
+                      "on-secondary-fixed": "#001f25",
+                      "on-primary-fixed-variant": "#6900b3",
+                      "on-primary": "#ffffff",
+                      "primary-fixed-dim": "#ddb7ff",
+                      "primary": "#8127cf",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "on-primary-fixed": "#2c0051",
+                      "surface-container": "#eeeeee",
+                      "surface-container-high": "#e8e8e8",
+                      "primary-container": "#9c48ea",
+                      "secondary-fixed-dim": "#2fd9f4",
+                      "inverse-on-surface": "#f1f1f1",
+                      "secondary-container": "#3fe1fd",
+                      "inverse-surface": "#303030",
+                      "surface": "#f9f9f9",
+                      "outline": "#7e7385",
+                      "surface-container-highest": "#e2e2e2",
+                      "outline-variant": "#cfc2d6",
+                      "tertiary-fixed-dim": "#a4d64c",
+                      "secondary": "#006877",
+                      "on-tertiary-container": "#faffe8",
+                      "inverse-primary": "#ddb7ff",
+                      "error": "#ba1a1a",
+                      "surface-dim": "#dadada",
+                      "surface-container-low": "#f3f3f3",
+                      "on-tertiary-fixed-variant": "#354e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0px",
+                      "lg": "0px",
+                      "xl": "0px",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "unit": "4px",
+                      "margin-mobile": "16px",
+                      "gutter": "16px",
+                      "border-thin": "2px",
+                      "border-thick": "4px",
+                      "margin-desktop": "40px"
+              },
+              "fontFamily": {
+                      "headline-md": ["Space Grotesk"],
+                      "body-sm": ["JetBrains Mono"],
+                      "body-lg": ["JetBrains Mono"],
+                      "headline-lg": ["Space Grotesk"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "data-mono": ["JetBrains Mono"],
+                      "label-caps": ["JetBrains Mono"],
+                      "display-lg": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                      "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        .grid-bg {
+            background-image: radial-gradient(#e5e5e5 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .scanline-overlay {
+            background: linear-gradient(to bottom, transparent 50%, rgba(129, 39, 207, 0.05) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+        }
+        .brutal-shadow {
+            filter: drop-shadow(4px 4px 0px #000);
+        }
+        .brutal-shadow-hover:hover {
+            filter: drop-shadow(6px 6px 0px #000);
+            transform: translate(-2px, -2px);
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(129, 39, 207, 0.4);
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.9); opacity: 0; }
+            50% { opacity: 0.5; }
+            100% { transform: scale(1.4); opacity: 0; }
+        }
+        .radar-ring {
+            animation: pulse-ring 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #1b1b1b; border: 2px solid #f1f1f1; }
+    </style>
+</head>
+<body class="bg-background font-body-lg text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden h-screen flex flex-col grid-bg">
+<!-- TOP NAV BAR -->
+<nav class="flex justify-between items-center w-full px-margin-desktop h-16 z-50 bg-surface border-b-border-thick border-on-surface brutal-shadow sticky top-0">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-black tracking-tighter text-on-surface uppercase">AWAAZ</span>
+<div class="hidden md:flex gap-6">
+<a class="font-data-mono text-data-mono uppercase text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors duration-100 px-3 py-1 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">MAP_OS</a>
+<a class="font-data-mono text-data-mono uppercase text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors duration-100 px-3 py-1 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">REGISTRY</a>
+<a class="font-data-mono text-data-mono uppercase text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors duration-100 px-3 py-1 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">AI_LINK</a>
+<a class="font-data-mono text-data-mono uppercase text-on-surface-variant hover:bg-primary hover:text-on-primary transition-colors duration-100 px-3 py-1 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">INTEL</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex flex-col text-right mr-4 border-r-2 border-on-surface pr-4">
+<span class="font-label-caps text-label-caps text-primary">SYSTEM_OPERATOR</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">NODE_01_ACTIVE</span>
+</div>
+<button class="bg-error text-on-error font-data-mono text-data-mono uppercase px-4 py-2 border-border-thin border-on-surface brutal-shadow active:translate-x-1 active:translate-y-1 active:shadow-none">REPORT_VIOLATION</button>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SIDE NAV BAR -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-surface-container border-r-border-thick border-on-surface z-40 hidden md:flex flex-col">
+<div class="p-6 border-b-border-thin border-on-surface-variant/20 flex flex-col items-center">
+<div class="w-32 h-32 border-border-thick border-on-surface mb-4 brutal-shadow relative bg-surface-container-highest overflow-hidden">
+<img alt="System Consciousness" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDxT93oK44A5GqH8rOkouodVHC0Tr5Qj_zExvmpuMOA2P1aQTc887jN9spJzh2N7zmAhciRgI6P69g4FySHOdJXzcwXpHt3GoXGooSaX9fjOO5OJWOcaRDQjRbKyEHXKkJEoThyOanz617U6MIpLHWm4HSb0kwKuuA5E8X0KYcboPJdIY32XA9V9Aa09MNbEyifrOYH99hIFNd_0MLWrwNj3klu8mhjYZsGDgVQIztIWB8C1VBCqrKFfQ1sAIpHD-d9z4YZI9UuDw"/>
+<div class="absolute inset-0 scanline-overlay"></div>
+</div>
+<div class="text-center">
+<h2 class="font-data-mono text-data-mono text-on-surface font-bold">SYSTEM_OPERATOR</h2>
+<p class="font-data-mono text-[10px] text-primary">NODE_01_SECURE</p>
+</div>
+</div>
+<nav class="flex-1 py-4">
+<ul class="space-y-1 px-2">
+<li><a class="flex items-center gap-4 px-4 py-3 font-data-mono text-data-mono uppercase text-on-surface-variant opacity-80 hover:bg-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">dashboard</span> DASHBOARD</a>
+</li>
+<li><a class="flex items-center gap-4 px-4 py-3 font-data-mono text-data-mono uppercase text-on-surface-variant opacity-80 hover:bg-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">sensors</span> LIVE_FEED</a>
+</li>
+<li><a class="flex items-center gap-4 px-4 py-3 font-data-mono text-data-mono uppercase text-on-surface-variant opacity-80 hover:bg-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">wb_iridescent</span> HEATMAP</a>
+</li>
+<li><a class="flex items-center gap-4 px-4 py-3 font-data-mono text-data-mono uppercase bg-secondary-container text-on-secondary-container font-bold border-2 border-on-surface active-glow" href="#">
+<span class="material-symbols-outlined">hub</span> NODE_STATUS</a>
+</li>
+<li><a class="flex items-center gap-4 px-4 py-3 font-data-mono text-data-mono uppercase text-on-surface-variant opacity-80 hover:bg-surface-variant transition-transform active:scale-95" href="#">
+<span class="material-symbols-outlined">inventory_2</span> ARCHIVE</a>
+</li>
+</ul>
+</nav>
+<div class="p-4 bg-surface-container-high border-t-border-thin border-on-surface space-y-4">
+<button class="w-full bg-primary text-on-primary font-data-mono text-data-mono uppercase py-3 border-border-thin border-on-surface brutal-shadow-hover transition-all">DECRYPT_INTEL</button>
+<div class="flex flex-col gap-1 border-t-2 border-on-surface-variant/20 pt-4">
+<a class="flex items-center gap-3 px-2 py-1 font-data-mono text-[11px] uppercase text-on-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined text-sm">settings</span> SETTINGS</a>
+<a class="flex items-center gap-3 px-2 py-1 font-data-mono text-[11px] uppercase text-error hover:text-on-error hover:bg-error transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">logout</span> LOGOUT</a>
+</div>
+</div>
+</aside>
+<!-- MAIN CONTENT -->
+<main class="flex-1 md:ml-64 p-gutter overflow-y-auto relative h-full">
+<div class="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-gutter pb-32">
+<!-- TOPOLOGY HEADER -->
+<header class="lg:col-span-12 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b-border-thick border-on-surface pb-6">
+<div>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface leading-none">NODE_STATUS</h1>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-2">DECENTRALIZED NETWORK MONITORING // AUTH_USER: OPERATOR_SEC_01</p>
+</div>
+<div class="flex gap-2">
+<div class="bg-surface border-border-thin border-on-surface p-2 px-4 brutal-shadow flex items-center gap-3">
+<span class="w-3 h-3 bg-tertiary-fixed border border-on-surface rounded-full shadow-[0_0_8px_#bff365]"></span>
+<span class="font-data-mono text-data-mono uppercase">NETWORK_HEALTH: 98.4%</span>
+</div>
+<div class="bg-surface border-border-thin border-on-surface p-2 px-4 brutal-shadow flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-base">vpn_lock</span>
+<span class="font-data-mono text-data-mono uppercase">ENCRYPTION: AES-256</span>
+</div>
+</div>
+</header>
+<!-- TOPOLOGY MAP (BENTO LARGE) -->
+<section class="lg:col-span-8 bg-surface border-border-thick border-on-surface p-6 brutal-shadow relative overflow-hidden flex flex-col min-h-[500px]">
+<div class="absolute top-0 right-0 bg-on-surface text-surface px-4 py-1 font-data-mono text-label-caps">TOPOLOGY_VISUALIZER_V4.2</div>
+<div class="flex-1 flex items-center justify-center relative">
+<!-- Radar Visualization -->
+<div class="relative w-80 h-80 rounded-full border-2 border-on-surface/20 flex items-center justify-center">
+<div class="absolute w-full h-full rounded-full border border-on-surface/10 scale-75"></div>
+<div class="absolute w-full h-full rounded-full border border-on-surface/10 scale-50"></div>
+<div class="absolute w-full h-full rounded-full border border-on-surface/5 scale-25"></div>
+<!-- Pulsing Radar Rings -->
+<div class="absolute w-full h-full rounded-full border-2 border-primary/40 radar-ring"></div>
+<!-- Central Core -->
+<div class="z-10 bg-primary w-12 h-12 border-2 border-on-surface flex items-center justify-center shadow-[0_0_20px_#8127cf]">
+<span class="material-symbols-outlined text-white">hub</span>
+</div>
+<!-- Floating Nodes -->
+<div class="absolute top-10 left-20 animate-pulse">
+<div class="bg-tertiary-fixed border border-on-surface w-4 h-4 shadow-[0_0_10px_#bff365]"></div>
+<span class="absolute top-5 left-0 font-data-mono text-[8px] bg-white border border-black px-1">DELHI_01</span>
+</div>
+<div class="absolute bottom-20 right-10">
+<div class="bg-tertiary-fixed border border-on-surface w-4 h-4 shadow-[0_0_10px_#bff365]"></div>
+<span class="absolute top-5 left-0 font-data-mono text-[8px] bg-white border border-black px-1">MUMBAI_SEC_4</span>
+</div>
+<div class="absolute top-1/2 left-4 -translate-y-1/2">
+<div class="bg-error border border-on-surface w-4 h-4 shadow-[0_0_10px_#ba1a1a]"></div>
+<span class="absolute top-5 left-0 font-data-mono text-[8px] bg-white border border-black px-1">HYD_SEC_0</span>
+</div>
+<div class="absolute bottom-10 left-1/3">
+<div class="bg-secondary-container border border-on-surface w-4 h-4 shadow-[0_0_10px_#3fe1fd]"></div>
+<span class="absolute top-5 left-0 font-data-mono text-[8px] bg-white border border-black px-1">BLR_SYS</span>
+</div>
+<!-- Crosshair Decoration -->
+<div class="absolute -top-4 -left-4 font-headline-md text-on-surface opacity-30">+</div>
+<div class="absolute -top-4 -right-4 font-headline-md text-on-surface opacity-30">+</div>
+<div class="absolute -bottom-4 -left-4 font-headline-md text-on-surface opacity-30">+</div>
+<div class="absolute -bottom-4 -right-4 font-headline-md text-on-surface opacity-30">+</div>
+</div>
+<!-- Data Readout Overlays -->
+<div class="absolute top-4 left-4 border-l-border-thin border-primary pl-4 py-2 space-y-2">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant">ACTIVE NODES</span>
+<span class="font-headline-md text-on-surface">412</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant">INTERCEPTED</span>
+<span class="font-headline-md text-error">12</span>
+</div>
+</div>
+<div class="absolute bottom-4 right-4 border-r-border-thin border-primary pr-4 py-2 text-right space-y-2">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant">UPLINK STRENGTH</span>
+<span class="font-headline-md text-on-surface">94.8%</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-on-surface-variant">PACKETS/SEC</span>
+<span class="font-headline-md text-secondary">2.8K</span>
+</div>
+</div>
+</div>
+</section>
+<!-- TERMINAL LOG (BENTO MEDIUM) -->
+<section class="lg:col-span-4 bg-on-surface text-surface border-border-thick border-on-surface p-6 brutal-shadow flex flex-col h-[500px]">
+<div class="flex justify-between items-center border-b border-surface/20 pb-2 mb-4">
+<div class="flex gap-1">
+<span class="w-3 h-3 bg-error rounded-full"></span>
+<span class="w-3 h-3 bg-tertiary-fixed rounded-full"></span>
+</div>
+<span class="font-data-mono text-[10px] uppercase text-surface-variant">DIAGNOSTIC_FEED</span>
+</div>
+<div class="flex-1 font-data-mono text-[11px] overflow-y-auto space-y-2 pr-2 scrollbar-hide" id="terminal-log">
+<div class="flex gap-2 opacity-60"><span>[08:14:10]</span> <span class="text-tertiary-fixed">HANDSHAKE_SUCCESSFUL</span></div>
+<div class="flex gap-2"><span>[08:14:12]</span> <span>ENCRYPTING_STREAM_SEC_4...</span></div>
+<div class="flex gap-2"><span>[08:14:15]</span> <span class="text-primary-fixed-dim">NODE_HYD_SEC_0: OFFLINE_RETRYing</span></div>
+<div class="flex gap-2"><span>[08:14:20]</span> <span>PACKET_INJECTION_DETECTED: BLOCKED</span></div>
+<div class="flex gap-2"><span>[08:14:22]</span> <span class="text-secondary-fixed">SYNCHRONIZING_GLOBAL_HASH...</span></div>
+<div class="flex gap-2 opacity-60"><span>[08:14:30]</span> <span>UPLINK_STABLE</span></div>
+<div class="flex gap-2"><span>[08:14:35]</span> <span class="text-tertiary-fixed">SIGNAL_BOOST_INITIATED</span></div>
+<div class="flex gap-2"><span>[08:14:40]</span> <span>DECRYPTING_PACKET_823...</span></div>
+<div class="flex gap-2 text-error"><span>[08:14:45]</span> <span>WARN: LATENCY_THRESHOLD_EXCEEDED</span></div>
+<div class="flex gap-2"><span>[08:14:50]</span> <span>ROUTING_THROUGH_MUMBAI_04</span></div>
+</div>
+<div class="mt-4 flex gap-2">
+<span class="text-primary animate-pulse">&gt;</span>
+<input class="bg-transparent border-none outline-none font-data-mono text-[11px] w-full p-0 text-surface placeholder:text-surface/30" placeholder="ENTER_COMMAND..." type="text"/>
+</div>
+</section>
+<!-- NODE INVENTORY (BENTO WIDE) -->
+<section class="lg:col-span-12 space-y-4">
+<div class="flex items-center gap-4">
+<h3 class="font-headline-md text-headline-md uppercase">NODE_INVENTORY</h3>
+<div class="flex-1 h-px bg-on-surface-variant/20"></div>
+<div class="flex gap-2">
+<button class="border-border-thin border-on-surface px-3 py-1 font-data-mono text-[10px] hover:bg-surface-variant">FILTER: ALL</button>
+<button class="border-border-thin border-on-surface px-3 py-1 font-data-mono text-[10px] hover:bg-surface-variant">SORT: LATENCY</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Node Card 1 -->
+<div class="bg-surface border-border-thick border-on-surface p-4 brutal-shadow group transition-all hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-data-mono font-bold text-on-surface">NODE_DELHI_01</h4>
+<p class="font-data-mono text-[10px] text-on-surface-variant">LOC: 28.6139° N, 77.2090° E</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 font-label-caps text-[9px] clipped-corner border border-on-surface">ACTIVE</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">LATENCY</span>
+<span class="text-on-surface">12ms</span>
+</div>
+<div class="w-full bg-surface-variant h-2 border border-on-surface overflow-hidden">
+<div class="bg-primary h-full w-[90%]"></div>
+</div>
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">ENCRYPTION</span>
+<span>AES-256</span>
+</div>
+</div>
+</div>
+<!-- Node Card 2 -->
+<div class="bg-surface border-border-thick border-on-surface p-4 brutal-shadow group transition-all hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-data-mono font-bold text-on-surface">NODE_MUMBAI_SEC_4</h4>
+<p class="font-data-mono text-[10px] text-on-surface-variant">LOC: 19.0760° N, 72.8777° E</p>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 font-label-caps text-[9px] clipped-corner border border-on-surface">ACTIVE</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">LATENCY</span>
+<span class="text-on-surface">24ms</span>
+</div>
+<div class="w-full bg-surface-variant h-2 border border-on-surface overflow-hidden">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">ENCRYPTION</span>
+<span>AES-256</span>
+</div>
+</div>
+</div>
+<!-- Node Card 3 -->
+<div class="bg-surface border-border-thick border-on-surface p-4 brutal-shadow group transition-all hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-data-mono font-bold text-on-surface">NODE_HYD_SEC_0</h4>
+<p class="font-data-mono text-[10px] text-on-surface-variant">LOC: 17.3850° N, 78.4867° E</p>
+</div>
+<span class="bg-error text-on-error px-2 py-0.5 font-label-caps text-[9px] clipped-corner border border-on-surface">INTERCEPTED</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60 text-error">LATENCY</span>
+<span class="text-error">ERROR</span>
+</div>
+<div class="w-full bg-surface-variant h-2 border border-on-surface overflow-hidden">
+<div class="bg-error h-full w-[10%] animate-pulse"></div>
+</div>
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">ENCRYPTION</span>
+<span class="text-error">BREACHED</span>
+</div>
+</div>
+</div>
+<!-- Node Card 4 -->
+<div class="bg-surface border-border-thick border-on-surface p-4 brutal-shadow group transition-all hover:-translate-y-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-data-mono font-bold text-on-surface">NODE_CHND_09</h4>
+<p class="font-data-mono text-[10px] text-on-surface-variant">LOC: 30.7333° N, 76.7794° E</p>
+</div>
+<span class="bg-surface-container-highest text-on-surface-variant px-2 py-0.5 font-label-caps text-[9px] clipped-corner border border-on-surface">DORMANT</span>
+</div>
+<div class="space-y-3">
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">LATENCY</span>
+<span class="text-on-surface-variant">---</span>
+</div>
+<div class="w-full bg-surface-variant h-2 border border-on-surface overflow-hidden">
+<div class="bg-surface-container-highest h-full w-0"></div>
+</div>
+<div class="flex justify-between font-data-mono text-[11px]">
+<span class="opacity-60">ENCRYPTION</span>
+<span>STANDBY</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- ACTION FOOTER BAR -->
+<div class="fixed bottom-0 left-0 md:left-64 right-0 bg-surface border-t-border-thick border-on-surface p-gutter flex flex-col md:flex-row justify-between items-center gap-4 brutal-shadow z-50">
+<div class="flex gap-4 w-full md:w-auto overflow-x-auto pb-2 md:pb-0">
+<button class="whitespace-nowrap bg-primary text-on-primary font-data-mono text-data-mono uppercase px-8 py-3 border-border-thin border-on-surface brutal-shadow active-glow brutal-shadow-hover flex items-center gap-3">
+<span class="material-symbols-outlined">vpn_key</span> DECRYPT_INTEL
+                    </button>
+<button class="whitespace-nowrap bg-surface text-on-surface font-data-mono text-data-mono uppercase px-8 py-3 border-border-thin border-on-surface brutal-shadow brutal-shadow-hover flex items-center gap-3">
+<span class="material-symbols-outlined">refresh</span> REGENERATE_HASH
+                    </button>
+<button class="whitespace-nowrap bg-error text-on-error font-data-mono text-data-mono uppercase px-8 py-3 border-border-thin border-on-surface brutal-shadow brutal-shadow-hover flex items-center gap-3">
+<span class="material-symbols-outlined">cancel</span> ABORT_SCAN
+                    </button>
+</div>
+<div class="hidden md:flex gap-6 font-data-mono text-[10px] uppercase text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 bg-tertiary-fixed rounded-full"></span> SYSTEM_OK
+                    </div>
+<div>SIG_STRENGTH: <span class="text-on-surface font-bold">100%</span></div>
+<div>BUFFER: <span class="text-on-surface font-bold">0.02ms</span></div>
+<div>SEC_LEVEL: <span class="text-primary font-bold">ULTRA</span></div>
+</div>
+</div>
+</main>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Terminal log auto-scroll Simulation
+        const terminalLog = document.getElementById('terminal-log');
+        const logs = [
+            "SCANNING_PORT_9001... [SECURE]",
+            "DECRYPTING_PACKET_824... SUCCESS",
+            "MUMBAI_SEC_4 LATENCY_STABLE",
+            "ENCRYPTING_METADATA_STREAM...",
+            "NODE_DELHI_01 PULSE_RECEIVED",
+            "THREAT_LEVEL: NOMINAL",
+            "BYPASSING_FIREWALL_B_77",
+            "UPLINK_STRENGTH_DECREASE_DETECTED"
+        ];
+
+        setInterval(() => {
+            const time = new Date().toLocaleTimeString('en-GB', { hour12: false });
+            const logEntry = logs[Math.floor(Math.random() * logs.length)];
+            const div = document.createElement('div');
+            div.className = "flex gap-2 opacity-0 transition-opacity duration-500";
+            div.innerHTML = `<span>[${time}]</span> <span>${logEntry}</span>`;
+            terminalLog.appendChild(div);
+            
+            // Limit log entries
+            if(terminalLog.children.length > 50) {
+                terminalLog.removeChild(terminalLog.firstChild);
+            }
+            
+            // Scroll to bottom
+            terminalLog.scrollTop = terminalLog.scrollHeight;
+            
+            // Fade in effect
+            setTimeout(() => div.classList.replace('opacity-0', 'opacity-100'), 10);
+        }, 3000);
+
+        // Add scanline movement or interactive effects if needed
+    </script>
+</body></html>

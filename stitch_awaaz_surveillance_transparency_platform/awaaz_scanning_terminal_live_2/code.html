@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ//OS - AI_LINK TERMINAL</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-secondary-fixed": "#001f25",
+                        "on-tertiary-fixed-variant": "#354e00",
+                        "error": "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary": "#ffffff",
+                        "surface-container-high": "#e8e8e8",
+                        "on-tertiary-fixed": "#131f00",
+                        "surface-variant": "#e2e2e2",
+                        "on-background": "#1b1b1b",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "secondary-container": "#3fe1fd",
+                        "surface": "#f9f9f9",
+                        "background": "#f9f9f9",
+                        "on-surface": "#1b1b1b",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#ddb7ff",
+                        "on-secondary-container": "#00616f",
+                        "surface-tint": "#842bd2",
+                        "on-primary": "#ffffff",
+                        "outline": "#7e7385",
+                        "primary-container": "#9c48ea",
+                        "outline-variant": "#cfc2d6",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "surface-container": "#eeeeee",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#4d4354",
+                        "tertiary-fixed": "#bff365",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "secondary": "#006877",
+                        "primary": "#8127cf",
+                        "on-secondary-fixed-variant": "#004e5a",
+                        "tertiary-container": "#598000",
+                        "secondary-fixed": "#a2eeff",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary-container": "#faffe8",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "on-primary-fixed": "#2c0051",
+                        "inverse-surface": "#303030",
+                        "surface-bright": "#f9f9f9",
+                        "secondary-fixed-dim": "#2fd9f4",
+                        "tertiary-fixed-dim": "#a4d64c",
+                        "tertiary": "#456500",
+                        "surface-dim": "#dadada"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "border-thin": "2px",
+                        "border-thick": "4px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Space Grotesk"],
+                        "body-sm": ["JetBrains Mono"],
+                        "body-lg": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-lg": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 32px 32px;
+            overflow-x: hidden;
+        }
+        .scanline-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.01), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.01));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+        .radar-line {
+            animation: rotate 4s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .pulse-node {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+        .glitch-text {
+            text-shadow: 2px 0 #3fe1fd, -2px 0 #8127cf;
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-background">
+<div class="scanline-overlay"></div>
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface border-b-border-thick border-on-background">
+<div class="flex items-center gap-6">
+<span class="font-headline-md text-headline-md font-bold text-on-background tracking-tighter">AWAAZ//OS</span>
+<nav class="hidden md:flex items-center gap-8 h-full pt-1">
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">MAP_OS</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">REGISTRY</a>
+<a class="font-label-caps text-label-caps text-primary border-b-border-thick border-primary pb-2 translate-y-[2px]" href="#">AI_LINK</a>
+<a class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">INTEL</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:text-primary transition-colors">terminal</button>
+<div class="w-8 h-8 bg-primary-container border-2 border-on-background overflow-hidden">
+<img alt="User profile avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7bJTzVJFaeW0W073GQgZyLPsRzjtCmqXEvwRVcr2XFbZ6C_R0QL7sH4fi4bHpqix17rRqJTkqSWcAxKaZth-cjC_LnkqQBaDUb4BPMDoqdIe6-XHf7HiBRG0Cf_42ZHHD8G9ys7ulz2yWpj8DKmgZTNN4thS3ZywtLUQwpjWyxhuZMdyihdtD0L7HmHFvzZjOd4E4hZtLm3sySNTphONx0Wyo2ccGGuT9wZpGrOpnftaNF-YSw8NJUJPeQTBsYXqSuJVofxSP-w"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 bg-surface-container-low flex flex-col p-gutter border-r-border-thick border-on-background z-40 drop-shadow-[4px_4px_0px_#000]">
+<div class="mb-8 border-2 border-on-background p-3 bg-surface">
+<div class="flex items-center gap-3 mb-2">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">dynamic_form</span>
+<span class="font-headline-md text-headline-md text-on-surface">AI_LINK</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">v4.0.2_SECURE</div>
+</div>
+<nav class="flex-1 space-y-2">
+<a class="flex items-center gap-3 p-3 font-label-caps text-label-caps bg-primary text-on-primary font-bold border-2 border-on-background -translate-x-1" href="#">
+<span class="material-symbols-outlined">sensors</span> SIGNAL
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">android_fingerprint</span> DIAGNOSTICS
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">list_alt</span> LOGS
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">security</span> SENTINEL
+            </a>
+<a class="flex items-center gap-3 p-3 font-label-caps text-label-caps text-on-surface-variant hover:bg-surface-container-highest transition-colors" href="#">
+<span class="material-symbols-outlined">enhanced_encryption</span> ENCRYPT
+            </a>
+</nav>
+<button class="mt-auto w-full py-4 bg-primary text-on-primary border-border-thick border-on-background font-label-caps text-label-caps hover:bg-primary-container transition-all active:translate-y-[2px] drop-shadow-[4px_4px_0px_#000] hover:drop-shadow-none">
+            INITIATE SCAN
+        </button>
+</aside>
+<!-- Main Content -->
+<main class="ml-64 mt-16 p-gutter min-h-[calc(100vh-64px)] flex gap-gutter">
+<!-- Central Area: RADAR_SCANNER -->
+<section class="flex-1 relative border-border-thick border-on-background bg-surface overflow-hidden flex flex-col">
+<div class="bg-on-background p-2 flex justify-between items-center px-4">
+<span class="font-label-caps text-label-caps text-surface flex items-center gap-2">
+<span class="w-2 h-2 bg-tertiary-fixed rounded-full animate-pulse"></span>
+                    RADAR_SCANNER // ACTIVE_INTERCEPT
+                </span>
+<span class="font-data-mono text-data-mono text-tertiary-fixed">LAT: 12.9716° N | LONG: 77.5946° E</span>
+</div>
+<div class="flex-1 relative flex items-center justify-center p-8 overflow-hidden">
+<!-- Grid Lines -->
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(circle, #8127cf 1px, transparent 1px); background-size: 40px 40px;"></div>
+<!-- Radar Circles -->
+<div class="absolute w-[600px] h-[600px] border-2 border-primary/20 rounded-full"></div>
+<div class="absolute w-[450px] h-[450px] border-2 border-primary/30 rounded-full"></div>
+<div class="absolute w-[300px] h-[300px] border-2 border-primary/40 rounded-full"></div>
+<!-- Scanning Beam -->
+<div class="radar-line absolute w-1/2 h-[600px] top-1/2 left-1/2 -mt-[300px] -ml-[300px] origin-right pointer-events-none">
+<div class="w-full h-full bg-gradient-to-l from-primary/30 to-transparent transform -skew-x-[20deg]"></div>
+</div>
+<!-- AI Core Image -->
+<div class="relative z-10 w-80 h-80 border-border-thick border-on-background p-1 bg-on-background drop-shadow-[8px_8px_0px_#000]">
+<img alt="Cyber-brutalist AI digital head with neon data overlays" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBZ3bz4Y8z0xCu_H59zbjp4R44h_eMgDsShyCYMMSiLQF2fHP0IT-YJwKlk8zoL68qYXFhWRVmsiQ4yjBlvdrwCNhPSVgF-zVKHz9dBhepRIg16NjblxyPh4GuCj-9p1eT4FdZwj-okz5B_hz-VI4tuWTSLp1Rb9-nKsLkxrx2o2nXUEptFkviYkhMFU1jJgYXmNS5PDTa2yoQ0BbjJxFQn2DHJJhjZfZEaQHB8EfdKZhRfH7Yx6B_Yj7bqa1uu09QFIspp4neJJg"/>
+<!-- Brackets Decoration -->
+<div class="absolute -top-2 -left-2 w-6 h-6 border-t-4 border-l-4 border-primary"></div>
+<div class="absolute -top-2 -right-2 w-6 h-6 border-t-4 border-r-4 border-primary"></div>
+<div class="absolute -bottom-2 -left-2 w-6 h-6 border-b-4 border-l-4 border-primary"></div>
+<div class="absolute -bottom-2 -right-2 w-6 h-6 border-b-4 border-r-4 border-primary"></div>
+</div>
+<!-- Surveillance Nodes -->
+<div class="absolute top-1/4 left-1/3 pulse-node">
+<span class="material-symbols-outlined text-error" style="font-size: 24px;">videocam_off</span>
+<div class="font-data-mono text-[10px] text-error mt-1">CCTV_034_OFFLINE</div>
+</div>
+<div class="absolute bottom-1/4 right-1/4 pulse-node" style="animation-delay: 0.5s;">
+<span class="material-symbols-outlined text-tertiary" style="font-size: 24px;">wifi_off</span>
+<div class="font-data-mono text-[10px] text-tertiary mt-1">SIPHON_K2_JAMMED</div>
+</div>
+<div class="absolute top-1/2 right-1/3 pulse-node" style="animation-delay: 1.2s;">
+<span class="material-symbols-outlined text-error" style="font-size: 24px;">security_update_warning</span>
+<div class="font-data-mono text-[10px] text-error mt-1">NODE_44_NEUTRALIZED</div>
+</div>
+</div>
+<!-- Bottom Action Bar -->
+<div class="border-t-border-thick border-on-background p-gutter bg-surface-container-low flex flex-col gap-4">
+<div class="flex justify-between items-center px-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+                        DECRYPTION_IN_PROGRESS...
+                    </span>
+<span class="font-data-mono text-data-mono text-primary font-bold">78.4%</span>
+</div>
+<div class="w-full h-8 bg-surface-container-highest border-2 border-on-background relative overflow-hidden">
+<div class="h-full bg-primary flex items-center px-4" style="width: 78.4%;">
+<div class="w-full h-full bg-[linear-gradient(90deg,rgba(255,255,255,0.2)_25%,transparent_25%)] bg-[length:16px_100%] animate-pulse"></div>
+</div>
+</div>
+<div class="flex gap-gutter">
+<button class="flex-1 py-4 bg-primary text-on-primary font-label-caps text-label-caps border-border-thick border-on-background hover:bg-primary-container transition-all active:translate-y-[2px] drop-shadow-[4px_4px_0px_#000] hover:drop-shadow-none">
+                        INITIATE_SCAN
+                    </button>
+<button class="px-8 py-4 bg-error text-on-error font-label-caps text-label-caps border-border-thick border-on-background hover:bg-error/90 transition-all active:translate-y-[2px] drop-shadow-[4px_4px_0px_#000] hover:drop-shadow-none">
+                        ABORT_SCAN
+                    </button>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: SIGNAL_DIAGNOSTICS -->
+<aside class="w-80 flex flex-col gap-gutter">
+<!-- Detection Summary Card -->
+<div class="bg-surface border-border-thick border-on-background drop-shadow-[4px_4px_0px_#000]">
+<div class="bg-on-background p-2 font-label-caps text-label-caps text-surface">DETECTION_SUMMARY</div>
+<div class="p-gutter space-y-4 font-data-mono text-data-mono">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">CCTV_NODES</span>
+<span class="text-error font-bold">03</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">DATA_SIPHONS</span>
+<span class="text-error font-bold">02</span>
+</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="text-on-surface-variant">DNS_OVERRIDE</span>
+<span class="text-tertiary font-bold">01</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-on-surface-variant">SIGNAL_STRENGTH</span>
+<span class="text-secondary font-bold">99.2%</span>
+</div>
+</div>
+</div>
+<!-- Terminal Logs Card -->
+<div class="flex-1 bg-on-background border-border-thick border-primary drop-shadow-[4px_4px_0px_#000] flex flex-col">
+<div class="bg-primary p-2 font-label-caps text-label-caps text-on-primary flex justify-between">
+<span>SIGNAL_DIAGNOSTICS</span>
+<span class="animate-pulse">● LIVE</span>
+</div>
+<div class="p-3 font-data-mono text-[11px] leading-relaxed overflow-y-auto space-y-1 text-tertiary-fixed h-full custom-scrollbar">
+<p class="text-tertiary-fixed/60">[08:44:12] INITIALIZING AI_LINK KERNEL...</p>
+<p class="text-tertiary-fixed">[08:44:13] HANDSHAKE SUCCESSFUL: PORT 9901</p>
+<p class="text-secondary-fixed-dim">[08:44:15] SCANNING SUB-NETWORKS...</p>
+<p class="text-error">[08:44:18] WARNING: UNAUTHORIZED SIPHON DETECTED</p>
+<p class="text-tertiary-fixed">[08:44:19] DEPLOYING COUNTER-MEASURE: 'SENTINEL_V4'</p>
+<p class="text-tertiary-fixed">[08:44:21] NEUTRALIZING IP: 192.168.1.104</p>
+<p class="text-tertiary-fixed">[08:44:22] PACKET INJECTION COMPLETE</p>
+<p class="text-secondary-fixed-dim">[08:44:25] RE-ROUTING TRAFFIC VIA TOR_NODE_Z3</p>
+<p class="text-tertiary-fixed">[08:44:28] DECRYPTION_KEY_GEN: COMPLETED</p>
+<p class="text-tertiary-fixed/60">[08:44:30] LOGGING ENCRYPTED PAYLOAD...</p>
+<p class="text-tertiary-fixed">[08:44:32] ENCRYPTING SYSTEM STATUS...</p>
+<p class="text-tertiary-fixed-dim">[08:44:35] MONITORING SIGNAL STABILITY...</p>
+<div class="inline-block w-2 h-4 bg-primary animate-pulse ml-1 align-middle"></div>
+</div>
+</div>
+<!-- Weather/Environment (Brutalist Style) -->
+<div class="bg-tertiary-fixed text-on-tertiary-fixed border-border-thick border-on-background p-gutter drop-shadow-[4px_4px_0px_#000]">
+<div class="font-label-caps text-label-caps mb-2 opacity-70">SYSTEM_HEAT</div>
+<div class="flex items-end gap-2">
+<span class="font-headline-lg text-headline-lg leading-none">32°C</span>
+<span class="font-data-mono mb-1">OPTIMAL</span>
+</div>
+</div>
+</aside>
+</main>
+<!-- Crosshairs & Grid Extras -->
+<div class="fixed top-20 right-4 w-12 h-12 opacity-30 pointer-events-none">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-on-background"></div>
+<div class="absolute top-0 left-1/2 w-[2px] h-full bg-on-background"></div>
+</div>
+<div class="fixed bottom-4 left-4 w-12 h-12 opacity-30 pointer-events-none">
+<div class="absolute top-1/2 left-0 w-full h-[2px] bg-on-background"></div>
+<div class="absolute top-0 left-1/2 w-[2px] h-full bg-on-background"></div>
+</div>
+<script>
+        // Micro-interactions for terminal effect
+        const logContainer = document.querySelector('.custom-scrollbar');
+        const logs = [
+            "[08:45:01] ANALYZING PACKET HEADERS...",
+            "[08:45:05] OVERRIDING ACCESS PERMISSIONS...",
+            "[08:45:10] SIGNAL SPIKE DETECTED AT NODE_9",
+            "[08:45:12] ENCRYPTION LAYER BYPASSED",
+            "[08:45:18] DATA_STREAM_STABILIZED"
+        ];
+
+        let logIndex = 0;
+        setInterval(() => {
+            const p = document.createElement('p');
+            p.className = 'text-tertiary-fixed';
+            p.textContent = logs[logIndex % logs.length];
+            logContainer.appendChild(p);
+            logContainer.scrollTop = logContainer.scrollHeight;
+            logIndex++;
+            
+            // Limit log entries
+            if (logContainer.children.length > 20) {
+                logContainer.removeChild(logContainer.children[0]);
+            }
+        }, 3000);
+    </script>
+</body></html>

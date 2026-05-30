@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ | Live Intelligence Feed</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .grid-paper {
+            background-image: linear-gradient(#E5E5E5 1px, transparent 1px), linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .scanlines {
+            background: linear-gradient(to bottom, transparent 50%, rgba(0, 0, 0, 0.05) 51%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+        .hard-shadow {
+            filter: drop-shadow(4px 4px 0px #000000);
+        }
+        .hard-shadow:hover {
+            filter: drop-shadow(8px 8px 0px #000000);
+        }
+        .neon-glow:hover {
+            box-shadow: 0px 0px 12px #8127cf;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-dim": "#dadada",
+                      "on-surface": "#1b1b1b",
+                      "on-secondary-fixed": "#001f25",
+                      "on-tertiary": "#ffffff",
+                      "primary-container": "#9c48ea",
+                      "on-secondary-container": "#00616f",
+                      "tertiary-container": "#598000",
+                      "on-error": "#ffffff",
+                      "outline": "#7e7385",
+                      "outline-variant": "#cfc2d6",
+                      "tertiary-fixed-dim": "#a4d64c",
+                      "surface-bright": "#f9f9f9",
+                      "primary-fixed-dim": "#ddb7ff",
+                      "on-tertiary-fixed-variant": "#354e00",
+                      "on-error-container": "#93000a",
+                      "error-container": "#ffdad6",
+                      "surface-container-low": "#f3f3f3",
+                      "on-background": "#1b1b1b",
+                      "on-tertiary-fixed": "#131f00",
+                      "surface-container-highest": "#e2e2e2",
+                      "on-tertiary-container": "#faffe8",
+                      "secondary": "#006877",
+                      "primary": "#8127cf",
+                      "secondary-container": "#3fe1fd",
+                      "surface-container-high": "#e8e8e8",
+                      "surface-container": "#eeeeee",
+                      "on-secondary": "#ffffff",
+                      "surface-tint": "#842bd2",
+                      "on-primary-fixed": "#2c0051",
+                      "on-surface-variant": "#4d4354",
+                      "primary-fixed": "#f0dbff",
+                      "secondary-fixed": "#a2eeff",
+                      "background": "#f9f9f9",
+                      "surface": "#f9f9f9",
+                      "on-secondary-fixed-variant": "#004e5a",
+                      "on-primary-container": "#fffbff",
+                      "tertiary": "#456500",
+                      "inverse-surface": "#303030",
+                      "inverse-on-surface": "#f1f1f1",
+                      "surface-variant": "#e2e2e2",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary": "#ffffff",
+                      "inverse-primary": "#ddb7ff",
+                      "on-primary-fixed-variant": "#6900b3",
+                      "error": "#ba1a1a",
+                      "tertiary-fixed": "#bff365",
+                      "secondary-fixed-dim": "#2fd9f4"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "gutter": "16px",
+                      "border-thin": "2px",
+                      "border-thick": "4px",
+                      "unit": "4px"
+              },
+              "fontFamily": {
+                      "headline-lg": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"],
+                      "data-mono": ["JetBrains Mono"],
+                      "headline-md": ["Space Grotesk"],
+                      "body-sm": ["JetBrains Mono"],
+                      "headline-lg-mobile": ["Space Grotesk"],
+                      "label-caps": ["JetBrains Mono"],
+                      "body-lg": ["JetBrains Mono"]
+              },
+              "fontSize": {
+                      "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                      "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                      "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background font-body-lg text-on-surface grid-paper min-h-screen">
+<!-- Top Bar -->
+<header class="fixed top-0 w-full h-16 bg-surface z-50 flex justify-between items-center px-gutter border-b-border-thick border-on-surface shadow-[4px_4px_0px_0_rgba(0,0,0,1)]">
+<div class="flex items-center gap-4">
+<span class="font-display-lg text-headline-md font-bold tracking-tighter text-on-surface">AWAAZ</span>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="font-label-caps text-label-caps text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors" href="#">MAP_OS</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors" href="#">REGISTRY</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors" href="#">AI_LINK</a>
+<a class="font-label-caps text-label-caps text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors" href="#">INTEL</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant">search</span>
+<input class="bg-surface border-border-thin border-on-surface pl-10 pr-4 py-1 font-data-mono text-data-mono focus:ring-primary focus:border-primary outline-none" placeholder="QUERY_SYSTEM..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 border-border-thin border-on-surface translate-x-[2px] translate-y-[2px] hover:translate-x-0 hover:translate-y-0 active:shadow-none shadow-[2px_2px_0px_0_rgba(0,0,0,1)]">
+                REPORT_VIOLATION
+            </button>
+</div>
+</header>
+<!-- Side Navigation -->
+<aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-low border-r-border-thick border-on-surface z-40 flex flex-col">
+<div class="p-6 border-b-border-thin border-on-surface bg-surface-bright">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 border-border-thin border-on-surface bg-primary p-0.5">
+<img alt="Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxYQjWkyaZNC4h4_VR4UltrRf4Hv2P3WreRw3D_nNwCb-aEsqvs_jdjJGmLhauStBBLX07dq1g9aq0TfU3s4AWT-y9HNbS8-d6lCUjOoSeLlCvvqSEtjO_VwkmPCG-r5S_SSkVMnmRty3yDfFXhWZy8acK-qSB_qywShjorooMZXOAvWBlHWqgQx-EObbij3DQPySjV5etmzFxcNROACw3aCxKTZbXlvbdvoJerCig6I2T3-wmtS_4GWlZK1wZauJjHJc4tBOrjw"/>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps text-primary leading-none">NODE_01</h3>
+<p class="font-data-mono text-[10px] text-on-surface-variant mt-1">STATUS: UPLINK_ACTIVE</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4">
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-surface-dim transition-all" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">DASHBOARD</span>
+</a>
+<a class="bg-primary text-on-primary font-bold flex items-center gap-4 px-6 py-4 scale-95 duration-75" href="#">
+<span class="material-symbols-outlined">rss_feed</span>
+<span class="font-label-caps text-label-caps">LIVE_FEED</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-surface-dim transition-all" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps">HEATMAP</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-surface-dim transition-all" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-caps text-label-caps">NODE_STATUS</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-6 py-4 hover:bg-surface-dim transition-all" href="#">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">ARCHIVE</span>
+</a>
+</nav>
+<div class="p-4 border-t-border-thin border-on-surface">
+<button class="w-full bg-on-surface text-surface py-3 font-label-caps text-label-caps mb-4 hard-shadow hover:bg-primary transition-colors">
+                INITIATE_SCAN
+            </button>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-primary py-1" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="font-label-caps text-[10px]">SETTINGS</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant hover:text-error py-1" href="#">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span class="font-label-caps text-[10px]">LOGOUT</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 pt-16 min-h-screen">
+<div class="p-8">
+<header class="mb-8 flex justify-between items-end border-b-border-thick border-on-surface pb-4">
+<div>
+<h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tighter">
+<span class="text-primary">&gt;</span> LIVE_INTEL_STREAM
+                    </h1>
+<p class="font-data-mono text-body-sm text-on-surface-variant mt-2 uppercase">Real-time surveillance &amp; packet interception active // CID: 882-991-X</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 bg-tertiary-fixed rounded-full animate-pulse"></span>
+<span class="font-data-mono text-label-caps">BUFFERING_PACKETS...</span>
+</div>
+</header>
+<div class="grid grid-cols-12 gap-8">
+<!-- Left Column: Filter Stack & Mini Map -->
+<div class="col-span-3 space-y-8">
+<section class="bg-surface border-border-thick border-on-surface p-4 hard-shadow">
+<div class="bg-on-surface text-surface px-2 py-1 mb-4 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">FILTER_STACK</span>
+<span class="material-symbols-outlined text-xs">tune</span>
+</div>
+<ul class="space-y-2">
+<li>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-border-thin border-on-surface text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-data-mono text-body-sm group-hover:text-primary">GOVERNMENT_FEED</span>
+</label>
+</li>
+<li>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-border-thin border-on-surface text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-data-mono text-body-sm group-hover:text-primary">CORPORATE_NODES</span>
+</label>
+</li>
+<li>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-5 h-5 border-border-thin border-on-surface text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-data-mono text-body-sm group-hover:text-primary">IOT_SENSORS</span>
+</label>
+</li>
+<li>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-5 h-5 border-border-thin border-on-surface text-primary focus:ring-0 focus:ring-offset-0" type="checkbox"/>
+<span class="font-data-mono text-body-sm group-hover:text-primary">CIVILIAN_FEED</span>
+</label>
+</li>
+</ul>
+</section>
+<section class="bg-surface border-border-thick border-on-surface p-4 hard-shadow relative overflow-hidden h-64">
+<div class="bg-on-surface text-surface px-2 py-1 mb-4 absolute top-4 left-4 right-4 z-10 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">HOTSPOT_MAP</span>
+<span class="font-data-mono text-[10px]">LOC: DELHI_NCR</span>
+</div>
+<div class="w-full h-full bg-surface-dim flex items-center justify-center relative">
+<img class="w-full h-full object-cover grayscale opacity-50 contrast-125" data-alt="A futuristic topographical map rendered in a high-contrast brutalist style. The image uses a monochromatic base with vibrant neon purple grid lines and glowing data points indicating surveillance hotspots. The aesthetic is digital and sharp, emphasizing a network of information overlaying a urban landscape." data-location="New Delhi" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd1WWAnZNB82pdLX9zubTUXOTs8IbeC1JvM3kV7BYuLI6E-Ejcua17iOmmCF5ZC-rj93waNPYZz075okS94B2FOQBgTd3s5qezeNpfNjLPCqtyLx9T5_6UbDVQrB1MwIuT50sCR7vkAUmCKuRIxn-bT2h4Fg5I0o_2-QGWTZReqlQP1nXfyewUgk25eoRKXMisOYW0-sE5alA6vSD-xDQpPJtaxxwUayalYAjnL5qR1LUVfODaFnpmaoZ6qkGm3-7v4aOo1oHnzA"/>
+<div class="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
+<!-- Map Markers -->
+<div class="absolute top-1/2 left-1/3 w-4 h-4 bg-primary border-2 border-on-surface animate-ping"></div>
+<div class="absolute top-1/4 right-1/4 w-3 h-3 bg-secondary border-2 border-on-surface animate-pulse"></div>
+</div>
+</section>
+</div>
+<!-- Center Column: Signal Intercepts -->
+<div class="col-span-6 space-y-8">
+<!-- Event 1 -->
+<article class="bg-surface border-border-thick border-on-surface hard-shadow overflow-hidden group hover:scale-[1.01] transition-transform">
+<div class="bg-on-surface px-4 py-2 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="clipped-corner bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 font-label-caps text-[10px] font-bold">SIGNAL_ACQUIRED</span>
+<span class="font-data-mono text-[11px] text-surface-container">ID: PTZ-004-RJ</span>
+</div>
+<span class="text-primary font-data-mono text-[10px]">TIMESTAMP: 14:22:09</span>
+</div>
+<div class="p-6 grid grid-cols-2 gap-6">
+<div class="relative border-border-thin border-on-surface overflow-hidden aspect-video bg-black">
+<img class="w-full h-full object-cover opacity-80 grayscale" data-alt="A grainy, high-contrast surveillance camera view of a desolate urban street intersection at night. The lighting is harsh and industrial, with cold streetlights casting long, distorted shadows. The overall image has a digital scanline overlay and a monochromatic, slightly purple-tinted aesthetic typical of a security monitor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgNqFOgxxP3Tj35d8Kq8zA5tZMudhsJOMtN7wZn4a-lJ8gZYyo4D1miyGiH1lnaFljqhbiF230ThbA8H2LHn4c0tSgE7_rRn8_eidUl0GPqm5tNNqnJu1uwITv230NorlpZ7kDkGWAMOaaeB9fK8hMLdGmwx2X_3HlNBq0e5zYnzzcgfHg8FFZbbnzkNG3eapDIOZqrjUiVTK8ptQkhBAUzc0INguLjHYJlsSBkJPmvBZMPM4Z2HHoBJbYvIXfMaBWmaZpQB3S2Q"/>
+<div class="scanlines absolute inset-0"></div>
+<div class="absolute bottom-2 left-2 flex gap-1">
+<div class="w-1 h-1 bg-primary"></div>
+<div class="w-1 h-1 bg-primary"></div>
+<div class="w-1 h-1 bg-surface-dim"></div>
+</div>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md leading-tight mb-2 uppercase">Unauthorized PTZ Camera Detected</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Rajpura Sector 4. No public permit found in RTI database for this device installation.</p>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 border-border-thin border-on-surface py-2 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors bg-white neon-glow">I SEEN THIS</button>
+<button class="flex-1 bg-on-surface text-surface py-2 font-label-caps text-label-caps hover:bg-secondary transition-colors">FILE RTI</button>
+</div>
+</div>
+</div>
+</article>
+<!-- Event 2 -->
+<article class="bg-surface border-border-thick border-on-surface hard-shadow overflow-hidden group hover:scale-[1.01] transition-transform">
+<div class="bg-error-container px-4 py-2 flex justify-between items-center border-b-border-thin border-on-surface">
+<div class="flex items-center gap-2">
+<span class="clipped-corner bg-error text-white px-2 py-0.5 font-label-caps text-[10px] font-bold">CRITICAL_LEAK</span>
+<span class="font-data-mono text-[11px] text-on-error-container">DB_UID: MDB-EX-01</span>
+</div>
+<span class="text-error font-data-mono text-[10px]">SEVERITY: HIGH</span>
+</div>
+<div class="p-6 grid grid-cols-2 gap-6">
+<div class="relative border-border-thin border-on-surface overflow-hidden aspect-video bg-on-surface flex items-center justify-center">
+<div class="text-primary-fixed-dim font-data-mono text-[8px] p-2 leading-none whitespace-pre overflow-hidden h-full">
+                                    00101101 01100101 01111000 01110000 01101111 01110011 01100101 01100100
+                                    { "admin": "p@ssword123", "db": "smart_home_cam", "records": 1200342 }
+                                    { "ip": "104.28.19.4", "port": 27017, "auth": false }
+                                    00101101 01100101 01111000 01110000 01101111 01110011 01100101 01100100
+                                </div>
+<div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-60"></div>
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-error text-6xl opacity-20 material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">security</div>
+</div>
+<div class="flex flex-col justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md leading-tight mb-2 uppercase">Massive IoT Credential Leak Observed</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Unprotected MongoDB instance exposing 1.2M user smart-home camera passwords. Data packet export in progress.</p>
+</div>
+<div class="mt-4 flex gap-2">
+<button class="flex-1 border-border-thin border-on-surface py-2 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors bg-white neon-glow">I SEEN THIS</button>
+<button class="flex-1 bg-on-surface text-surface py-2 font-label-caps text-label-caps hover:bg-secondary transition-colors">FILE RTI</button>
+</div>
+</div>
+</div>
+</article>
+</div>
+<!-- Right Column: Nodes & Radar -->
+<div class="col-span-3 space-y-8">
+<section class="bg-surface border-border-thick border-on-surface p-4 hard-shadow">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-label-caps text-label-caps text-on-surface">ACTIVE_NODES</h3>
+<span class="font-data-mono text-primary text-headline-md font-bold">14,291</span>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-[10px] font-data-mono mb-1">
+<span>UPLINK_STABILITY</span>
+<span>92%</span>
+</div>
+<div class="h-2 bg-surface-container border-border-thin border-on-surface flex">
+<div class="bg-primary w-[92%] h-full"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between text-[10px] font-data-mono mb-1">
+<span>PACKET_FLOW</span>
+<span>48 MB/S</span>
+</div>
+<div class="h-2 bg-surface-container border-border-thin border-on-surface flex gap-0.5">
+<div class="bg-secondary w-2 h-full"></div>
+<div class="bg-secondary w-4 h-full"></div>
+<div class="bg-secondary w-1 h-full"></div>
+<div class="bg-secondary w-6 h-full"></div>
+<div class="bg-secondary w-3 h-full"></div>
+<div class="bg-surface-dim flex-1 h-full"></div>
+</div>
+</div>
+</div>
+</section>
+<section class="bg-surface border-border-thick border-on-surface p-4 hard-shadow aspect-square relative flex flex-col items-center justify-center overflow-hidden">
+<div class="bg-on-surface text-surface px-2 py-1 absolute top-0 left-0 right-0 z-10 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">LOCAL_HOTSPOTS</span>
+<span class="material-symbols-outlined text-xs">radar</span>
+</div>
+<!-- Radar Visualization -->
+<div class="relative w-48 h-48 border-2 border-on-surface rounded-full flex items-center justify-center">
+<div class="absolute inset-0 border border-on-surface-variant/20 rounded-full scale-75"></div>
+<div class="absolute inset-0 border border-on-surface-variant/20 rounded-full scale-50"></div>
+<div class="absolute w-full h-[1px] bg-on-surface-variant/20"></div>
+<div class="absolute h-full w-[1px] bg-on-surface-variant/20"></div>
+<!-- Radar Sweep -->
+<div class="absolute inset-0 origin-center bg-gradient-to-tr from-primary/30 to-transparent rounded-full animate-[spin_4s_linear_infinite]" style="clip-path: polygon(50% 50%, 100% 0, 100% 100%);"></div>
+<!-- Blips -->
+<div class="absolute top-[20%] right-[30%] w-2 h-2 bg-primary rounded-full animate-pulse"></div>
+<div class="absolute bottom-[40%] left-[25%] w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+<div class="absolute top-[60%] left-[60%] w-2 h-2 bg-error rounded-full animate-pulse"></div>
+<div class="center-marker w-1 h-1 bg-on-surface"></div>
+</div>
+<div class="mt-4 w-full">
+<p class="font-data-mono text-[9px] text-center text-on-surface-variant">AUTO_SCAN: 0.5s REFRESH</p>
+</div>
+</section>
+</div>
+</div>
+</div>
+</main>
+<!-- UI Interaction Script -->
+<script>
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', function() {
+                this.classList.add('translate-x-[1px]', 'translate-y-[1px]');
+            });
+            button.addEventListener('mouseup', function() {
+                this.classList.remove('translate-x-[1px]', 'translate-y-[1px]');
+            });
+        });
+
+        // Simple real-time counter effect
+        const activeNodesCounter = document.querySelector('.font-data-mono.text-primary.text-headline-md');
+        setInterval(() => {
+            let current = parseInt(activeNodesCounter.innerText.replace(',', ''));
+            let change = Math.floor(Math.random() * 11) - 5;
+            activeNodesCounter.innerText = (current + change).toLocaleString();
+        }, 2000);
+    </script>
+</body></html>

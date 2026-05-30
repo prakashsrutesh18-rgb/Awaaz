@@ -1,0 +1,155 @@
+<div class="p-8 select-none">
+    <!-- View Header and Sub-Tabs -->
+    <header class="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end border-b-border-thick border-on-surface pb-4 gap-6">
+        <div>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tighter uppercase leading-none">
+                <span class="text-primary">&gt;</span> ACTIVATE_NODE
+            </h1>
+            <p class="font-data-mono text-body-sm text-on-surface-variant mt-2">
+                Join the decentralized mesh network and map surveillance devices locally
+            </p>
+        </div>
+        
+        <!-- Sub-Tabs Switcher -->
+        <div class="flex flex-wrap gap-2 border-2 border-on-surface p-1.5 bg-surface-container font-data-mono text-xs">
+            <button class="px-4 py-2 border border-on-surface bg-primary text-on-primary font-bold shadow-[2px_2px_0px_#000] subtab-btn" data-target="join-v1">NODE_ACTIVATION</button>
+            <button class="px-4 py-2 border border-on-surface hover:bg-surface-variant transition-colors subtab-btn" data-target="join-v2">ACTIVATION_OVERRIDE</button>
+        </div>
+    </header>
+
+    <!-- Sub-Tab 1: Node Activation (awaaz_join_the_resistance) -->
+    <div id="join-v1" class="sub-pane grid grid-cols-1 gap-12 font-data-mono">
+        <!-- Step 01: IDENTITY_OBFUSCATION -->
+        <section class="bg-white border-border-thick border-on-background drop-shadow-[6px_6px_0px_#000] relative overflow-hidden brutalist-card">
+            <div class="h-8 bg-on-background flex items-center px-4 justify-between border-b-2 border-on-background text-white text-[11px] font-bold">
+                <span>STEP_01 // IDENTITY_OBFUSCATION</span>
+                <div class="flex gap-2">
+                    <div class="w-2 h-2 rounded-full bg-error"></div>
+                    <div class="w-2 h-2 rounded-full bg-secondary"></div>
+                </div>
+            </div>
+            <div class="p-8 grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <label class="font-label-caps block mb-4 text-on-surface-variant text-[11px] font-bold">$ TERMINAL_ALIAS</label>
+                    <div class="relative">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-black">&gt;</span>
+                        <input class="w-full bg-surface border-2 border-on-background py-3.5 pl-10 pr-4 font-headline-md text-headline-md focus:outline-none focus:border-primary uppercase text-sm" id="join-alias-input" placeholder="ENTER_ALIAS..." type="text"/>
+                    </div>
+                    <div class="mt-6 text-xs text-on-surface-variant flex flex-col gap-1.5 font-bold">
+                        <span class="flex justify-between"><span>STATUS:</span> <span class="text-tertiary uppercase font-black" id="join-status-value">PENDING_ENTRY</span></span>
+                        <span class="flex justify-between"><span>HASH_ID:</span> <span class="text-primary" id="join-hash-value">A2X_99_NULL</span></span>
+                    </div>
+                </div>
+                
+                <div class="border-2 border-on-background bg-surface-container-low p-6 relative">
+                    <div class="absolute -top-3 -right-3 bg-primary text-on-primary font-label-caps px-2 py-0.5 border border-on-surface text-[10px] font-bold">ENCRYPTION_ENGINE</div>
+                    <div class="space-y-4">
+                        <div class="h-28 bg-on-background relative overflow-hidden flex items-center justify-center border border-on-surface p-4">
+                            <div class="text-primary font-data-mono text-center space-y-2 animate-pulse text-xs">
+                                <div id="join-ticker-data">01001001 11010010</div>
+                                <div class="text-[9px] opacity-70">GENERATING_UNIQUE_KEY_...</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-2">
+                            <div class="flex-grow h-2.5 bg-primary" id="join-progress-bar-obf"></div>
+                            <div class="flex-grow h-2.5 bg-surface-container"></div>
+                            <div class="flex-grow h-2.5 bg-surface-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 02: NODE_LOCALIZATION -->
+        <section class="bg-white border-border-thick border-on-background drop-shadow-[6px_6px_0px_#000] brutalist-card">
+            <div class="h-8 bg-on-background flex items-center px-4 justify-between border-b-2 border-on-background text-white text-[11px] font-bold">
+                <span>STEP_02 // NODE_LOCALIZATION</span>
+                <span class="text-secondary-container">LAT: 17.3850 N / LONG: 78.4867 E</span>
+            </div>
+            <div class="p-8 grid md:grid-cols-3 gap-8">
+                <div class="md:col-span-2">
+                    <h3 class="font-headline-md text-[18px] mb-4 flex items-center gap-2 font-bold text-on-surface">
+                        <span class="material-symbols-outlined text-primary font-bold">gps_fixed</span>
+                        SECTOR_GRID_MATRIX
+                    </h3>
+                    <!-- 3x8 Grid -->
+                    <div class="grid grid-cols-6 gap-2 border-2 border-on-background p-2 bg-on-background" id="sector-grid-container">
+                        <!-- Sector boxes populated in app.js -->
+                        <div class="h-12 bg-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background hover:bg-primary-container hover:text-white transition-all select-box">S01</div>
+                        <div class="h-12 bg-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background hover:bg-primary-container hover:text-white transition-all select-box">S02</div>
+                        <div class="h-12 bg-primary text-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background relative select-box active-sector">
+                            <span>S03_ON</span>
+                        </div>
+                        <div class="h-12 bg-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background hover:bg-primary-container hover:text-white transition-all select-box">S04</div>
+                        <div class="h-12 bg-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background hover:bg-primary-container hover:text-white transition-all select-box">S05</div>
+                        <div class="h-12 bg-white flex items-center justify-center font-bold text-xs cursor-pointer border border-on-background hover:bg-primary-container hover:text-white transition-all select-box">S06</div>
+                    </div>
+                </div>
+                <div class="bg-surface-container p-4 border border-on-surface flex flex-col gap-4">
+                    <div class="aspect-square bg-on-background relative border border-on-surface">
+                        <img class="w-full h-full object-cover opacity-50 grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdVQErLPQIODO0UVHHryAjmcdxpOq7YjVSiryYHWbazIyhNO6tnL18IYxNdtX67Gtc9PKw5Rm25ogz0w0fPFHWrcAHBUxAt9txmbazjCzhAApvAx91_4c33QkGLtV8FffmpkASPd0OYYW1b-brKSIsqfNaBLbfP9usSXqSK1M9xTUlnJ64TSOiXYO_45-OIowAfdVcAuqBIGq5_mVHdtKw3-mh7dyM3ps6a2eRSvLjxyipVqGYExg5aSZB_TIyvNJ8_tdSp46tqQ"/>
+                    </div>
+                    <p class="text-[9px] text-on-surface-variant font-bold">MESH NETWORK MAP DATA // DENSITY: STABLE</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Step 03: CLEARANCE LEVEL -->
+        <section class="bg-white border-border-thick border-on-background drop-shadow-[6px_6px_0px_#000] brutalist-card">
+            <div class="h-8 bg-on-background flex items-center px-4 justify-between border-b-2 border-on-background text-white text-[11px] font-bold">
+                <span>STEP_03 // SELECT_CLEARANCE_LEVEL</span>
+                <span class="material-symbols-outlined text-secondary text-sm">verified_user</span>
+            </div>
+            <div class="p-8">
+                <div class="grid md:grid-cols-3 gap-6 font-body-sm">
+                    <!-- Watcher -->
+                    <div class="border-2 border-on-background bg-white brutalist-card hover:translate-y-[-2px] transition-all cursor-pointer p-6 flex flex-col justify-between role-card" data-role="watcher">
+                        <div>
+                            <div class="flex justify-between items-center mb-4 border-b border-on-surface pb-2 font-bold text-sm">
+                                <span>WATCHER</span>
+                                <span class="material-symbols-outlined text-primary">visibility</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant leading-relaxed">Passive monitoring role. Access to all public data streams and live feeds. Zero interaction capability.</p>
+                        </div>
+                        <div class="mt-6 text-[10px] font-bold text-tertiary">READ_ONLY // ASSIGNED</div>
+                    </div>
+                    <!-- Operator -->
+                    <div class="border-4 border-primary bg-white brutalist-card p-6 flex flex-col justify-between role-card selected-role" data-role="operator">
+                        <div>
+                            <div class="flex justify-between items-center mb-4 border-b-2 border-primary pb-2 font-bold text-sm text-primary">
+                                <span>OPERATOR</span>
+                                <span class="material-symbols-outlined">settings_input_component</span>
+                            </div>
+                            <p class="text-xs text-on-surface-variant leading-relaxed">Active field agent. Submit ground reports, manage local sensor nodes, and interact with the mesh network in real-time.</p>
+                        </div>
+                        <div class="mt-6 text-[10px] font-bold text-primary">RECOMMENDED FOR FIELD AGENTS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Onboarding Final Submit Action -->
+        <footer class="flex justify-between items-center bg-on-background p-6 border-2 border-on-background drop-shadow-[4px_4px_0px_#000] text-white">
+            <div class="flex flex-col gap-1">
+                <span class="text-surface-variant font-label-caps text-[10px] font-bold">PROTOCOL_READY</span>
+                <span class="text-primary font-bold text-xs uppercase">AWAITING_FINAL_ENCRYPTION_BURST</span>
+            </div>
+            <button class="px-8 py-3.5 bg-primary text-on-primary border border-on-surface font-bold text-sm tracking-widest hover:bg-primary-container transition-all flex items-center gap-3 brutalist-card" id="btn-activate-node-join">
+                ACTIVATE_NODE
+                <span class="material-symbols-outlined text-sm font-bold">power_settings_new</span>
+            </button>
+        </footer>
+    </div>
+
+    <!-- Sub-Tab 2: Onboarding Override (awaaz_join_the_resistance_v2) -->
+    <div id="join-v2" class="sub-pane hidden font-data-mono text-xs">
+        <section class="bg-white border-4 border-on-surface p-8 brutalist-card">
+            <h2 class="font-headline-md text-headline-md font-bold text-on-surface mb-4">NODE ACTIVATION OVERRIDE</h2>
+            <p class="text-on-surface-variant mb-6">Alternate decentralized client node bootstrap protocols. Useful for secondary operators linking relays.</p>
+            <div class="p-6 bg-surface-container-low border border-on-surface space-y-4">
+                <p class="font-bold text-error animate-pulse">&gt;&gt; WARNING: BOOTSTRAPPING VIA OVERRIDE BYPASSES STANDARD REGISTRY SEC_LAYER</p>
+                <button class="bg-on-background text-white px-6 py-3 border border-on-surface hover:bg-primary transition-colors font-bold uppercase" id="btn-bypass-join">EXECUTE_OVERRIDE_BURST</button>
+            </div>
+        </section>
+    </div>
+</div>

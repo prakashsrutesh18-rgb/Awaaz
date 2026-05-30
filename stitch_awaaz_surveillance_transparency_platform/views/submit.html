@@ -1,0 +1,119 @@
+<div class="p-8 select-none">
+    <!-- Page Header -->
+    <header class="mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-end border-b-border-thick border-on-surface pb-4 gap-4">
+        <div>
+            <h1 class="font-headline-lg text-headline-lg text-on-surface tracking-tighter uppercase leading-none">
+                <span class="text-primary">&gt;</span> SUBMIT_VIOLATION_LOG
+            </h1>
+            <p class="font-data-mono text-body-sm text-on-surface-variant mt-2">
+                OPERATOR: UNAUTHENTICATED_GHOST | PROTOCOL: 88-ALPHA-BETA
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Layout Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter font-data-mono">
+        <!-- Left Column: Type selection & Geospatial Localization -->
+        <div class="lg:col-span-7 flex flex-col gap-gutter">
+            <!-- Incident selection -->
+            <div class="bg-white border-border-thick border-on-background p-6 brutalist-card">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant font-bold">01_IDENTIFY_VIOLATION_TYPE</span>
+                    <span class="bg-secondary-container text-on-secondary-container text-[10px] px-2 py-0.5 clipped-corner-sm font-bold">MANDATORY</span>
+                </div>
+                <div class="grid grid-cols-2 gap-4" id="incident-type-selector">
+                    <button class="border-2 border-on-surface p-4 flex flex-col gap-3 text-left hover:bg-surface-container transition-all active:scale-[0.98]" data-type="UNMAPPED_CAMERA">
+                        <span class="material-symbols-outlined text-3xl font-bold">videocam_off</span>
+                        <span class="font-bold text-xs uppercase">UNMAPPED_CAMERA</span>
+                    </button>
+                    <button class="border-2 border-on-surface p-4 bg-primary text-on-primary shadow-[4px_4px_0px_#000] flex flex-col gap-3 text-left transition-all active:scale-[0.98]" data-type="DATA_BREACH">
+                        <span class="material-symbols-outlined text-3xl font-bold">security</span>
+                        <span class="font-bold text-xs uppercase">DATA_BREACH</span>
+                    </button>
+                    <button class="border-2 border-on-surface p-4 flex flex-col gap-3 text-left hover:bg-surface-container transition-all active:scale-[0.98]" data-type="FACIAL_RECOGNITION">
+                        <span class="material-symbols-outlined text-3xl font-bold">face</span>
+                        <span class="font-bold text-xs uppercase">FACIAL_RECOGNITION</span>
+                    </button>
+                    <button class="border-2 border-on-surface p-4 flex flex-col gap-3 text-left hover:bg-surface-container transition-all active:scale-[0.98]" data-type="SIGNAL_JAMMING">
+                        <span class="material-symbols-outlined text-3xl font-bold">signal_cellular_no_sim</span>
+                        <span class="font-bold text-xs uppercase">SIGNAL_JAMMING</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Geospatial Localization -->
+            <div class="bg-white border-border-thick border-on-background p-6 brutalist-card">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="font-label-caps text-label-caps text-on-surface-variant font-bold">02_GEOSPATIAL_LOCALIZATION</span>
+                </div>
+                <div class="flex flex-col gap-6">
+                    <div class="h-44 w-full border-2 border-on-surface relative overflow-hidden shadow-[2px_2px_0px_#000]">
+                        <img class="w-full h-full object-cover grayscale contrast-125 opacity-70" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhkCiaLb6QouslT0ZrfD9_ODs8yw8NV1V_OcEYHwKlOOExWoyCtxh7eG-ZNG3wr0kTN6cOO6nL8aeD76sVMqkZvAYzSto3xUm9KLhLUSYbklJyiojIscxL_M80Ocwp8e--6hea-QlvZVnqXnT1PQpPgCJmCjmzck0YRuJkf3jpdOZRPPqnl0BZTRZ540iOM9kb1QP9k5STf2ahJDQeMZY3m6yBkvjwSL4Imylmb03ja0-zOQIae0_zs9KuG-JafZJvNBAaKQNISg"/>
+                        <div class="absolute inset-0 flex items-center justify-center">
+                            <div class="w-10 h-10 border-2 border-primary rounded-full animate-ping opacity-75"></div>
+                            <div class="absolute w-3.5 h-3.5 bg-primary rotate-45 border border-white"></div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-caps text-[10px] text-on-surface-variant font-bold">&gt; LATITUDE</label>
+                            <input class="bg-surface border-2 border-on-surface p-3 text-primary font-bold focus:border-primary outline-none uppercase font-data-mono text-xs" type="text" id="ipt-latitude" value="17.3850° N"/>
+                        </div>
+                        <div class="flex flex-col gap-2">
+                            <label class="font-label-caps text-[10px] text-on-surface-variant font-bold">&gt; LONGITUDE</label>
+                            <input class="bg-surface border-2 border-on-surface p-3 text-primary font-bold focus:border-primary outline-none uppercase font-data-mono text-xs" type="text" id="ipt-longitude" value="78.4867° E"/>
+                        </div>
+                    </div>
+                    <button class="w-full bg-on-background text-surface py-3 text-label-caps flex items-center justify-center gap-2 hover:bg-primary transition-colors brutalist-card text-xs font-bold font-data-mono" id="btn-fetch-gps">
+                        <span class="material-symbols-outlined text-sm font-bold">my_location</span> 
+                        FETCH_GPS_COORDINATES
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Evidence & Narrative -->
+        <div class="lg:col-span-5 flex flex-col gap-gutter">
+            <!-- Evidence upload -->
+            <div class="bg-white border-border-thick border-on-background p-6 brutalist-card flex flex-col justify-between h-[220px]">
+                <span class="font-label-caps text-label-caps text-on-surface-variant font-bold">03_EVIDENCE_REPOSITORY</span>
+                <div class="border-2 border-dashed border-outline-variant/60 flex-1 flex flex-col items-center justify-center p-4 text-center cursor-pointer hover:border-primary transition-all mt-4" id="drop-zone">
+                    <span class="material-symbols-outlined text-4xl text-outline-variant mb-2">cloud_upload</span>
+                    <div class="font-bold text-[10px] uppercase">DRAG_AND_DROP_EVIDENCE_FILES</div>
+                    <div class="text-[8px] text-on-surface-variant mt-1">SUPPORTED: .RAW, .LOG, .IMG, .VID</div>
+                </div>
+            </div>
+
+            <!-- Narrative Log Textarea -->
+            <div class="bg-on-background border-border-thick border-primary p-6 h-[260px] flex flex-col shadow-[4px_4px_0px_#000]">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="font-label-caps text-label-caps text-primary font-bold">04_NARRATIVE_LOG</span>
+                    <div class="flex gap-1.5">
+                        <div class="w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></div>
+                    </div>
+                </div>
+                <div class="flex-grow text-primary text-xs relative">
+                    <span class="absolute top-0 left-0 font-bold">$ </span>
+                    <textarea class="w-full h-full bg-transparent border-none outline-none resize-none pl-5 leading-relaxed text-primary placeholder:text-primary/20 uppercase font-data-mono text-[11px]" placeholder="DESCRIBE_THE_OBSERVED_VIOLATION..." id="ipt-narrative">OBSERVED UNIDENTIFIED NODE DEPLOYMENT AT SECTOR 7. MULTIPLE ENCRYPTED UPLINKS DETECTED WITHOUT BROADCAST PERMISSION. SIGNAL NOISE INJECTED INTO PUBLIC MESH. REQUESTING IMMEDIATE AUDIT.</textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Verification and Transmission Footer -->
+    <footer class="mt-8 bg-white border-border-thick border-on-background p-6 flex flex-col md:flex-row items-center justify-between gap-6 brutalist-card">
+        <div class="flex flex-col gap-1">
+            <span class="font-label-caps text-[9px] text-on-surface-variant font-bold">VERIFICATION_STAMP</span>
+            <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-tertiary font-bold text-sm">verified_user</span>
+                <span class="font-data-mono text-[10px] font-bold uppercase text-on-surface">IDENTITY_HASH: 0x48...EF29 [ANONYMOUS_GHOST]</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4 w-full md:w-auto font-data-mono">
+            <button class="bg-primary text-on-primary font-bold px-10 py-4 flex items-center justify-center gap-3 border-2 border-on-background shadow-[4px_4px_0px_#000] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all text-xs" id="btn-transmit-report">
+                TRANSMIT_REPORT 
+                <span class="material-symbols-outlined text-sm font-bold">chevron_right</span>
+            </button>
+        </div>
+    </footer>
+</div>

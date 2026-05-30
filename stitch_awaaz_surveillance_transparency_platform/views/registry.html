@@ -1,0 +1,200 @@
+<div class="p-8 select-none">
+    <!-- Header Stats -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-margin-desktop">
+        <div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span class="material-symbols-outlined text-[120px]">hub</span>
+            </div>
+            <div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ TOTAL NODES INDEXED</div>
+            <div class="font-display-lg text-[40px] font-black text-primary">12,482</div>
+            <div class="mt-4 h-2 bg-surface-container overflow-hidden p-[1px] border border-on-surface">
+                <div class="h-full bg-primary w-3/4"></div>
+            </div>
+        </div>
+        
+        <div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span class="material-symbols-outlined text-[120px]">radar</span>
+            </div>
+            <div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ ACTIVE MONITORING</div>
+            <div class="font-display-lg text-[40px] font-black text-tertiary">94.2%</div>
+            <div class="mt-4 flex gap-1">
+                <div class="h-2 w-4 bg-tertiary"></div>
+                <div class="h-2 w-4 bg-tertiary"></div>
+                <div class="h-2 w-4 bg-tertiary"></div>
+                <div class="h-2 w-4 bg-tertiary-container"></div>
+            </div>
+        </div>
+
+        <div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+            <div class="absolute -right-4 -bottom-4 opacity-5 group-hover:opacity-10 transition-opacity">
+                <span class="material-symbols-outlined text-[120px]">lock</span>
+            </div>
+            <div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ SECURE CHANNELS</div>
+            <div class="font-display-lg text-[40px] font-black text-secondary">08</div>
+            <div class="mt-4 font-data-mono text-xs text-secondary-container bg-on-background px-2 py-0.5 inline-block font-bold">AES-256-GCM</div>
+        </div>
+    </section>
+
+    <div class="flex flex-col lg:flex-row gap-gutter">
+        <!-- Surveillance Nodes Grid -->
+        <div class="lg:w-2/3">
+            <div class="flex justify-between items-end mb-6 border-b border-on-surface pb-2">
+                <h2 class="font-headline-lg text-headline-lg text-on-background border-l-border-thick border-primary pl-4 uppercase leading-none">Surveillance Nodes</h2>
+                <div class="font-data-mono text-data-mono text-on-surface-variant text-[10px] uppercase font-bold">DISPLAYING: 001 - 003 OF 12,482</div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter" id="registry-grid">
+                <!-- Node Card 1 -->
+                <div class="bg-white border-border-thin border-on-background brutalist-card group flex flex-col justify-between">
+                    <div>
+                        <div class="bg-on-background text-white p-3 flex justify-between items-center font-data-mono">
+                            <span class="font-label-caps text-label-caps font-bold">#NODE_TS-77</span>
+                            <span class="bg-tertiary text-white text-[10px] px-2 py-0.5 font-bold animate-pulse">ACTIVE</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="font-headline-md text-headline-md mb-1 uppercase text-on-surface">TSCOP FACIAL REC</div>
+                            <div class="font-label-caps text-label-caps text-on-surface-variant mb-4 font-bold text-[10px]">ENTITY: GOVT_REGIONAL</div>
+                            <div class="space-y-2 mb-6 font-data-mono">
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">SIGNAL_STRENGTH</span>
+                                    <span class="text-primary font-bold">88%</span>
+                                </div>
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">LAST_INTERCEPT</span>
+                                    <span>02m 44s AGO</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 btn-decrypt-node" data-node="#NODE_TS-77">
+                            <span class="material-symbols-outlined text-sm">terminal</span>
+                            DECRYPT DETAILS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Node Card 2 -->
+                <div class="bg-white border-border-thin border-on-background brutalist-card group flex flex-col justify-between">
+                    <div>
+                        <div class="bg-on-background text-white p-3 flex justify-between items-center font-data-mono">
+                            <span class="font-label-caps text-label-caps font-bold">#NODE_AX-102</span>
+                            <span class="bg-secondary text-white text-[10px] px-2 py-0.5 font-bold">INTERCEPTED</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="font-headline-md text-headline-md mb-1 uppercase text-on-surface">AETHER DATA-SIPHON</div>
+                            <div class="font-label-caps text-label-caps text-on-surface-variant mb-4 font-bold text-[10px]">ENTITY: CORP_AETHER_NET</div>
+                            <div class="space-y-2 mb-6 font-data-mono">
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">THREAT_LEVEL</span>
+                                    <span class="text-error font-bold">CRITICAL</span>
+                                </div>
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">TRAFFIC_VOL</span>
+                                    <span>1.2 GB/S</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 btn-decrypt-node" data-node="#NODE_AX-102">
+                            <span class="material-symbols-outlined text-sm">terminal</span>
+                            DECRYPT DETAILS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Node Card 3 -->
+                <div class="bg-white border-border-thin border-on-background brutalist-card group flex flex-col justify-between">
+                    <div>
+                        <div class="bg-on-background text-white p-3 flex justify-between items-center font-data-mono">
+                            <span class="font-label-caps text-label-caps font-bold">#NODE_SG-04</span>
+                            <span class="bg-surface-dim text-on-surface-variant text-[10px] px-2 py-0.5 font-bold">DORMANT</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="font-headline-md text-headline-md mb-1 uppercase text-on-surface">STINGRAY INTERCEPTOR</div>
+                            <div class="font-label-caps text-label-caps text-on-surface-variant mb-4 font-bold text-[10px]">ENTITY: GOVT_REGIONAL</div>
+                            <div class="space-y-2 mb-6 font-data-mono">
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">COORDINATES</span>
+                                    <span>17.3850° N</span>
+                                </div>
+                                <div class="flex justify-between text-body-sm border-b border-outline-variant pb-1">
+                                    <span class="opacity-60">UPTIME</span>
+                                    <span>--:--:--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-4 pt-0">
+                        <button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2 btn-decrypt-node" data-node="#NODE_SG-04">
+                            <span class="material-symbols-outlined text-sm">terminal</span>
+                            DECRYPT DETAILS
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Register New Node CTA Card -->
+                <div class="border-border-thick border-dashed border-outline-variant flex flex-col items-center justify-center p-6 bg-surface-container-low hover:bg-surface-container hover:border-primary transition-all cursor-pointer group brutalist-card" id="btn-trigger-register-node">
+                    <div class="w-12 h-12 border-2 border-dashed border-outline-variant group-hover:border-primary flex items-center justify-center mb-3 transition-colors">
+                        <span class="material-symbols-outlined text-outline group-hover:text-primary text-3xl transition-colors">add</span>
+                    </div>
+                    <div class="font-headline-md text-headline-md text-outline group-hover:text-primary transition-colors uppercase text-[18px]">Register New Node</div>
+                    <p class="font-data-mono text-[9px] text-center text-outline-variant mt-1 mb-4">SECURE CHANNEL REQUIRED FOR NEW ENTRY</p>
+                    <button class="bg-on-background text-white px-6 py-2.5 font-label-caps text-[10px] brutalist-card hover:bg-primary transition-colors uppercase">Initialize_Form</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Sidebar Widgets -->
+        <div class="lg:w-1/3 flex flex-col gap-gutter">
+            <!-- Satellite Map Widget -->
+            <div class="bg-on-background text-white p-2 brutalist-card overflow-hidden bg-white border-2 border-on-surface">
+                <div class="p-3 border-b border-outline flex justify-between items-center">
+                    <div class="flex items-center gap-2 font-data-mono">
+                        <span class="material-symbols-outlined text-secondary text-sm">public</span>
+                        <span class="font-label-caps text-label-caps text-white font-bold">LIVE_MAP_FEED</span>
+                    </div>
+                    <div class="w-2.5 h-2.5 rounded-full bg-error animate-ping"></div>
+                </div>
+                <div class="relative h-48 bg-on-surface overflow-hidden">
+                    <img class="w-full h-full object-cover opacity-40 grayscale contrast-150" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvz4dG4qx487TR5BpI3s4epnuzaUUnvSZP70skO0I-vQEoEpNiVwCReyzuAF4MYfV3qVQMvY_EtNuQkQeDFsSdvzcHOov5hzsR6LkD4p5DzVQWQHvuVr3oV6b1afoOvD1eBCkkdtzk7bfMY-Ty3gE6kBsG_LCxjefhyFFL3k3_tur7Ljk5K8-b-nGozF3n9QCb5gmH7lrk5MTN96YUXi4EBzWEAk7Wgmk2MpNrDszSVzTMAbyh4gM8tb0ZSCCtU9Rn_eAFALPUnA"/>
+                    <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        <div class="w-20 h-20 border-2 border-primary rounded-full opacity-30 animate-pulse"></div>
+                        <div class="w-1.5 h-1.5 bg-primary rounded-full absolute"></div>
+                    </div>
+                    <div class="absolute bottom-3 left-3 bg-on-background/80 border border-outline p-1.5 font-data-mono text-[8px] leading-tight">
+                        [SYSTEM_SCAN: RUNNING...]<br/>
+                        LAT: 17.3850 N | LON: 78.4867 E
+                    </div>
+                </div>
+            </div>
+
+            <!-- Community Intel Feed -->
+            <div class="bg-white border-border-thick border-on-background brutalist-card p-4">
+                <div class="flex items-center gap-2 mb-6 border-b border-on-surface pb-2">
+                    <span class="material-symbols-outlined text-primary">rss_feed</span>
+                    <h3 class="font-headline-md text-[18px] font-black uppercase text-on-surface leading-none">Intel Feed</h3>
+                </div>
+                <div class="space-y-4 font-data-mono" id="registry-intel-list">
+                    <div class="border-l-2 border-primary pl-3">
+                        <div class="text-[9px] font-bold text-primary mb-1">08:42:15 // NODE_TS-77 UPDATED</div>
+                        <p class="text-body-sm leading-tight text-on-surface">New firmware detected. Packet header analysis indicates behavioral tracking module activation.</p>
+                    </div>
+                    <div class="border-l-2 border-secondary pl-3">
+                        <div class="text-[9px] font-bold text-secondary mb-1">07:22:10 // REGISTRY SYNC</div>
+                        <p class="text-body-sm leading-tight text-on-surface">12 new cameras mapped in Gachibowli district by anonymous operator #744.</p>
+                    </div>
+                    <div class="border-l-2 border-error pl-3">
+                        <div class="text-[9px] font-bold text-error mb-1">06:15:04 // THREAT ALERT</div>
+                        <p class="text-body-sm leading-tight text-on-surface">Attempted bridge connection from NODE_AX-102 blocked by firewall.</p>
+                    </div>
+                </div>
+                <a class="w-full mt-6 border-border-thin border-on-background py-2 hover:bg-surface-container transition-colors font-label-caps text-label-caps uppercase flex items-center justify-center gap-2 hover:text-primary transition-all text-xs font-bold text-center block" href="#archive">
+                    Expand Intel Archive
+                    <span class="material-symbols-outlined text-sm">open_in_new</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

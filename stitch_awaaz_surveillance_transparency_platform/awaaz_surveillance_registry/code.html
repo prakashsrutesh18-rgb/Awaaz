@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ | Surveillance Registry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "surface-container": "#eeeeee",
+                        "on-secondary": "#ffffff",
+                        "on-secondary-fixed": "#001f25",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-tertiary-container": "#faffe8",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#ddb7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "on-background": "#1b1b1b",
+                        "tertiary-fixed-dim": "#a4d64c",
+                        "secondary-container": "#3fe1fd",
+                        "surface-dim": "#dadada",
+                        "outline-variant": "#cfc2d6",
+                        "surface-container-low": "#f3f3f3",
+                        "primary-container": "#9c48ea",
+                        "on-tertiary-fixed-variant": "#354e00",
+                        "on-primary": "#ffffff",
+                        "surface": "#f9f9f9",
+                        "primary": "#8127cf",
+                        "background": "#f9f9f9",
+                        "tertiary-container": "#598000",
+                        "on-surface-variant": "#4d4354",
+                        "surface-container-high": "#e8e8e8",
+                        "outline": "#7e7385",
+                        "on-secondary-fixed-variant": "#004e5a",
+                        "surface-tint": "#842bd2",
+                        "surface-variant": "#e2e2e2",
+                        "tertiary-fixed": "#bff365",
+                        "secondary-fixed": "#a2eeff",
+                        "on-tertiary-fixed": "#131f00",
+                        "primary-fixed": "#f0dbff",
+                        "on-secondary-container": "#00616f",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-surface": "#1b1b1b",
+                        "tertiary": "#456500",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "secondary-fixed-dim": "#2fd9f4",
+                        "on-primary-fixed": "#2c0051",
+                        "error": "#ba1a1a",
+                        "secondary": "#006877",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-surface": "#303030"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0rem",
+                        "lg": "0rem",
+                        "xl": "0rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "border-thick": "4px",
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "border-thin": "2px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Space Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            background-image: 
+                linear-gradient(#E5E5E5 1px, transparent 1px),
+                linear-gradient(90deg, #E5E5E5 1px, transparent 1px);
+            background-size: 32px 32px;
+            cursor: crosshair;
+        }
+        .scanline {
+            width: 100%;
+            height: 100px;
+            z-index: 10;
+            background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(129,39,207,0.1) 50%, rgba(0,0,0,0) 100%);
+            opacity: 0.1;
+            position: fixed;
+            bottom: 100%;
+            animation: scanline 8s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes scanline {
+            0% { bottom: 100%; }
+            100% { bottom: -100px; }
+        }
+        .brutalist-card {
+            box-shadow: 4px 4px 0px #000000;
+        }
+        .brutalist-card:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000000;
+        }
+        .neon-glow:hover {
+            box-shadow: 0px 0px 12px rgba(129, 39, 207, 0.6);
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-background min-h-screen">
+<div class="scanline"></div>
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-background text-primary dark:text-primary-fixed-dim font-headline-md text-headline-md tracking-tighter w-full top-0 sticky border-b-border-thick border-on-background dark:border-outline drop-shadow-[4px_4px_0px_#000000] z-50 flex justify-between items-center px-margin-desktop h-20 w-full">
+<div class="font-headline-lg text-headline-lg font-bold text-primary dark:text-primary-fixed-dim uppercase italic">AWAAZ</div>
+<nav class="hidden md:flex gap-8 h-full items-center">
+<a class="h-full flex items-center px-4 font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">MAP_OS</a>
+<a class="h-full flex items-center px-4 font-label-caps text-label-caps text-primary dark:text-primary-fixed-dim border-b-border-thick border-primary dark:border-primary-fixed-dim hover:bg-primary-container hover:text-on-primary-container transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">REGISTRY</a>
+<a class="h-full flex items-center px-4 font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">AI_LINK</a>
+<a class="h-full flex items-center px-4 font-label-caps text-label-caps text-on-surface-variant dark:text-surface-variant hover:bg-primary-container hover:text-on-primary-container transition-colors duration-100 active:translate-x-1 active:translate-y-1 active:shadow-none" href="#">INTEL</a>
+</nav>
+<div class="flex items-center gap-6">
+<div class="hidden lg:flex items-center bg-surface-container-low border-border-thin border-on-background px-3 py-1">
+<span class="material-symbols-outlined text-outline">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-data-mono text-data-mono uppercase" placeholder="QUERY_DB..." type="text"/>
+</div>
+<div class="flex gap-4">
+<button class="material-symbols-outlined hover:text-primary transition-colors">settings</button>
+<button class="material-symbols-outlined hover:text-primary transition-colors">notifications</button>
+<div class="w-10 h-10 border-border-thin border-on-background bg-secondary-container flex items-center justify-center overflow-hidden">
+<img alt="operator_avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXCvoKAVp4Xr6ClW8hMKUQC0dieXIZTt09GRA94AXWUfMlUWSYJvj7YOGiIqDLwklMm_UFtfT9wwRrkVZay2-IBGIpDFYa_dEhzGqZyFTJlBxKK4fXtsQ0ZikfldGAMngEZ7A3fKRzOiWj5b2zsmcoiT8ihxnsEPZGys9ijt-lBDeGvQq41j35cp_ACNYRRiXcVr8SBh7EoKVRkVCKxKAFz1yJ6LjLJPKhObp9wKtPDA8baK7XGEe8CeQLLPzUGRlYRXAKPVlz2g"/>
+</div>
+</div>
+</div>
+</header>
+<div class="flex min-h-[calc(100vh-80px)]">
+<!-- SideNavBar -->
+<aside class="bg-surface-container-low dark:bg-surface-container-highest text-secondary-container dark:text-secondary-fixed font-label-caps text-label-caps h-[calc(100vh-80px)] w-64 left-0 sticky border-r-border-thick border-on-background dark:border-outline-variant flex flex-col py-6 hidden md:flex">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-8 h-8 border-2 border-on-background bg-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-sm">security</span>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-on-surface leading-none">OP_SEC_01</div>
+<div class="text-[10px] text-tertiary-container font-bold">STATUS: ENCRYPTED</div>
+</div>
+</div>
+</div>
+<nav class="flex-grow">
+<a class="text-on-surface-variant dark:text-outline flex items-center gap-4 px-4 py-3 m-2 hover:bg-surface-container-high hover:border-primary dark:hover:border-primary-fixed hover:text-primary active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">person</span>
+<span>OPERATOR</span>
+</a>
+<a class="bg-tertiary-container text-on-tertiary-container border-2 border-on-background flex items-center gap-4 px-4 py-3 m-2 active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">monitoring</span>
+<span>STATUS</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline flex items-center gap-4 px-4 py-3 m-2 hover:bg-surface-container-high hover:border-primary dark:hover:border-primary-fixed hover:text-primary active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span>SIGNAL</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline flex items-center gap-4 px-4 py-3 m-2 hover:bg-surface-container-high hover:border-primary dark:hover:border-primary-fixed hover:text-primary active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">lock_open</span>
+<span>DECRYPT</span>
+</a>
+<a class="text-on-surface-variant dark:text-outline flex items-center gap-4 px-4 py-3 m-2 hover:bg-surface-container-high hover:border-primary dark:hover:border-primary-fixed hover:text-primary active:scale-95 transition-all" href="#">
+<span class="material-symbols-outlined">add_box</span>
+<span>NODE_REG</span>
+</a>
+</nav>
+<div class="px-4 mt-auto space-y-4">
+<button class="w-full bg-primary text-white border-border-thin border-on-background py-3 font-label-caps text-label-caps brutalist-card neon-glow transition-all active:scale-95 uppercase">INITIATE_SCAN</button>
+<div class="border-t border-outline-variant pt-4">
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-2 hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span>TERMINAL</span>
+</a>
+<a class="text-on-surface-variant flex items-center gap-4 px-4 py-2 hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined">logout</span>
+<span>LOGOUT</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-grow p-margin-desktop relative">
+<!-- Grid Intersections -->
+<div class="absolute top-0 left-0 text-outline opacity-20 pointer-events-none">
+<div class="absolute top-32 left-32">+</div>
+<div class="absolute top-32 right-32">+</div>
+<div class="absolute bottom-32 left-32">+</div>
+<div class="absolute bottom-32 right-32">+</div>
+</div>
+<!-- Header Stats -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter mb-margin-desktop">
+<div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">hub</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ TOTAL NODES INDEXED</div>
+<div class="font-headline-lg text-headline-lg text-primary">12,482</div>
+<div class="mt-4 h-2 bg-surface-container overflow-hidden">
+<div class="h-full bg-primary w-3/4"></div>
+</div>
+</div>
+<div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">radar</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ ACTIVE MONITORING</div>
+<div class="font-headline-lg text-headline-lg text-tertiary">94.2%</div>
+<div class="mt-4 flex gap-1">
+<div class="h-2 w-4 bg-tertiary"></div>
+<div class="h-2 w-4 bg-tertiary"></div>
+<div class="h-2 w-4 bg-tertiary"></div>
+<div class="h-2 w-4 bg-tertiary-container"></div>
+</div>
+</div>
+<div class="bg-white border-border-thick border-on-background brutalist-card p-6 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 opacity-10 group-hover:opacity-20 transition-opacity">
+<span class="material-symbols-outlined text-[120px]">lock</span>
+</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-2">/ SECURE CHANNELS</div>
+<div class="font-headline-lg text-headline-lg text-secondary">08</div>
+<div class="mt-4 font-data-mono text-data-mono text-secondary-container">ENCRYPTION: AES-256-GCM</div>
+</div>
+</section>
+<div class="flex flex-col lg:flex-row gap-gutter">
+<!-- Surveillance Nodes Grid -->
+<div class="lg:w-2/3">
+<div class="flex justify-between items-end mb-6">
+<h2 class="font-headline-lg text-headline-lg text-on-background border-l-border-thick border-primary pl-4 uppercase">Surveillance Nodes</h2>
+<div class="font-data-mono text-data-mono text-on-surface-variant">DISPLAYING: 001 - 006 OF 12,482</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Node Card 1 -->
+<div class="bg-white border-border-thin border-on-background brutalist-card group">
+<div class="bg-on-background text-white p-3 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">#NODE_TS-77</span>
+<span class="bg-tertiary text-[10px] px-2 py-0.5 font-bold animate-pulse">ACTIVE</span>
+</div>
+<div class="p-4">
+<div class="font-headline-md text-headline-md mb-1 uppercase">TSCOP FACIAL REC</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">ENTITY: GOVT_REGIONAL</div>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>SIGNAL_STRENGTH</span>
+<span class="text-primary">88%</span>
+</div>
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>LAST_INTERCEPT</span>
+<span>02m 44s AGO</span>
+</div>
+</div>
+<button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span>
+                                    DECRYPT DETAILS
+                                </button>
+</div>
+</div>
+<!-- Node Card 2 -->
+<div class="bg-white border-border-thin border-on-background brutalist-card group">
+<div class="bg-on-background text-white p-3 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">#NODE_AX-102</span>
+<span class="bg-secondary text-[10px] px-2 py-0.5 font-bold">INTERCEPTED</span>
+</div>
+<div class="p-4">
+<div class="font-headline-md text-headline-md mb-1 uppercase">AETHER DATA-SIPHON</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">ENTITY: CORP_AETHER_NET</div>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>THREAT_LEVEL</span>
+<span class="text-error">CRITICAL</span>
+</div>
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>TRAFFIC_VOL</span>
+<span>1.2 GB/S</span>
+</div>
+</div>
+<button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span>
+                                    DECRYPT DETAILS
+                                </button>
+</div>
+</div>
+<!-- Node Card 3 -->
+<div class="bg-white border-border-thin border-on-background brutalist-card group">
+<div class="bg-on-background text-white p-3 flex justify-between items-center">
+<span class="font-label-caps text-label-caps">#NODE_SG-04</span>
+<span class="bg-surface-variant text-on-surface-variant text-[10px] px-2 py-0.5 font-bold">DORMANT</span>
+</div>
+<div class="p-4">
+<div class="font-headline-md text-headline-md mb-1 uppercase">STINGRAY INTERCEPTOR</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-4">ENTITY: GOVT_REGIONAL</div>
+<div class="space-y-2 mb-6">
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>COORDINATES</span>
+<span>17.3850° N</span>
+</div>
+<div class="flex justify-between text-data-mono text-[11px] border-b border-outline-variant pb-1">
+<span>UPTIME</span>
+<span>--:--:--</span>
+</div>
+</div>
+<button class="w-full border-border-thin border-on-background py-2 text-primary font-label-caps text-label-caps hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">terminal</span>
+                                    DECRYPT DETAILS
+                                </button>
+</div>
+</div>
+<!-- New Node CTA -->
+<div class="border-border-thick border-dashed border-outline-variant flex flex-col items-center justify-center p-8 bg-surface-container-low hover:bg-surface-container hover:border-primary transition-all cursor-pointer group">
+<div class="w-16 h-16 border-2 border-dashed border-outline-variant group-hover:border-primary flex items-center justify-center mb-4 transition-colors">
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-4xl transition-colors">add</span>
+</div>
+<div class="font-headline-md text-headline-md text-outline group-hover:text-primary transition-colors uppercase">Register New Node</div>
+<p class="text-body-sm text-center text-outline-variant mt-2 mb-6">SECURE CHANNEL REQUIRED FOR NEW ENTRY</p>
+<button class="bg-on-background text-white px-8 py-3 font-label-caps text-label-caps brutalist-card neon-glow uppercase">Initialize_Form</button>
+</div>
+</div>
+</div>
+<!-- Map Widget & Feed -->
+<div class="lg:w-1/3 flex flex-col gap-gutter">
+<!-- Interactive Map Widget -->
+<div class="bg-on-background text-white p-2 brutalist-card overflow-hidden">
+<div class="p-3 border-b border-outline flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container text-sm">public</span>
+<span class="font-label-caps text-label-caps">LIVE_MAP_FEED</span>
+</div>
+<div class="w-3 h-3 rounded-full bg-error animate-ping"></div>
+</div>
+<div class="relative h-64 bg-[#1b1b1b] overflow-hidden group">
+<img class="w-full h-full object-cover opacity-40 grayscale contrast-150" data-alt="A futuristic dark-mode digital map of a city with a glowing purple wireframe grid overlay. Neon points of interest pulses in vibrant cyan and magenta, indicating surveillance node clusters. The style is high-contrast cyber-brutalist with visible scanning lines and tech data readouts in the corners." data-location="Hyderabad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvz4dG4qx487TR5BpI3s4epnuzaUUnvSZP70skO0I-vQEoEpNiVwCReyzuAF4MYfV3qVQMvY_EtNuQkQeDFsSdvzcHOov5hzsR6LkD4p5DzVQWQHvuVr3oV6b1afoOvD1eBCkkdtzk7bfMY-Ty3gE6kBsG_LCxjefhyFFL3k3_tur7Ljk5K8-b-nGozF3n9QCb5gmH7lrk5MTN96YUXi4EBzWEAk7Wgmk2MpNrDszSVzTMAbyh4gM8tb0ZSCCtU9Rn_eAFALPUnA"/>
+<!-- Coverage Radius Overlay -->
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-32 h-32 border-2 border-primary-container rounded-full opacity-30 animate-pulse"></div>
+<div class="w-48 h-48 border border-primary-container rounded-full opacity-20 animate-pulse" style="animation-delay: 1s;"></div>
+<div class="w-2 h-2 bg-primary rounded-full absolute"></div>
+</div>
+<div class="absolute bottom-4 left-4 bg-on-background/80 backdrop-blur-sm border border-outline p-2 font-data-mono text-[10px]">
+                                [SYSTEM_SCAN: RUNNING...]<br/>
+                                LAT: 17.3850 N<br/>
+                                LON: 78.4867 E
+                            </div>
+</div>
+</div>
+<!-- Community Intel Feed -->
+<div class="bg-white border-border-thick border-on-background brutalist-card flex-grow p-4">
+<div class="flex items-center gap-2 mb-6 border-b-border-thin border-on-background pb-2">
+<span class="material-symbols-outlined text-primary">rss_feed</span>
+<h3 class="font-headline-md text-headline-md uppercase">Intel Feed</h3>
+</div>
+<div class="space-y-6">
+<div class="border-l-2 border-primary pl-3">
+<div class="text-[10px] font-bold text-primary mb-1">08:42:15 // NODE_TS-77 UPDATED</div>
+<p class="text-body-sm leading-tight text-on-surface">New firmware detected. Packet header analysis indicates behavioral tracking module activation.</p>
+</div>
+<div class="border-l-2 border-secondary pl-3">
+<div class="text-[10px] font-bold text-secondary mb-1">07:22:10 // REGISTRY SYNC</div>
+<p class="text-body-sm leading-tight text-on-surface">12 new cameras mapped in Gachibowli district by anonymous operator #744.</p>
+</div>
+<div class="border-l-2 border-error pl-3">
+<div class="text-[10px] font-bold text-error mb-1">06:15:04 // THREAT ALERT</div>
+<p class="text-body-sm leading-tight text-on-surface">Attempted bridge connection from NODE_AX-102 blocked by firewall.</p>
+</div>
+</div>
+<button class="w-full mt-8 border-border-thin border-on-background py-2 hover:bg-surface-container transition-colors font-label-caps text-label-caps uppercase flex items-center justify-center gap-2">
+                            Expand Intel Archive
+                            <span class="material-symbols-outlined text-sm">open_in_new</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Navigation Shell -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface-container border-t-border-thin border-on-background flex justify-around py-3 z-50">
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">hub</span>
+<span class="text-[10px] font-bold uppercase">Map</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-primary">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="text-[10px] font-bold uppercase">Registry</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">add_circle</span>
+<span class="text-[10px] font-bold uppercase">Add</span>
+</button>
+<button class="flex flex-col items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-bold uppercase">Profile</span>
+</button>
+</nav>
+<script>
+        // Simple micro-interaction for scanline or status updates
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("AWAAZ SYSTEM INITIALIZED // SURVEILLANCE_REGISTRY_V2.0");
+            
+            // Add interaction sounds logic if desired (muted by default)
+            const cards = document.querySelectorAll('.brutalist-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    // Visual feedback
+                });
+            });
+        });
+    </script>
+</body></html>

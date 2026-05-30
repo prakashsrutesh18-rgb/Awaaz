@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>AWAAZ | JOIN THE RESISTANCE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dadada",
+                        "surface-tint": "#842bd2",
+                        "on-primary-container": "#fffbff",
+                        "background": "#f9f9f9",
+                        "outline": "#7e7385",
+                        "tertiary": "#456500",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#faffe8",
+                        "on-primary": "#ffffff",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "on-surface-variant": "#4d4354",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9f9",
+                        "primary-container": "#9c48ea",
+                        "secondary": "#006877",
+                        "tertiary-fixed-dim": "#a4d64c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "surface-container": "#eeeeee",
+                        "inverse-surface": "#303030",
+                        "on-background": "#1b1b1b",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "on-surface": "#1b1b1b",
+                        "inverse-primary": "#ddb7ff",
+                        "surface-container-high": "#e8e8e8",
+                        "on-secondary-fixed": "#001f25",
+                        "on-tertiary-fixed-variant": "#354e00",
+                        "on-secondary-fixed-variant": "#004e5a",
+                        "on-secondary-container": "#00616f",
+                        "tertiary-fixed": "#bff365",
+                        "error": "#ba1a1a",
+                        "outline-variant": "#cfc2d6",
+                        "surface": "#f9f9f9",
+                        "secondary-fixed-dim": "#2fd9f4",
+                        "surface-container-low": "#f3f3f3",
+                        "on-tertiary": "#ffffff",
+                        "primary": "#8127cf",
+                        "on-primary-fixed": "#2c0051",
+                        "secondary-container": "#3fe1fd",
+                        "on-tertiary-fixed": "#131f00",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary-container": "#598000",
+                        "secondary-fixed": "#a2eeff",
+                        "surface-variant": "#e2e2e2"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "16px",
+                        "border-thin": "2px",
+                        "border-thick": "4px",
+                        "unit": "4px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Space Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "body-sm": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "body-lg": ["JetBrains Mono"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Space Grotesk"],
+                        "headline-lg-mobile": ["Space Grotesk"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #f9f9f9;
+            background-image: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            background-size: 32px 32px;
+            cursor: crosshair;
+        }
+        .scanlines {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanlines::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+        .brutalist-card {
+            box-shadow: 8px 8px 0px 0px rgba(0,0,0,1);
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .brutalist-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0px 0px rgba(129, 39, 207, 1);
+        }
+        .brutalist-button-active:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0px 0px rgba(0,0,0,1);
+        }
+        .neon-glow:hover {
+            box-shadow: 0px 0px 12px rgba(129, 39, 207, 0.6);
+        }
+        .nav-link {
+            transition: all 0.2s ease;
+            position: relative;
+        }
+        .nav-link:hover::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #8127cf;
+        }
+
+        /* Glitch Effect Styles */
+        .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #1b1b1b;
+            clip: rect(0, 0, 0, 0);
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 #8127cf;
+            animation: glitch-anim-1 2s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: 2px 0 #2fd9f4;
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim-1 {
+            0% { clip: rect(20px, 9999px, 21px, 0); }
+            10% { clip: rect(40px, 9999px, 41px, 0); }
+            20% { clip: rect(60px, 9999px, 61px, 0); }
+            30% { clip: rect(80px, 9999px, 81px, 0); }
+            40% { clip: rect(100px, 9999px, 101px, 0); }
+            50% { clip: rect(20px, 9999px, 21px, 0); }
+            60% { clip: rect(40px, 9999px, 41px, 0); }
+            70% { clip: rect(60px, 9999px, 61px, 0); }
+            80% { clip: rect(80px, 9999px, 81px, 0); }
+            90% { clip: rect(100px, 9999px, 101px, 0); }
+            100% { clip: rect(20px, 9999px, 21px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(10px, 9999px, 11px, 0); }
+            10% { clip: rect(30px, 9999px, 31px, 0); }
+            20% { clip: rect(50px, 9999px, 51px, 0); }
+            30% { clip: rect(70px, 9999px, 71px, 0); }
+            40% { clip: rect(90px, 9999px, 91px, 0); }
+            50% { clip: rect(10px, 9999px, 11px, 0); }
+            60% { clip: rect(30px, 9999px, 31px, 0); }
+            70% { clip: rect(50px, 9999px, 51px, 0); }
+            80% { clip: rect(70px, 9999px, 71px, 0); }
+            90% { clip: rect(90px, 9999px, 91px, 0); }
+            100% { clip: rect(10px, 9999px, 11px, 0); }
+        }
+    </style>
+</head>
+<body class="font-body-lg text-on-surface antialiased overflow-x-hidden">
+<!-- TopNavBar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-surface border-b-4 border-on-surface flex justify-between items-center w-full px-gutter h-16 shadow-[4px_4px_0px_0_rgba(0,0,0,1)]">
+<div class="flex items-center gap-2">
+<span class="font-display-lg text-headline-md font-bold tracking-tighter text-on-surface">AWAAZ</span>
+<div class="hidden md:flex gap-6 ml-10">
+<a class="nav-link font-label-caps text-label-caps text-primary border-b-2 border-primary py-1 uppercase" href="/map_os">MAP_OS</a>
+<a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-primary py-1 uppercase" href="/registry">REGISTRY</a>
+<a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-primary py-1 uppercase" href="/ai_link">AI_LINK</a>
+<a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:text-primary py-1 uppercase" href="/intel">INTEL</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:block relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm">search</span>
+<input class="bg-white border-2 border-on-surface pl-10 pr-4 py-1 font-data-mono text-xs focus:ring-0 focus:border-primary outline-none w-48" placeholder="QUERY_DB" type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 border-2 border-on-surface font-label-caps text-label-caps hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none transition-all active:scale-95">
+            REPORT_VIOLATION
+        </button>
+</div>
+</nav>
+<!-- SideNavBar (Mobile Bottom Bar Pivot) -->
+<aside class="hidden md:flex fixed left-0 top-16 bottom-0 z-40 flex-col border-r-4 border-on-surface bg-surface-container-low w-64 pt-8">
+<div class="px-6 mb-8">
+<div class="flex items-center gap-4 mb-4">
+<div class="w-12 h-12 border-2 border-on-surface bg-primary-fixed-dim p-1">
+<img alt="Node Avatar" class="w-full h-full" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHDOCbA5a_pQ-U0rC9rpCoBFE920U0OU4dhRQMSPeJxuABK1BViN44nGjdzItXt71xcWybJgQy4U2sNBzd2bD3a04JsZ4jKE5DDIIXPUkUFqPX7gomin-3-z9JYqYCOlneSHFRjYdUCQ0M7aTbN5QPm9mcRFQUrEqmqKNGpZirU2gGGWWncFO17LLOB15Ua0AslJugzkPGHyOCV_5fLu4G_uyFaf1RstEUNE-kJ87HJUrBVG4ywwvhx3X0aGPs7XeWWroH2_Q5MQ"/>
+</div>
+<div>
+<h3 class="font-label-caps text-label-caps font-bold">NODE_01</h3>
+<p class="font-body-sm text-[10px] text-tertiary">STATUS: UPLINK_ACTIVE</p>
+</div>
+</div>
+<button class="w-full bg-on-surface text-primary-fixed border-2 border-on-surface py-2 font-label-caps text-label-caps flex items-center justify-center gap-2 hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-sm">radar</span>
+            INITIATE_SCAN
+        </button>
+</div>
+<nav class="flex-1">
+<a class="bg-primary text-on-primary font-bold flex items-center gap-4 px-6 py-4 border-y-2 border-on-surface mb-[-2px]" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-label-caps text-label-caps">DASHBOARD</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-dim flex items-center gap-4 px-6 py-4 transition-all" href="/live_feed">
+<span class="material-symbols-outlined">rss_feed</span>
+<span class="font-label-caps text-label-caps">LIVE_FEED</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-dim flex items-center gap-4 px-6 py-4 transition-all" href="/heatmap">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps">HEATMAP</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-dim flex items-center gap-4 px-6 py-4 transition-all" href="/node_status">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-caps text-label-caps">NODE_STATUS</span>
+</a>
+<a class="text-on-surface-variant hover:bg-surface-dim flex items-center gap-4 px-6 py-4 transition-all" href="/archive">
+<span class="material-symbols-outlined">inventory_2</span>
+<span class="font-label-caps text-label-caps">ARCHIVE</span>
+</a>
+</nav>
+<div class="p-6 border-t-2 border-on-surface mt-auto">
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="font-label-caps text-label-caps text-[10px]">SETTINGS</span>
+</a>
+<a class="flex items-center gap-4 text-on-surface-variant hover:text-error transition-colors" href="#">
+<span class="material-symbols-outlined text-sm">logout</span>
+<span class="font-label-caps text-label-caps text-[10px]">LOGOUT</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 pb-16 px-4 md:px-margin-desktop">
+<!-- Hero Section -->
+<section class="mb-16 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<div class="lg:col-span-7">
+<span class="font-label-caps text-label-caps text-primary mb-6 block underline decoration-4 underline-offset-8">/01 MANIFESTO_CORE</span>
+<h1 class="font-display-lg text-display-lg uppercase mb-8 leading-[0.85] tracking-tight">
+<div class="flex items-baseline gap-4">
+<span class="bg-on-surface text-surface px-4 py-1 glitch-wrapper">
+<span class="glitch" data-text="AWAAZ_" id="logo-glitch">AWAAZ_</span>
+</span>
+<span class="text-primary italic"><br/></span>
+</div>
+<div class="mt-2">ARCHITECTURE_</div>
+<div class="text-on-surface-variant opacity-80 mt-2">ANONYMITY_NOW.</div>
+</h1>
+<p class="font-body-lg max-w-xl mb-12 border-l-8 border-primary pl-8 py-4 bg-surface-container-low shadow-[4px_4px_0px_0_rgba(0,0,0,1)]">
+                In an age of total biometric transparency, anonymity is the ultimate luxury. AWAAZ is the architectural response to the data-industrial complex. Functional. Digital. Unapologetic.
+            </p>
+<div class="flex flex-wrap gap-6">
+<a class="bg-primary text-on-primary px-8 py-5 border-4 border-on-surface font-label-caps text-headline-md flex items-center gap-4 brutalist-card neon-glow group no-underline" href="/onboarding">
+                    JOIN_THE_RESISTANCE
+                    <span class="material-symbols-outlined transition-transform group-hover:translate-x-2">bolt</span>
+</a>
+<button class="bg-white text-on-surface px-8 py-5 border-4 border-on-surface font-label-caps text-headline-md hover:bg-surface-dim transition-colors brutalist-card">
+                    VIEW_DATA_PORTAL
+                </button>
+</div>
+</div>
+<div class="lg:col-span-5 relative mt-12 lg:mt-0">
+<div class="border-4 border-on-surface bg-white brutalist-card scanlines">
+<img class="w-full grayscale hover:grayscale-0 transition-all duration-500" data-alt="Cyber-brutalist entity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBQkzhngY4SBsoVB-fNXw1O20OBKVYlNT06frosGLHZy2uXammERbT5BtJiN3OESPNHGaPn-SaSaojdsUzIro-peQcuSdfGFmkNksn1Fp081gCUs-28sOxH0r5qkJu1HIOfHBUcb_VqqUcAoB7Pty49EzZ8HgclQUWqwUc2KS-t7_sdZGc33UB8aD6OQmBY2l8tBRdC6Vf9oeFm0myDOfxGFgdgfoMDtYqZRBDOlnofScvQSn2XPTU31Dt_pSugLLElJqu07PFsWw"/>
+<div class="absolute top-4 right-4 bg-on-surface text-primary px-2 py-1 font-data-mono text-[10px]">
+                    X_36.1749 | Y_-86.7676
+                </div>
+</div>
+<div class="absolute -bottom-6 -left-6 w-32 h-32 border-4 border-primary border-t-0 border-r-0"></div>
+<div class="absolute -top-6 -right-6 w-32 h-32 border-4 border-primary border-b-0 border-l-0"></div>
+</div>
+</section>
+<!-- The Problem Section (Bento) -->
+<section class="mb-24">
+<div class="flex items-center gap-4 mb-12">
+<h2 class="font-display-lg text-headline-lg uppercase flex items-center gap-4">
+<span class="text-primary">[</span>THE PROBLEM<span class="text-primary">]</span>
+</h2>
+<div class="h-[4px] bg-on-surface flex-1"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<!-- Tracking Card -->
+<div class="md:col-span-2 lg:col-span-3 bg-white border-4 border-on-surface p-8 brutalist-card flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-4xl text-primary mb-6">phone_iphone</span>
+<h3 class="font-headline-md mb-4 uppercase">PHONE TRACKING</h3>
+<p class="font-body-sm text-on-surface-variant">Your pocket is a constant broadcast of your trajectory, intent, and social circle. The grid is always watching.</p>
+</div>
+<div class="mt-8 pt-4 border-t-4 border-on-surface border-dashed">
+<span class="font-data-mono text-[11px] text-error font-bold uppercase tracking-widest">SIGNAL_STRENGTH: 100%</span>
+</div>
+</div>
+<!-- Biometric Card -->
+<div class="md:col-span-2 lg:col-span-3 bg-white border-4 border-on-surface p-8 brutalist-card overflow-hidden relative">
+<div class="relative z-10">
+<span class="material-symbols-outlined text-4xl text-primary mb-6">fingerprint</span>
+<h3 class="font-headline-md mb-4 uppercase">BIOMETRIC HARVEST</h3>
+<p class="font-body-sm text-on-surface-variant">Your identity is being mined like raw ore. Retina, gait, and thermal signatures are the new currency.</p>
+</div>
+<div class="absolute -right-10 -bottom-10 opacity-10 rotate-12">
+<span class="material-symbols-outlined text-[200px]">face</span>
+</div>
+</div>
+<!-- Core Principles Cluster -->
+<div class="md:col-span-4 lg:col-span-4 bg-surface-container border-4 border-on-surface p-8 brutalist-card">
+<div class="grid grid-cols-2 gap-8">
+<div>
+<h4 class="font-label-caps text-label-caps mb-2 text-primary">&gt; FUNCTION_OVER_FORM</h4>
+<p class="font-body-sm text-xs">Design is built to serve. Nothing more. Total tactical efficiency.</p>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-2 text-primary">&gt; DIGITAL_AESTHETICS</h4>
+<p class="font-body-sm text-xs">Glitch, noise, scanlines, and hardware vibes. The truth of the machine.</p>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-2 text-primary">&gt; RAW_AUTHENTICITY</h4>
+<p class="font-body-sm text-xs">No fluff. No polish. No compromise on the technical reality.</p>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps mb-2 text-primary">&gt; SYSTEMS_THINKING</h4>
+<p class="font-body-sm text-xs">Grids. Modules. Data. Everything is a node in the larger architecture.</p>
+</div>
+</div>
+</div>
+<!-- Node Status (Vertical Card) -->
+<div class="md:col-span-2 lg:col-span-2 bg-on-surface text-white p-6 border-4 border-on-surface brutalist-card">
+<h3 class="font-label-caps text-label-caps mb-6 text-primary underline decoration-2 underline-offset-4">SYSTEM_STATUS</h3>
+<div class="space-y-4">
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-data-mono">
+<span>CPU_USAGE</span>
+<span>72%</span>
+</div>
+<div class="h-4 border-2 border-primary p-[2px]">
+<div class="h-full bg-primary" style="width: 72%"></div>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-[10px] font-data-mono">
+<span>MEMORY</span>
+<span>8.6 GB / 16 GB</span>
+</div>
+<div class="h-4 border-2 border-secondary p-[2px]">
+<div class="h-full bg-secondary" style="width: 54%"></div>
+</div>
+</div>
+<div class="pt-4 mt-4 border-t-2 border-surface-variant">
+<div class="flex items-center gap-2 text-[10px] font-data-mono text-tertiary-fixed">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+                            ALL SYSTEMS OPERATIONAL
+                        </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Selected Work Gallery -->
+<section class="mb-24">
+<div class="flex items-center justify-between mb-8 border-b-4 border-on-surface pb-4">
+<span class="font-label-caps text-label-caps text-primary font-bold">/03 SELECTED_OPS</span>
+<span class="font-data-mono text-xs opacity-50 tracking-[0.5em]">00010110001</span>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="group relative overflow-hidden border-4 border-on-surface aspect-square brutalist-card">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Neural Network" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDbFaauD7HHPu_SsFDpkUTr9zrsn6ItaEay2Gwp7os6CEOR8u0YOatB6a_k3h5GJfwEqt93MZXBGwc7FnmVedDGECqq6km0LJ0Aj59XARF9Rpn_mbL6nzJ__KJbMqW_5PteUwalnYclVHbqG45ETEN-23LlSH3bfnekbcymPIFdHMtyh3YBQSStA9Mo1mHj5ZXbun2HWXPkfMQI_ujWg9bL0ciO1tYLqGn2FMJdCSQbSsTiu-WEjNjsiAz09-BnXqTXhJ8kW8Yiag"/>
+<div class="absolute inset-0 bg-primary opacity-0 group-hover:opacity-20 transition-opacity"></div>
+<div class="absolute bottom-0 left-0 right-0 bg-on-surface p-4 flex justify-between items-center translate-y-full group-hover:translate-y-0 transition-transform">
+<div>
+<p class="font-label-caps text-[10px] text-white">DATA_PORTAL</p>
+<p class="font-body-sm text-[8px] text-primary">DASHBOARD_DESIGN</p>
+</div>
+<span class="material-symbols-outlined text-white text-sm">north_east</span>
+</div>
+</div>
+<div class="group relative overflow-hidden border-4 border-on-surface aspect-square brutalist-card">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Minimalist Robot" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCVWlLv9gD56qyrJqcDRv52aeM3JAjBebNnH8Yo1Ug_mFWzhUvMcdB-9k6c8B50rmtIaoXESoiE2a0sBeF7gN9YRHUD5AJVtuR5YpevXTYhc9S7zXL3Ih-5T3LS_9U4kx2FKuuCm1zMRxQnMLFlo8ybrpReC4C7ra7WGaBH-A6nHhF8Ohc8Tk_rBJmgASVGXn9fPppbwmcXe0yJf1Zgjpc_X2pX-YW8Tvlb_F7dQYs7AoEFWsJEQiqsAHp6hED2r_qTUPzKougGLQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-on-surface p-4 flex justify-between items-center">
+<div>
+<p class="font-label-caps text-[10px] text-white">VOID_SYSTEM</p>
+<p class="font-body-sm text-[8px] text-primary">BRAND_IDENTITY</p>
+</div>
+<span class="material-symbols-outlined text-white text-sm">north_east</span>
+</div>
+</div>
+<div class="group relative overflow-hidden border-4 border-on-surface aspect-square brutalist-card">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Hardware Close-up" src="https://lh3.googleusercontent.com/aida-public/AB6AXuApkcfainkj-OWOmeoLpI9vDqhSXpiEmG96697wLk6JoYYWyaepWSL5D5FJPjnKFWNzLPl55pBkCtbnXT40x14uU2OBoEvSccrsW3a1Jl0dFO2YBGeGlVJQj3xh9vvIX3dteuP0poXuEjXAm0LfgdlTtadBk0nsBMtrQg_F2M_dN6NmKYyxKNvl1Lbos6REEXNQN2g44SONpeQVPjD6EGLl_mF5Paj3jaL8WPeBOeb7dvSssAhahU3XTnAyH0rhKgIkzqxzCOQi3A"/>
+<div class="absolute bottom-0 left-0 right-0 bg-on-surface p-4 flex justify-between items-center translate-y-full group-hover:translate-y-0 transition-transform">
+<div>
+<p class="font-label-caps text-[10px] text-white">GRIDLINE</p>
+<p class="font-body-sm text-[8px] text-primary">WEB_EXPERIENCE</p>
+</div>
+<span class="material-symbols-outlined text-white text-sm">north_east</span>
+</div>
+</div>
+<div class="group relative overflow-hidden border-4 border-on-surface aspect-square brutalist-card">
+<img class="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" data-alt="Digital Code Matrix" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd1XqjJKzV6p3ZLnKWBH-No2MIvrBv9CrVWLPZACUNijIUuc7rmEtVSzja7Y4yz33q5jRgNEb7ho5FGfVgKmx8b215Qd5nvOmH2nDJheztU30WhIX4JrNa-5DN3WcGStiwbgbJPC5MEQzrte8wnVN-a43kqmBXbpYGFEV_PgzEqVbR9Ut-CTeAZN0bdDBVX18K4_eATSkNyaQBCKrSvgVdhlJTFWy2QV5VxGllqWGbjzLagvkFZR1GHYHPRREczV_EfIo7jxAHUQ"/>
+<div class="absolute bottom-0 left-0 right-0 bg-on-surface p-4 flex justify-between items-center">
+<div>
+<p class="font-label-caps text-[10px] text-white">NEURAL_NET</p>
+<p class="font-body-sm text-[8px] text-primary">AI_PLATFORM</p>
+</div>
+<span class="material-symbols-outlined text-white text-sm">north_east</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Resistance Call -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-24 items-center">
+<div class="bg-surface-container-highest p-12 border-4 border-on-surface brutalist-card">
+<span class="font-label-caps text-label-caps text-primary underline decoration-2 mb-4 block">/06 SIGNAL_SUBSCRIPTION</span>
+<h2 class="font-display-lg text-headline-lg uppercase mb-6 leading-tight">STAY OFF THE RADAR.</h2>
+<p class="font-body-sm mb-8">Receive weekly encrypted updates on tracking methods, counter-surveillance tools, and laboratory drops. No spam. Pure signal.</p>
+<div class="flex flex-col md:flex-row gap-4">
+<input class="flex-1 bg-white border-4 border-on-surface px-4 py-4 font-data-mono outline-none focus:border-primary" placeholder="ENTER_ENCRYPTED_EMAIL" type="email"/>
+<button class="bg-primary text-on-primary font-label-caps text-label-caps px-8 py-4 border-4 border-on-surface hover:bg-on-surface transition-colors">SUBSCRIBE</button>
+</div>
+</div>
+<div class="hidden md:block">
+<div class="relative w-full aspect-video border-4 border-on-surface bg-white brutalist-card flex items-center justify-center p-8 overflow-hidden">
+<div class="text-[300px] font-bold text-surface-container absolute -right-20 -bottom-20 rotate-12 select-none">CYBR</div>
+<div class="relative z-10 text-center">
+<span class="material-symbols-outlined text-8xl text-primary mb-4 animate-pulse">broadcast_on_personal</span>
+<h3 class="font-headline-md uppercase">UPLINK ESTABLISHED</h3>
+<p class="font-data-mono text-xs text-on-surface-variant">NODE_01_SECURE_CONNECTION</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Partners -->
+<section class="border-t-4 border-on-surface pt-8 mb-24">
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-8 font-bold">TRUSTED BY BUILDERS</p>
+<div class="flex flex-wrap justify-between gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
+<div class="flex items-center gap-2 font-display-lg text-headline-md font-bold">Vercel</div>
+<div class="flex items-center gap-2 font-display-lg text-headline-md font-bold">Linear</div>
+<div class="flex items-center gap-2 font-display-lg text-headline-md font-bold">Supabase</div>
+<div class="flex items-center gap-2 font-display-lg text-headline-md font-bold">Neon</div>
+<div class="flex items-center gap-2 font-display-lg text-headline-md font-bold">Replicate</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-on-surface text-white pt-16 pb-8 px-4 md:px-margin-desktop border-t-4 border-on-surface">
+<div class="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-12 mb-16">
+<div class="lg:col-span-2">
+<span class="font-display-lg text-headline-md font-bold tracking-tighter text-primary mb-4 block">CYBR_</span>
+<p class="font-body-sm text-xs text-surface-variant max-w-xs mb-6">
+                © 2024 CYBR STUDIO. ALL RIGHTS RESERVED. ARCHIVING THE VOID SINCE THE LAST ERA OF PRIVACY.
+            </p>
+<div class="flex items-center gap-2 bg-surface-container p-2 border border-outline inline-flex">
+<span class="w-3 h-3 bg-tertiary rounded-full animate-pulse"></span>
+<span class="font-data-mono text-[10px] text-on-surface">CONNECTION_SECURE</span>
+</div>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">NAVIGATION</h4>
+<ul class="space-y-3 font-body-sm text-[12px] text-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="/work">Work</a></li>
+<li><a class="hover:text-primary transition-colors" href="/services">Services</a></li>
+<li><a class="hover:text-primary transition-colors" href="/about">About</a></li>
+<li><a class="hover:text-primary transition-colors" href="/labs">Labs</a></li>
+<li><a class="hover:text-primary transition-colors" href="/contact">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">RESOURCES</h4>
+<ul class="space-y-3 font-body-sm text-[12px] text-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="/manifesto">Manifesto</a></li>
+<li><a class="hover:text-primary transition-colors" href="/blog">Blog</a></li>
+<li><a class="hover:text-primary transition-colors" href="/styleguide">Style Guide</a></li>
+<li><a class="hover:text-primary transition-colors" href="https://github.com">GitHub</a></li>
+<li><a class="hover:text-primary transition-colors" href="/careers">Careers</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">SOCIALS</h4>
+<ul class="space-y-3 font-body-sm text-[12px] text-surface-variant">
+<li><a class="hover:text-primary transition-colors" href="#">X (Twitter)</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Discord</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Behance</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">YouTube</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-label-caps text-label-caps text-primary mb-6">GLOBAL NODE</h4>
+<div class="flex flex-wrap gap-2 font-data-mono text-[10px]">
+<span class="px-2 py-1 border border-outline text-outline">LON</span>
+<span class="px-2 py-1 border border-primary text-primary">NY</span>
+<span class="px-2 py-1 border border-outline text-outline">TYO</span>
+<span class="px-2 py-1 border border-outline text-outline">BER</span>
+</div>
+<div class="mt-4">
+<img class="w-full opacity-50 grayscale hover:opacity-100 transition-opacity border border-outline" data-alt="Data connection map" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDWf5dzcle2NvplpX1d_pCsX_5Iq5gdT8pClXqo9x2UP0V30tGhlXSwj0cvWFn_jo9R2oEehrd7QkpNVISx6dxzKbzcmjvIAWU8619fWSF5lRE-9Ldn0hmyAvGKNWtuUHcgQg3H18CWjIsnX-_Lzh1qQ9IFxfyYcgRzk8tPwyzsqg5YqjeYT4Hx-zSBx8ZscvnKQyHd5n9KVqYhHGVb5wqJyTSa1SoHrZO8KkXQ0ymG7WoGInLtfJzkTB4iONMnvOh25xAMG7t1Rw"/>
+</div>
+</div>
+</div>
+<div class="border-t-2 border-outline-variant pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="bg-primary text-on-primary px-4 py-2 font-label-caps text-[12px] brutalist-button-active border-2 border-white">
+            &gt; ACCESS GRANTED_
+        </div>
+<div class="flex gap-8 font-data-mono text-[10px] text-surface-variant uppercase">
+<span>SCN: 0007</span>
+<span>NODE: CYBR_01</span>
+<span id="sys-time">SYS_TIME: 19:28:44 UTC+0</span>
+</div>
+</div>
+</footer>
+<!-- FAB -->
+<a class="fixed bottom-8 right-8 z-50 bg-primary text-on-primary w-16 h-16 border-4 border-on-surface flex items-center justify-center brutalist-card hover:translate-x-[-2px] hover:translate-y-[-2px] transition-all no-underline" href="/onboarding">
+<span class="material-symbols-outlined text-4xl">bolt</span>
+</a>
+<script>
+    // Logo Glitch and Language Cycle
+    const words = ["AWAAZ_", "SVAR_", "SOUND_", "VOIX_", "GOLOS_", "STIMME_"];
+    let currentIndex = 0;
+    const logoEl = document.getElementById('logo-glitch');
+
+    function cycleText() {
+        currentIndex = (currentIndex + 1) % words.length;
+        const newText = words[currentIndex];
+        
+        // Brief glitch "burst" on change
+        logoEl.classList.add('animate-pulse');
+        setTimeout(() => {
+            logoEl.textContent = newText;
+            logoEl.setAttribute('data-text', newText);
+            logoEl.classList.remove('animate-pulse');
+        }, 150);
+    }
+
+    // Interval for cycling words
+    setInterval(cycleText, 3000);
+
+    // Real-time clock for the cyber-brutalist feel
+    function updateTime() {
+        const now = new Date();
+        const timeStr = now.toISOString().split('T')[1].split('.')[0];
+        const sysTimeEl = document.getElementById('sys-time');
+        if (sysTimeEl) sysTimeEl.textContent = `SYS_TIME: ${timeStr} UTC+0`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+</script>
+</body></html>

@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>AWAAZ//OS - Surveillance Transparency Platform</title>
+    <!-- Tailwind Play CDN -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Modern Typography & Material Symbols Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    
+    <!-- Unified Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface": "#f9f9f9",
+                        "surface-dim": "#dadada",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f3f3f3",
+                        "surface-container": "#eeeeee",
+                        "surface-container-high": "#e8e8e8",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-surface": "#1b1b1b",
+                        "on-surface-variant": "#4d4354",
+                        "outline": "#7e7385",
+                        "outline-variant": "#cfc2d6",
+                        "primary": "#8127cf", // Neon Purple
+                        "on-primary": "#ffffff",
+                        "primary-container": "#9c48ea",
+                        "on-primary-container": "#fffbff",
+                        "secondary": "#006877", // Neon Cyan
+                        "on-secondary": "#ffffff",
+                        "secondary-container": "#3fe1fd",
+                        "on-secondary-container": "#00616f",
+                        "tertiary": "#456500", // Acid Green
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#598000",
+                        "on-tertiary-container": "#faffe8",
+                        "error": "#ba1a1a",
+                        "on-error": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        "background": "#f9f9f9",
+                        "on-background": "#1b1b1b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0px",
+                        "lg": "0px",
+                        "xl": "0px",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "unit": "4px",
+                        "gutter": "16px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "border-thin": "2px",
+                        "border-thick": "4px"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Space Grotesk"],
+                        "headline-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "body-lg": ["JetBrains Mono"],
+                        "body-sm": ["JetBrains Mono"],
+                        "data-mono": ["JetBrains Mono"],
+                        "label-caps": ["JetBrains Mono"]
+                    },
+                    fontSize: {
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}]
+                    }
+                }
+            }
+        };
+    </script>
+    
+    <!-- Cyber-Brutalist Theme Styling -->
+    <style>
+        .grid-paper {
+            background-image: 
+                linear-gradient(to right, #E5E5E5 1px, transparent 1px),
+                linear-gradient(to bottom, #E5E5E5 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.03) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+        }
+        .clipped-corner-sm {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+        }
+        .brutalist-card {
+            box-shadow: 4px 4px 0px #000000;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .brutalist-card:active {
+            transform: translate(2px, 2px);
+            box-shadow: 0px 0px 0px #000000;
+        }
+        .brutalist-card-lg {
+            box-shadow: 8px 8px 0px #000000;
+            transition: transform 0.1s ease, box-shadow 0.1s ease;
+        }
+        .brutalist-card-lg:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 12px 12px 0px #8127cf;
+        }
+        .neon-glow:hover {
+            box-shadow: 0px 0px 12px #8127cf;
+        }
+        .view-pane {
+            animation: glitch-fade 0.25s ease-out;
+        }
+        @keyframes glitch-fade {
+            0% { opacity: 0.8; filter: hue-rotate(90deg); transform: translate(1px, 1px); }
+            50% { opacity: 0.9; filter: none; transform: translate(-1px, -1px); }
+            100% { opacity: 1; transform: translate(0, 0); }
+        }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #eeeeee; border-left: 2px solid #1b1b1b; }
+        ::-webkit-scrollbar-thumb { background: #1b1b1b; }
+        
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-fill {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background font-body-lg text-on-surface grid-paper min-h-screen antialiased overflow-x-hidden">
+    <div class="scanlines"></div>
+    
+    <!-- Navigation Header -->
+    <header class="fixed top-0 left-0 w-full h-16 bg-surface z-50 flex justify-between items-center px-gutter border-b-border-thick border-on-surface shadow-[4px_4px_0px_0_rgba(0,0,0,1)]">
+        <div class="flex items-center gap-4">
+            <span class="font-display-lg text-headline-md font-bold tracking-tighter text-on-surface cursor-pointer select-none" id="shell-logo">AWAAZ//OS</span>
+            <div class="hidden md:flex gap-4 ml-8">
+                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:bg-primary hover:text-on-primary px-3 py-1 transition-colors" href="#dashboard">DASHBOARD</a>
+                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:bg-primary hover:text-on-primary px-3 py-1 transition-colors" href="#heatmap">MAP_OS</a>
+                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:bg-primary hover:text-on-primary px-3 py-1 transition-colors" href="#registry">REGISTRY</a>
+                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:bg-primary hover:text-on-primary px-3 py-1 transition-colors" href="#scanner">AI_LINK</a>
+                <a class="nav-link font-label-caps text-label-caps text-on-surface-variant hover:bg-primary hover:text-on-primary px-3 py-1 transition-colors" href="#archive">INTEL_VAULT</a>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="relative hidden lg:block">
+                <span class="absolute left-3 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant text-sm">search</span>
+                <input class="bg-surface border-border-thin border-on-surface pl-10 pr-4 py-1 font-data-mono text-data-mono focus:ring-primary focus:border-primary outline-none uppercase" placeholder="QUERY_SYSTEM..." id="shell-search" type="text"/>
+            </div>
+            <button class="bg-primary text-on-primary font-label-caps text-label-caps px-4 py-2 border-border-thin border-on-surface hover:translate-x-[1px] hover:translate-y-[1px] shadow-[2px_2px_0px_0_rgba(0,0,0,1)] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all" id="btn-report-violation">
+                REPORT_VIOLATION
+            </button>
+        </div>
+    </header>
+    
+    <!-- Sidebar Navigation -->
+    <aside class="fixed left-0 top-16 bottom-0 w-64 bg-surface-container-low border-r-border-thick border-on-surface z-40 flex flex-col hidden md:flex">
+        <!-- Operator Details -->
+        <div class="p-6 border-b-border-thin border-on-surface bg-surface-bright">
+            <div class="flex items-center gap-3">
+                <div class="w-12 h-12 border-border-thin border-on-surface bg-primary p-0.5 shadow-[2px_2px_0px_#000]">
+                    <img alt="Operator Avatar" class="w-full h-full object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxYQjWkyaZNC4h4_VR4UltrRf4Hv2P3WreRw3D_nNwCb-aEsqvs_jdjJGmLhauStBBLX07dq1g9aq0TfU3s4AWT-y9HNbS8-d6lCUjOoSeLlCvvqSEtjO_VwkmPCG-r5S_SSkVMnmRty3yDfFXhWZy8acK-qSB_qywShjorooMZXOAvWBlHWqgQx-EObbij3DQPySjV5etmzFxcNROACw3aCxKTZbXlvbdvoJerCig6I2T3-wmtS_4GWlZK1wZauJjHJc4tBOrjw"/>
+                </div>
+                <div>
+                    <h3 class="font-label-caps text-label-caps text-primary leading-none" id="operator-id">OPERATOR_01</h3>
+                    <p class="font-data-mono text-[10px] text-on-surface-variant mt-1" id="operator-uplink">UPLINK: ENCRYPTED</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sidebar Menu -->
+        <nav class="flex-1 overflow-y-auto py-4 font-data-mono text-data-mono">
+            <div class="flex flex-col gap-1 px-2">
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#dashboard" id="side-dashboard">
+                    <span class="material-symbols-outlined">dashboard</span>
+                    <span>DASHBOARD</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#heatmap" id="side-heatmap">
+                    <span class="material-symbols-outlined">map</span>
+                    <span>HEATMAP_OS</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#registry" id="side-registry">
+                    <span class="material-symbols-outlined">hub</span>
+                    <span>REGISTRY</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#scanner" id="side-scanner">
+                    <span class="material-symbols-outlined">sensors</span>
+                    <span>SCANNER_GRID</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#archive" id="side-archive">
+                    <span class="material-symbols-outlined">inventory_2</span>
+                    <span>INTEL_VAULT</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#manifesto" id="side-manifesto">
+                    <span class="material-symbols-outlined">menu_book</span>
+                    <span>MANIFESTO</span>
+                </a>
+                <a class="flex items-center gap-4 px-4 py-3 text-on-surface-variant hover:bg-surface-dim hover:text-on-surface transition-all" href="#join" id="side-join">
+                    <span class="material-symbols-outlined">lock_open</span>
+                    <span>JOIN_NETWORK</span>
+                </a>
+            </div>
+        </nav>
+        
+        <!-- Sidebar Footer Action -->
+        <div class="p-4 border-t-border-thin border-on-surface bg-surface-container-low">
+            <button class="w-full bg-on-surface text-surface py-3 font-label-caps text-label-caps hover:bg-primary hover:text-on-primary transition-colors brutalist-card" id="btn-quick-scan">
+                INITIATE_SCAN
+            </button>
+            <div class="flex flex-col gap-1 mt-4">
+                <a class="flex items-center gap-3 text-on-surface-variant hover:text-primary py-1" href="#settings">
+                    <span class="material-symbols-outlined text-sm">settings</span>
+                    <span class="font-label-caps text-[10px]">SETTINGS</span>
+                </a>
+                <a class="flex items-center gap-3 text-on-surface-variant hover:text-error py-1" href="#logout">
+                    <span class="material-symbols-outlined text-sm">logout</span>
+                    <span class="font-label-caps text-[10px]">LOGOUT</span>
+                </a>
+            </div>
+        </div>
+    </aside>
+    
+    <!-- Main Content Dynamic Container -->
+    <main class="md:ml-64 pt-16 min-h-screen relative pb-16" id="main-content">
+        <!-- Views will load dynamically here -->
+        <div class="flex items-center justify-center min-h-[calc(100vh-128px)]">
+            <div class="text-center font-data-mono text-primary p-12 border-border-thick border-dashed border-primary bg-white brutalist-card">
+                <span class="material-symbols-outlined text-5xl animate-spin mb-4">sync</span>
+                <p class="font-black text-lg">INITIALIZING AWAAZ//OS KERNEL...</p>
+                <p class="text-[10px] text-on-surface-variant mt-2">LOADING SYSTEM BUFFERS & LOCAL MAP OVERLAYS</p>
+            </div>
+        </div>
+    </main>
+    
+    <!-- Status Footer Bar -->
+    <footer class="fixed bottom-0 left-0 md:left-64 right-0 h-12 bg-on-surface text-white z-50 px-6 flex items-center justify-between font-data-mono text-[10px] border-t-border-thin border-on-background shadow-[0_-4px_8px_rgba(0,0,0,0.1)]">
+        <div class="flex items-center gap-8">
+            <div class="flex items-center gap-2">
+                <span class="text-primary font-bold">LATENCY:</span>
+                <span id="footer-latency">24ms</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <span class="text-secondary font-bold">UPTIME:</span>
+                <span>99.98%</span>
+            </div>
+            <div class="flex items-center gap-4 hidden lg:flex">
+                <span class="text-tertiary font-bold">SCANNER:</span>
+                <div class="w-32 h-2 bg-white/10 relative border border-white/20">
+                    <div class="absolute top-0 left-0 h-full bg-primary" id="footer-scan-bar" style="width: 74%;"></div>
+                </div>
+                <span id="footer-scan-text">74%</span>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="animate-pulse text-tertiary flex items-center gap-1 font-bold">
+                <span class="w-1.5 h-1.5 bg-tertiary rounded-full animate-ping inline-block"></span>
+                SYSTEM_CONNECTED
+            </span>
+            <span id="footer-clock">SYS_TIME: 12:00:00 UTC+0</span>
+        </div>
+    </footer>
+    
+    <!-- Mobile Bottom Navigation (Hidden on desktop) -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-surface border-t-border-thick border-on-background flex justify-around py-3 z-50">
+        <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary" href="#dashboard">
+            <span class="material-symbols-outlined text-xl">dashboard</span>
+            <span class="text-[8px] font-bold uppercase">Home</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary" href="#heatmap">
+            <span class="material-symbols-outlined text-xl">map</span>
+            <span class="text-[8px] font-bold uppercase">Map</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary" href="#scanner">
+            <span class="material-symbols-outlined text-xl">sensors</span>
+            <span class="text-[8px] font-bold uppercase">Scan</span>
+        </a>
+        <a class="flex flex-col items-center gap-1 text-on-surface-variant hover:text-primary" href="#archive">
+            <span class="material-symbols-outlined text-xl">inventory_2</span>
+            <span class="text-[8px] font-bold uppercase">Vault</span>
+        </a>
+    </nav>
+    
+    <!-- Core Application Driver Script -->
+    <script src="app.js"></script>
+</body>
+</html>

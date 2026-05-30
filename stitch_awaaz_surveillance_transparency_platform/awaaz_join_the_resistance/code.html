@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ACTIVATE_NODE // JOIN_THE_NETWORK</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&amp;family=Space+Grotesk:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-container": "#00616f",
+                    "tertiary-fixed-dim": "#a4d64c",
+                    "surface": "#f9f9f9",
+                    "surface-container-high": "#e8e8e8",
+                    "on-tertiary-fixed-variant": "#354e00",
+                    "on-primary-container": "#fffbff",
+                    "primary-container": "#9c48ea",
+                    "tertiary-container": "#598000",
+                    "secondary-container": "#3fe1fd",
+                    "surface-container-low": "#f3f3f3",
+                    "secondary": "#006877",
+                    "on-tertiary-fixed": "#131f00",
+                    "background": "#f9f9f9",
+                    "on-secondary": "#ffffff",
+                    "inverse-on-surface": "#f1f1f1",
+                    "surface-container-highest": "#e2e2e2",
+                    "on-surface": "#1b1b1b",
+                    "on-error-container": "#93000a",
+                    "primary-fixed": "#f0dbff",
+                    "on-error": "#ffffff",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "surface-variant": "#e2e2e2",
+                    "on-primary-fixed": "#2c0051",
+                    "on-background": "#1b1b1b",
+                    "secondary-fixed-dim": "#2fd9f4",
+                    "tertiary": "#456500",
+                    "error-container": "#ffdad6",
+                    "surface-bright": "#f9f9f9",
+                    "on-primary-fixed-variant": "#6900b3",
+                    "error": "#ba1a1a",
+                    "on-secondary-fixed-variant": "#004e5a",
+                    "surface-dim": "#dadada",
+                    "surface-container": "#eeeeee",
+                    "primary": "#8127cf",
+                    "outline-variant": "#cfc2d6",
+                    "outline": "#7e7385",
+                    "primary-fixed-dim": "#ddb7ff",
+                    "inverse-surface": "#303030",
+                    "on-tertiary-container": "#faffe8",
+                    "on-tertiary": "#ffffff",
+                    "on-secondary-fixed": "#001f25",
+                    "secondary-fixed": "#a2eeff",
+                    "inverse-primary": "#ddb7ff",
+                    "tertiary-fixed": "#bff365",
+                    "surface-tint": "#842bd2",
+                    "on-surface-variant": "#4d4354"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "unit": "4px",
+                    "margin-mobile": "16px",
+                    "gutter": "16px",
+                    "border-thick": "4px",
+                    "border-thin": "2px",
+                    "margin-desktop": "40px"
+            },
+            "fontFamily": {
+                    "body-sm": ["JetBrains Mono"],
+                    "label-caps": ["JetBrains Mono"],
+                    "body-lg": ["JetBrains Mono"],
+                    "headline-lg-mobile": ["Space Grotesk"],
+                    "headline-lg": ["Space Grotesk"],
+                    "display-lg": ["Space Grotesk"],
+                    "data-mono": ["JetBrains Mono"],
+                    "headline-md": ["Space Grotesk"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}],
+                    "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                    "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                    "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                    "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-image: 
+                linear-gradient(to right, #e5e5e5 1px, transparent 1px),
+                linear-gradient(to bottom, #e5e5e5 1px, transparent 1px);
+            background-size: 32px 32px;
+            cursor: crosshair;
+        }
+        
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.05) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 12px), calc(100% - 12px) 100%, 0 100%);
+        }
+
+        .neon-glow:hover {
+            box-shadow: 0px 0px 12px rgba(129, 39, 207, 0.6);
+        }
+
+        .terminal-header {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 10px,
+                #1b1b1b 10px,
+                #1b1b1b 20px
+            );
+        }
+
+        .bracket-decor::before { content: '['; margin-right: 4px; color: #8127cf; }
+        .bracket-decor::after { content: ']'; margin-left: 4px; color: #8127cf; }
+    </style>
+</head>
+<body class="bg-surface font-body-lg text-on-surface min-h-screen">
+<div class="scanlines"></div>
+<!-- TopNavBar -->
+<nav class="bg-surface text-primary font-data-mono text-data-mono docked full-width top-0 border-b-border-thick border-on-background drop-shadow(4px 4px 0px #000) flex justify-between items-center w-full px-margin-desktop h-16 z-50 fixed">
+<div class="font-headline-md text-headline-md font-black text-on-surface">AWAAZ</div>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container active:translate-x-1 active:translate-y-1 transition-all" href="#">MAP_OS</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container active:translate-x-1 active:translate-y-1 transition-all" href="#">REGISTRY</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container active:translate-x-1 active:translate-y-1 transition-all" href="#">AI_LINK</a>
+<a class="text-on-surface-variant hover:text-primary hover:bg-surface-container active:translate-x-1 active:translate-y-1 transition-all" href="#">INTEL</a>
+</div>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined hover:text-primary transition-all">notifications</button>
+<button class="material-symbols-outlined hover:text-primary transition-all">settings</button>
+<div class="h-8 w-8 bg-on-background border-border-thin border-primary flex items-center justify-center text-primary-fixed">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+</nav>
+<!-- SideNavBar -->
+<aside class="bg-surface-container dark:bg-surface-dim font-data-mono text-data-mono border-r-border-thick border-on-background hidden md:flex flex-col h-screen fixed left-0 top-16 p-4 gap-4 w-64 z-40">
+<div class="flex flex-col gap-2 p-4 border-border-thin border-on-background bg-surface mb-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-on-background flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">security</span>
+</div>
+<div>
+<div class="font-bold text-on-surface uppercase">OPERATOR_01</div>
+<div class="text-[10px] text-primary opacity-80">STATUS: ENCRYPTED</div>
+</div>
+</div>
+</div>
+<nav class="flex flex-col gap-2">
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:border-border-thin hover:border-on-background hover:drop-shadow(4px 4px 0px #000) active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">dashboard</span>
+<span>DASHBOARD</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:border-border-thin hover:border-on-background hover:drop-shadow(4px 4px 0px #000) active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">rss_feed</span>
+<span>LIVE_FEED</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:border-border-thin hover:border-on-background hover:drop-shadow(4px 4px 0px #000) active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">distance</span>
+<span>HEATMAP</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:border-border-thin hover:border-on-background hover:drop-shadow(4px 4px 0px #000) active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">hub</span>
+<span>NODE_STATUS</span>
+</a>
+<a class="flex items-center gap-3 p-3 text-on-surface-variant hover:border-border-thin hover:border-on-background hover:drop-shadow(4px 4px 0px #000) active:scale-95 transition-transform group" href="#">
+<span class="material-symbols-outlined group-hover:text-primary">inventory_2</span>
+<span>ARCHIVE</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-2">
+<button class="bg-primary text-on-primary border-border-thin border-on-background drop-shadow(4px 4px 0px #000) font-bold py-3 px-4 active:translate-x-1 active:translate-y-1 transition-all text-left flex items-center justify-between">
+<span>INITIATE_PROTOCOL</span>
+<span class="material-symbols-outlined">bolt</span>
+</button>
+<div class="flex gap-2">
+<button class="flex-1 border-border-thin border-on-background p-2 flex items-center justify-center hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">help</span></button>
+<button class="flex-1 border-border-thin border-on-background p-2 flex items-center justify-center hover:bg-surface-container-high transition-colors"><span class="material-symbols-outlined">logout</span></button>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="md:ml-64 pt-24 px-margin-mobile md:px-margin-desktop pb-20">
+<div class="max-w-5xl mx-auto">
+<!-- Header Section -->
+<header class="mb-12">
+<div class="flex items-center gap-4 mb-2">
+<span class="text-primary font-data-mono text-data-mono">TERMINAL_REV_4.02</span>
+<div class="h-px flex-1 bg-on-background"></div>
+<span class="text-on-surface-variant font-data-mono text-data-mono">SECURE_CHANNEL_ACTIVE</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase mb-4 tracking-tighter">
+                    ACTIVATE_NODE <span class="text-primary">//</span> JOIN_THE_NETWORK
+                </h1>
+<p class="font-body-lg text-on-surface-variant max-w-2xl border-l-border-thick border-primary pl-6">
+                    The AWAAZ mesh network requires validation. Provide identity credentials, localize your node within the decentralized grid, and select your clearance level to begin operation.
+                </p>
+</header>
+<!-- Multi-Step Wizard Container -->
+<div class="grid grid-cols-1 gap-12">
+<!-- Step 01: IDENTITY_OBFUSCATION -->
+<section class="bg-surface border-border-thick border-on-background drop-shadow(8px 8px 0px #000) relative overflow-hidden group">
+<div class="terminal-header h-8 flex items-center px-4 justify-between border-b-border-thin border-on-background">
+<span class="text-on-primary font-label-caps uppercase">STEP_01 // IDENTITY_OBFUSCATION</span>
+<div class="flex gap-2">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<div class="w-2 h-2 rounded-full bg-secondary-container"></div>
+</div>
+</div>
+<div class="p-8 grid md:grid-cols-2 gap-8 items-center">
+<div>
+<label class="font-label-caps block mb-4 text-on-surface-variant">$ TERMINAL_ALIAS</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-primary font-bold">&gt;</span>
+<input class="w-full bg-surface border-border-thin border-on-background py-4 pl-10 pr-4 font-data-mono text-headline-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:opacity-30" id="aliasInput" placeholder="ENTER_ALIAS..." type="text"/>
+</div>
+<div class="mt-6 font-data-mono text-body-sm text-on-surface-variant flex flex-col gap-1">
+<span class="flex justify-between"><span>STATUS:</span> <span class="text-tertiary">PENDING_ENTRY</span></span>
+<span class="flex justify-between"><span>HASH_ID:</span> <span class="text-primary" id="hashDisplay">A2X_99_NULL</span></span>
+</div>
+</div>
+<div class="border-border-thin border-on-background bg-surface-container-low p-6 relative">
+<div class="absolute -top-3 -right-3 bg-primary text-on-primary font-label-caps px-2 py-1">ENCRYPTION_ENGINE</div>
+<div class="space-y-4">
+<div class="h-32 bg-on-background relative overflow-hidden flex items-center justify-center">
+<div class="absolute inset-0 opacity-20 pointer-events-none" style="background-image: radial-gradient(#8127cf 1px, transparent 1px); background-size: 8px 8px;"></div>
+<div class="text-primary font-data-mono text-center space-y-2 animate-pulse">
+<div id="scrollingData">01001001 11010010</div>
+<div class="text-[10px] opacity-60">GENERATING_UNIQUE_KEY_...</div>
+</div>
+</div>
+<div class="flex gap-2">
+<div class="flex-1 h-2 bg-primary"></div>
+<div class="flex-1 h-2 bg-on-background"></div>
+<div class="flex-1 h-2 bg-on-background"></div>
+<div class="flex-1 h-2 bg-on-background"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 02: NODE_LOCALIZATION -->
+<section class="bg-surface border-border-thick border-on-background drop-shadow(8px 8px 0px #000) relative">
+<div class="terminal-header h-8 flex items-center px-4 justify-between border-b-border-thin border-on-background">
+<span class="text-on-primary font-label-caps uppercase">STEP_02 // NODE_LOCALIZATION</span>
+<span class="text-secondary-container font-data-mono text-body-sm">LAT: 40.7128 / LONG: -74.0060</span>
+</div>
+<div class="p-8">
+<div class="grid md:grid-cols-3 gap-8">
+<div class="md:col-span-2">
+<h3 class="font-headline-md mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">gps_fixed</span>
+                                    SECTOR_GRID_MATRIX
+                                </h3>
+<!-- 3x8 Grid -->
+<div class="grid grid-cols-8 grid-rows-3 gap-1 border-border-thin border-on-background p-1 bg-on-background">
+<!-- JS will populate or we hardcode some for styling -->
+<div class="h-16 bg-surface hover:bg-primary-container hover:text-on-primary-container transition-all flex items-center justify-center font-data-mono text-body-sm cursor-pointer border border-on-background">S01</div>
+<div class="h-16 bg-surface hover:bg-primary-container transition-all flex items-center justify-center font-data-mono text-body-sm cursor-pointer border border-on-background">S02</div>
+<div class="h-16 bg-primary text-on-primary flex items-center justify-center font-data-mono text-body-sm cursor-pointer border border-on-background relative overflow-hidden group">
+<span class="z-10">ACTIVE</span>
+<div class="absolute inset-0 bg-white/20 animate-ping"></div>
+</div>
+<!-- Filler cells -->
+<script>
+                                        for(let i=4; i<=24; i++) {
+                                            document.write(`<div class="h-16 bg-surface-container hover:bg-primary/20 transition-all flex items-center justify-center font-data-mono text-body-sm cursor-pointer border border-on-background opacity-60">S${i.toString().padStart(2, '0')}</div>`);
+                                        }
+                                    </script>
+</div>
+</div>
+<div class="bg-surface-container p-6 border-border-thin border-on-background flex flex-col gap-4">
+<div class="aspect-square bg-on-background relative">
+<img alt="Satellite imagery" class="w-full h-full object-cover opacity-50 grayscale" data-alt="A gritty high-contrast satellite view of a dense urban cityscape at night. The image is processed with a brutalist digital filter, featuring scanlines and monochromatic tones with neon purple overlays highlighting specific data points. The aesthetic is surveillance-themed, systematic, and technologically advanced, echoing a futuristic hacker terminal environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdVQErLPQIODO0UVHHryAjmcdxpOq7YjVSiryYHWbazIyhNO6tnL18IYxNdtX67Gtc9PKw5Rm25ogz0w0fPFHWrcAHBUxAt9txmbazjCzhAApvAx91_4c33QkGLtV8FffmpkASPd0OYYW1b-brKSIsqfNaBLbfP9usSXqSK1M9xTUlnJ64TSOiXYO_45-OIowAfdVcAuqBIGq5_mVHdtKw3-mh7dyM3ps6a2eRSvLjxyipVqGYExg5aSZB_TIyvNJ8_tdSp46tqQ"/>
+<div class="absolute inset-0 border-2 border-primary m-4 pointer-events-none"></div>
+<div class="absolute bottom-2 left-2 bg-on-background/80 px-2 py-1 text-[8px] text-primary font-data-mono">UAV_FEED_019</div>
+</div>
+<div class="space-y-2">
+<div class="font-label-caps text-on-surface-variant">NODE_DENSITY</div>
+<div class="w-full h-4 bg-on-background flex gap-1 p-0.5">
+<div class="w-1/4 h-full bg-primary"></div>
+<div class="w-1/4 h-full bg-primary"></div>
+<div class="w-1/4 h-full bg-primary/40"></div>
+<div class="w-1/4 h-full bg-surface-variant/20"></div>
+</div>
+<p class="text-[10px] font-data-mono text-on-surface-variant">CAUTION: SIGNAL_INTERFERENCE_HIGH_IN_ADJACENT_SECTORS</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Step 03: SELECT_CLEARANCE_LEVEL -->
+<section class="bg-surface border-border-thick border-on-background drop-shadow(8px 8px 0px #000) relative">
+<div class="terminal-header h-8 flex items-center px-4 justify-between border-b-border-thin border-on-background">
+<span class="text-on-primary font-label-caps uppercase">STEP_03 // SELECT_CLEARANCE_LEVEL</span>
+<span class="material-symbols-outlined text-secondary-container">verified_user</span>
+</div>
+<div class="p-8">
+<div class="grid md:grid-cols-3 gap-6">
+<!-- Card 01 -->
+<div class="border-border-thin border-on-background bg-surface hover:drop-shadow(4px 4px 0px #000) transition-all cursor-pointer group flex flex-col">
+<div class="p-6 border-b-border-thin border-on-background flex items-center justify-between">
+<span class="font-headline-md tracking-tighter bracket-decor">WATCHER</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">visibility</span>
+</div>
+<div class="p-6 flex-1 space-y-4">
+<p class="font-body-sm text-on-surface-variant">Passive monitoring role. Access to all public data streams and live feeds. Zero interaction capability.</p>
+<ul class="text-[11px] font-data-mono space-y-1">
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> READ_ONLY_ACCESS</li>
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> MAP_TELEMETRY</li>
+<li class="flex items-center gap-2 text-error"><span class="material-symbols-outlined text-sm">close</span> DATA_SUBMISSION</li>
+</ul>
+</div>
+<div class="p-4 bg-surface-container-high border-t-border-thin border-on-background">
+<div class="clipped-corner bg-on-background text-on-primary text-center py-2 font-label-caps text-xs">DEFAULT_ASSIGNMENT</div>
+</div>
+</div>
+<!-- Card 02 -->
+<div class="border-border-thick border-primary bg-surface-container-lowest drop-shadow(4px 4px 0px #000) hover:drop-shadow(8px 8px 0px #000) transition-all cursor-pointer group flex flex-col relative scale-105 z-10">
+<div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-3 py-1 font-label-caps text-[10px] whitespace-nowrap">RECOMMENDED_FOR_PARTISANS</div>
+<div class="p-6 border-b-border-thin border-on-background bg-primary text-on-primary flex items-center justify-between">
+<span class="font-headline-md tracking-tighter bracket-decor">OPERATOR</span>
+<span class="material-symbols-outlined">settings_input_component</span>
+</div>
+<div class="p-6 flex-1 space-y-4">
+<p class="font-body-sm text-on-surface-variant">Active field agent. Submit ground reports, manage local sensor nodes, and interact with the mesh network in real-time.</p>
+<ul class="text-[11px] font-data-mono space-y-1">
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> NODE_GOVERNANCE</li>
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> FEED_INJECTION</li>
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> SECTOR_CONTROL</li>
+</ul>
+</div>
+<div class="p-4 bg-primary/10 border-t-border-thin border-on-background">
+<button class="w-full neon-glow bg-primary text-on-primary border-border-thin border-on-background py-3 font-label-caps transition-all flex items-center justify-center gap-2">
+<span>SELECT_ROLE</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 03 -->
+<div class="border-border-thin border-on-background bg-surface hover:drop-shadow(4px 4px 0px #000) transition-all cursor-pointer group flex flex-col">
+<div class="p-6 border-b-border-thin border-on-background flex items-center justify-between">
+<span class="font-headline-md tracking-tighter bracket-decor">NODE_ADMIN</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary">shield_person</span>
+</div>
+<div class="p-6 flex-1 space-y-4">
+<p class="font-body-sm text-on-surface-variant">Governance and oversight. Full administrative rights over regional mesh clusters. Requires identity validation level 5.</p>
+<ul class="text-[11px] font-data-mono space-y-1">
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> FULL_GOVERNANCE</li>
+<li class="flex items-center gap-2 text-tertiary"><span class="material-symbols-outlined text-sm">check</span> KEY_MANAGEMENT</li>
+<li class="flex items-center gap-2 text-on-secondary-container"><span class="material-symbols-outlined text-sm">lock</span> VETTING_REQUIRED</li>
+</ul>
+</div>
+<div class="p-4 bg-surface-container-high border-t-border-thin border-on-background">
+<div class="clipped-corner border-border-thin border-on-background text-on-surface-variant text-center py-2 font-label-caps text-xs">ENCRYPTED_ACCESS</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Final Action CTA -->
+<footer class="flex justify-between items-center bg-on-background p-8 border-border-thick border-on-background drop-shadow(8px 8px 0px #000)">
+<div class="flex flex-col">
+<span class="text-surface-variant font-label-caps">PROTOCOL_READY</span>
+<span class="text-primary font-data-mono text-body-sm">AWAITING_FINAL_ENCRYPTION_BURST</span>
+</div>
+<button class="px-10 py-4 bg-primary text-on-primary border-border-thin border-on-background font-bold text-headline-md tracking-widest hover:bg-primary-container active:scale-95 transition-all flex items-center gap-4 neon-glow">
+                        ACTIVATE_NODE
+                        <span class="material-symbols-outlined">power_settings_new</span>
+</button>
+</footer>
+</div>
+</div>
+</main>
+<!-- Visual Accents: Crosshairs & Borders -->
+<div class="fixed top-16 left-64 w-4 h-4 border-l-2 border-t-2 border-primary z-30 pointer-events-none"></div>
+<div class="fixed top-16 right-0 w-4 h-4 border-r-2 border-t-2 border-primary z-30 pointer-events-none"></div>
+<div class="fixed bottom-0 left-64 w-4 h-4 border-l-2 border-b-2 border-primary z-30 pointer-events-none"></div>
+<div class="fixed bottom-0 right-0 w-4 h-4 border-r-2 border-b-2 border-primary z-30 pointer-events-none"></div>
+<script>
+        // Simple micro-interactions
+        const aliasInput = document.getElementById('aliasInput');
+        const hashDisplay = document.getElementById('hashDisplay');
+        const scrollingData = document.getElementById('scrollingData');
+
+        aliasInput.addEventListener('input', (e) => {
+            const val = e.target.value.toUpperCase();
+            e.target.value = val;
+            
+            // Fake hash generator
+            if(val.length > 0) {
+                const fakeHash = btoa(val).substring(0, 12).toUpperCase();
+                hashDisplay.textContent = `AWZ_${fakeHash}`;
+            } else {
+                hashDisplay.textContent = 'A2X_99_NULL';
+            }
+        });
+
+        // Background data ticker effect
+        setInterval(() => {
+            let binary = "";
+            for(let i=0; i<2; i++) {
+                binary += Math.floor(Math.random() * 255).toString(2).padStart(8, '0') + " ";
+            }
+            scrollingData.textContent = binary;
+        }, 150);
+    </script>
+</body></html>

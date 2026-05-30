@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Space+Grotesk:wght@600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..900&amp;family=Space+Grotesk:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .scanline-overlay {
+            background: linear-gradient(to bottom, rgba(0,0,0,0) 50%, rgba(0,0,0,0.02) 50%);
+            background-size: 100% 4px;
+            pointer-events: none;
+        }
+        .grid-pattern {
+            background-image: radial-gradient(#E5E5E5 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+        .clipped-corner {
+            clip-path: polygon(0 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%);
+        }
+        @keyframes pulse-neon {
+            0% { box-shadow: 0 0 5px #8127cf; opacity: 0.8; }
+            50% { box-shadow: 0 0 20px #8127cf; opacity: 1; }
+            100% { box-shadow: 0 0 5px #8127cf; opacity: 0.8; }
+        }
+        .neon-pulse {
+            animation: pulse-neon 2s infinite;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-container": "#fffbff",
+                        "tertiary-fixed-dim": "#a4d64c",
+                        "on-error-container": "#93000a",
+                        "surface-bright": "#f9f9f9",
+                        "tertiary-container": "#598000",
+                        "on-primary-fixed-variant": "#6900b3",
+                        "surface-container-low": "#f3f3f3",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-tertiary-fixed-variant": "#354e00",
+                        "secondary-container": "#3fe1fd",
+                        "on-background": "#1b1b1b",
+                        "surface-dim": "#dadada",
+                        "on-surface": "#1b1b1b",
+                        "surface": "#f9f9f9",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ddb7ff",
+                        "secondary": "#006877",
+                        "on-surface-variant": "#4d4354",
+                        "on-tertiary-fixed": "#131f00",
+                        "on-secondary": "#ffffff",
+                        "primary-container": "#9c48ea",
+                        "tertiary-fixed": "#bff365",
+                        "surface-tint": "#842bd2",
+                        "surface-container": "#eeeeee",
+                        "on-tertiary": "#ffffff",
+                        "surface-container-highest": "#e2e2e2",
+                        "on-secondary-fixed-variant": "#004e5a",
+                        "on-primary-fixed": "#2c0051",
+                        "secondary-fixed-dim": "#2fd9f4",
+                        "on-secondary-container": "#00616f",
+                        "inverse-primary": "#ddb7ff",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#f0dbff",
+                        "outline": "#7e7385",
+                        "error-container": "#ffdad6",
+                        "inverse-surface": "#303030",
+                        "on-error": "#ffffff",
+                        "surface-variant": "#e2e2e2",
+                        "primary": "#8127cf",
+                        "surface-container-high": "#e8e8e8",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-container": "#faffe8",
+                        "tertiary": "#456500",
+                        "outline-variant": "#cfc2d6",
+                        "background": "#f9f9f9",
+                        "on-secondary-fixed": "#001f25",
+                        "secondary-fixed": "#a2eeff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "gutter": "16px",
+                        "margin-desktop": "40px",
+                        "border-thick": "4px",
+                        "unit": "4px",
+                        "border-thin": "2px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["JetBrains Mono"],
+                        "headline-lg-mobile": ["Space Grotesk"],
+                        "display-lg": ["Space Grotesk"],
+                        "headline-md": ["Space Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-lg": ["Space Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["JetBrains Mono"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["16px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["32px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "display-lg": ["72px", {"lineHeight": "1.0", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.2", "fontWeight": "600"}],
+                        "label-caps": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "headline-lg": ["40px", {"lineHeight": "1.1", "fontWeight": "700"}],
+                        "data-mono": ["13px", {"lineHeight": "1.0", "fontWeight": "500"}],
+                        "body-sm": ["14px", {"lineHeight": "1.4", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-lg overflow-hidden h-screen flex flex-col grid-pattern">
+<!-- TopAppBar -->
+<header class="bg-surface text-primary font-label-caps text-label-caps border-b-2 border-on-surface drop-shadow-[4px_4px_0px_#1b1b1b] flex justify-between items-center w-full px-margin-desktop h-16 z-50 fixed top-0">
+<div class="flex items-center gap-8">
+<span class="font-headline-md text-headline-md font-extrabold text-on-surface tracking-tighter uppercase">AWAAZ</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors duration-100" href="#">MAP_OS</a>
+<a class="text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors duration-100" href="#">REGISTRY</a>
+<a class="text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors duration-100" href="#">AI_LINK</a>
+<a class="text-on-surface hover:bg-primary hover:text-on-primary px-2 py-1 transition-colors duration-100" href="#">INTEL</a>
+</nav>
+</div>
+<div class="flex items-center gap-4">
+<div class="hidden md:flex items-center bg-white border-2 border-on-surface px-3 py-1">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 font-data-mono text-data-mono outline-none" placeholder="QUERY_DB..." type="text"/>
+</div>
+<button class="bg-primary text-on-primary px-4 py-2 font-bold border-2 border-on-surface drop-shadow-[2px_2px_0px_#000] active:translate-x-[2px] active:translate-y-[2px] active:shadow-none transition-all">REPORT_VIOLATION</button>
+</div>
+</header>
+<div class="flex flex-1 pt-16 h-full">
+<!-- SideNavBar -->
+<aside class="bg-surface-container border-r-2 border-on-surface fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col z-40 font-data-mono text-data-mono">
+<div class="p-6 border-b-2 border-on-surface">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 border-2 border-on-surface bg-primary p-0.5">
+<img alt="User System Avatar" class="w-full h-full grayscale invert" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBd2Oqf08SvFoxjqHZYF51YbWh0ZMiyBQpvifxylQiZCoezvytmP7-RAOolwAW1NXbMWyUJ4nuj-E2Sul8gqYY8sjT5LllOtPmaZa4l17WadFS7psVF1bNCO00I7nFlW9AKriPty6zFEl1DeReayTtfunsmKxTygJBruQicIcXcwcjuLjkTjtdQbx1GWi14lVftfNG8ZS3JafUH1Bh6cSUg1mgccmvkq-xE7vQfJJJlKouQeRZWGrII3dVRiHP-7eGmrtBRIk9mYA"/>
+</div>
+<div>
+<div class="font-bold text-on-surface">OPERATOR_01</div>
+<div class="text-[10px] text-on-surface-variant">SECTOR_7G</div>
+</div>
+</div>
+</div>
+<nav class="flex-1 py-4 flex flex-col gap-1">
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>DASHBOARD</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="videocam">videocam</span>
+<span>LIVE_FEED</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 bg-primary text-on-primary font-bold border-y-2 border-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="lan">lan</span>
+<span>HEATMAP</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings_input_component">settings_input_component</span>
+<span>NODE_STATUS</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-variant transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>ARCHIVE</span>
+</a>
+</nav>
+<div class="p-4">
+<button class="w-full py-4 bg-secondary text-on-secondary font-bold border-2 border-on-surface drop-shadow-[4px_4px_0px_#000] active:scale-[0.97] transition-transform">
+                    INITIATE_SCAN
+                </button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-64 flex-1 relative flex overflow-hidden">
+<!-- Map Engine Canvas -->
+<div class="absolute inset-0 bg-surface-container-highest z-0">
+<img class="w-full h-full object-cover grayscale opacity-40 mix-blend-multiply" data-alt="A highly detailed overhead satellite view of a modern metropolitan city grid at night, rendered in a technical surveillance style. The map is overlaid with digital artifacts, scanlines, and a monochromatic high-contrast gray and white aesthetic. Glowing neon purple circular heat zones indicate data density, with tiny vector icons marking camera nodes and signal points. The atmosphere is clinical and data-dense." data-location="Hyderabad" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-c9uXYn0MH8SKXVHGTk9z8YIYSqWslUdqojvryioEbp-KIv-HbU6Tujpmcnh8sRT8ZBeRbNwCnaVSKHfSr6e8QmvunPz1aL128h4CxiKo-OmwXAO6mpYBiDLPfDVZJBXUZ_rvBQEj4zrq0wN08hU1QkRK1sQC3Tz8LTuko7X91PgG2B_I_tKo8VF8TiUCM14xqS8H8WL9KkShMvutO2R8RGQ13frSpQVpmev0mQDbTbHtMKR3TCAcdBYm_-UM3Ud9tIQ8oIQwiQ"/>
+<!-- Technical Overlays -->
+<div class="absolute inset-0 scanline-overlay"></div>
+<!-- Heat Zones (SVG/Absolute) -->
+<div class="absolute top-[20%] left-[30%] w-64 h-64 bg-primary/20 rounded-full blur-3xl neon-pulse"></div>
+<div class="absolute top-[60%] left-[50%] w-96 h-96 bg-primary/15 rounded-full blur-2xl"></div>
+<div class="absolute top-[40%] left-[70%] w-48 h-48 bg-primary/25 rounded-full blur-3xl neon-pulse"></div>
+<!-- Node Markers -->
+<div class="absolute top-[25%] left-[35%] group">
+<div class="bg-on-surface text-white p-1 border-2 border-white cursor-pointer hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">videocam</span>
+</div>
+<div class="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white border-2 border-black p-2 hidden group-hover:block z-10 w-48">
+<p class="font-data-mono text-[10px] text-primary font-bold">NODE_HYD_420</p>
+<p class="font-data-mono text-[8px]">TYPE: FR_CAMERA</p>
+<p class="font-data-mono text-[8px] text-error">STATUS: ACTIVE_TRACKING</p>
+</div>
+</div>
+<div class="absolute top-[65%] left-[55%] group">
+<div class="bg-secondary text-white p-1 border-2 border-white cursor-pointer hover:bg-primary transition-colors">
+<span class="material-symbols-outlined text-[18px]">sensors</span>
+</div>
+</div>
+<div class="absolute top-[45%] left-[75%] group">
+<div class="bg-error text-white p-1 border-2 border-white cursor-pointer animate-bounce">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<!-- Crosshair Decor -->
+<div class="absolute top-10 left-10 text-on-surface-variant font-data-mono text-[10px]">17°22'31"N 78°28'28"E</div>
+<div class="absolute bottom-10 right-10 text-on-surface-variant font-data-mono text-[10px]">ZOOM: 14.5x // LVL: 04</div>
+<div class="absolute top-1/2 left-10 h-[1px] w-4 bg-on-surface"></div>
+<div class="absolute top-1/2 right-10 h-[1px] w-4 bg-on-surface"></div>
+<div class="absolute left-1/2 top-10 w-[1px] h-4 bg-on-surface"></div>
+<div class="absolute left-1/2 bottom-10 w-[1px] h-4 bg-on-surface"></div>
+</div>
+<!-- UI Overlays: Left Panel (Layers & Legend) -->
+<div class="absolute top-8 left-8 flex flex-col gap-6 z-10 max-w-xs">
+<!-- Layers Control -->
+<div class="bg-white border-4 border-black p-4 drop-shadow-[8px_8px_0px_#000]">
+<div class="flex items-center justify-between border-b-2 border-black pb-2 mb-4">
+<span class="font-label-caps text-label-caps font-bold">LAYER_CONTROL</span>
+<span class="material-symbols-outlined text-sm">layers</span>
+</div>
+<div class="flex flex-col gap-3 font-data-mono text-data-mono">
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 border-2 border-black checked:bg-primary focus:ring-0" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">CCTV_NODES</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input checked="" class="w-4 h-4 border-2 border-black checked:bg-primary focus:ring-0" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">DATA_BREACHES</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group">
+<input class="w-4 h-4 border-2 border-black checked:bg-primary focus:ring-0" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">FACIAL_RECOG</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer group opacity-50">
+<input class="w-4 h-4 border-2 border-black checked:bg-primary focus:ring-0" type="checkbox"/>
+<span class="group-hover:text-primary transition-colors">SIGNAL_JAMMERS</span>
+</label>
+</div>
+</div>
+<!-- Legend -->
+<div class="bg-white border-4 border-black p-4 drop-shadow-[8px_8px_0px_#000]">
+<div class="flex items-center justify-between border-b-2 border-black pb-2 mb-4">
+<span class="font-label-caps text-label-caps font-bold">MAP_LEGEND</span>
+<span class="material-symbols-outlined text-sm">info</span>
+</div>
+<div class="flex flex-col gap-4 font-data-mono text-data-mono">
+<div class="flex items-center gap-3">
+<div class="w-4 h-4 rounded-full bg-primary/40 border border-primary"></div>
+<span class="text-[10px]">HIGH EXPOSURE AREA</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-secondary p-0.5 border border-black"><span class="material-symbols-outlined text-[12px] text-white">hub</span></div>
+<span class="text-[10px]">DATA BROKER CLUSTER</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-tertiary-fixed-dim p-0.5 border border-black"><span class="material-symbols-outlined text-[12px] text-on-tertiary-fixed">verified</span></div>
+<span class="text-[10px]">COMMUNITY VERIFIED</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="bg-on-surface p-0.5 border border-black"><span class="material-symbols-outlined text-[12px] text-white">visibility</span></div>
+<span class="text-[10px]">FR CAMERA DETECTED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- UI Overlays: Right Sidebar (Live Feed) -->
+<div class="absolute top-0 right-0 h-full w-80 bg-white border-l-4 border-black z-10 flex flex-col">
+<div class="p-6 border-b-4 border-black bg-surface-container-high">
+<h2 class="font-headline-md text-[18px] font-extrabold flex items-center justify-between">
+                        LIVE_EVENT_FEED
+                        <span class="w-3 h-3 bg-error rounded-full animate-pulse"></span>
+</h2>
+<p class="font-data-mono text-[10px] mt-1 text-on-surface-variant">REAL-TIME SURVEILLANCE TELEMETRY</p>
+</div>
+<div class="flex-1 overflow-y-auto p-4 flex flex-col gap-4">
+<!-- Event Item -->
+<div class="bg-surface-container-low border-2 border-black p-3 hover:border-primary transition-all group">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-primary text-on-primary text-[8px] font-bold px-1.5 py-0.5 clipped-corner">ALERT</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">14:22:05</span>
+</div>
+<p class="font-data-mono text-[12px] leading-tight font-bold text-on-surface">New camera detected in HITECH CITY Sector 2</p>
+<p class="font-data-mono text-[10px] mt-2 text-on-surface-variant">MODEL: HIK-992-G // PROTOCOL: RTSP</p>
+<div class="mt-2 flex gap-2">
+<button class="bg-white border-2 border-black text-[9px] px-2 py-1 font-bold group-hover:bg-primary group-hover:text-white">PIN_LOCATION</button>
+</div>
+</div>
+<!-- Event Item -->
+<div class="bg-error-container border-2 border-error p-3 group">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-error text-on-error text-[8px] font-bold px-1.5 py-0.5 clipped-corner">CRITICAL</span>
+<span class="font-data-mono text-[10px] text-on-error-container">14:20:12</span>
+</div>
+<p class="font-data-mono text-[12px] leading-tight font-bold text-on-error-container">AADHAAR LOG ACCESS DETECTED</p>
+<p class="font-data-mono text-[10px] mt-2 text-on-error-container">IP: 192.168.1.104 // AUTH: SYS_OVERRIDE</p>
+</div>
+<!-- Event Item -->
+<div class="bg-surface-container-low border-2 border-black p-3 hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-secondary text-on-secondary text-[8px] font-bold px-1.5 py-0.5 clipped-corner">SIGNAL</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">14:18:44</span>
+</div>
+<p class="font-data-mono text-[12px] leading-tight font-bold text-on-surface">Data broker scraping session initiated</p>
+<p class="font-data-mono text-[10px] mt-2 text-on-surface-variant">TARGET: PUBLIC_WI-FI_07</p>
+</div>
+<!-- Event Item -->
+<div class="bg-surface-container-low border-2 border-black p-3 hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-tertiary-container text-on-tertiary-container text-[8px] font-bold px-1.5 py-0.5 clipped-corner">COMMUNITY</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">14:15:20</span>
+</div>
+<p class="font-data-mono text-[12px] leading-tight font-bold text-on-surface">Camera obscured by user 'CYBER_PUNK_01'</p>
+<p class="font-data-mono text-[10px] mt-2 text-on-surface-variant">LOCATION: METRO_STATION_BLUE</p>
+</div>
+<!-- Event Item -->
+<div class="bg-surface-container-low border-2 border-black p-3 hover:border-primary transition-all">
+<div class="flex justify-between items-start mb-2">
+<span class="bg-primary text-on-primary text-[8px] font-bold px-1.5 py-0.5 clipped-corner">ALERT</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">14:12:05</span>
+</div>
+<p class="font-data-mono text-[12px] leading-tight font-bold text-on-surface">Large scale signal jamming detected</p>
+<p class="font-data-mono text-[10px] mt-2 text-on-surface-variant">RADIUS: 500m // POWER: -72dBm</p>
+</div>
+</div>
+</div>
+<!-- Footer Metrics -->
+<footer class="absolute bottom-0 left-0 right-80 h-12 bg-on-surface text-white z-10 px-6 flex items-center justify-between font-data-mono text-[10px]">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-2">
+<span class="text-primary font-bold">LATENCY:</span>
+<span>24ms</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-secondary font-bold">UPTIME:</span>
+<span>99.98%</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-tertiary-fixed-dim font-bold">SCAN_PROGRESS:</span>
+<div class="w-48 h-2 bg-white/10 relative">
+<div class="absolute top-0 left-0 h-full bg-primary" style="width: 74%;"></div>
+<div class="absolute top-0 right-0 bottom-0 left-0 flex overflow-hidden">
+<div class="w-full h-full border-[1px] border-black/20" style="background: repeating-linear-gradient(90deg, transparent, transparent 4px, black 4px, black 5px)"></div>
+</div>
+</div>
+<span>74%</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="animate-pulse">● SYSTEM_SYNCHRONIZED</span>
+<span class="opacity-50">V_4.2.0-STABLE</span>
+</div>
+</footer>
+</main>
+</div>
+<!-- Floating Action Button -->
+<!-- FAB Suppressed for HEATMAP detail screen as per UX Guidelines -->
+<script>
+        // Micro-interaction: Randomize progress bar
+        setInterval(() => {
+            const bar = document.querySelector('.bg-primary[style*="width: 74%"]');
+            if(bar) {
+                const currentWidth = parseInt(bar.style.width);
+                const nextWidth = Math.min(100, Math.max(70, currentWidth + (Math.random() > 0.5 ? 1 : -1)));
+                bar.style.width = nextWidth + '%';
+                bar.parentElement.nextElementSibling.textContent = nextWidth + '%';
+            }
+        }, 3000);
+
+        // Micro-interaction: Map interaction simulation
+        document.querySelectorAll('.group .cursor-pointer').forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                console.log('SURVEILLANCE_NODE_FOCUSED');
+            });
+        });
+    </script>
+</body></html>
