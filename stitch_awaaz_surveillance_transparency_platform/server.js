@@ -21,6 +21,9 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Joi = require('joi');
 const db = require('./db_sqlite');
+const heatmap = require('./models/heatmap');
+const heatmapFetcher = require('./models/heatmapFetcher');
+const cron = require('node-cron');
 const chatbot = require('./chatbot');
 let openaiClient = null;
 if (process.env.OPENAI_API_KEY) {
@@ -78,6 +81,17 @@ app.get('/api/reports', async (req, res) => {
     res.json(reports);
   } catch (e) {
     res.status(500).json({ error: 'Failed to fetch reports' });
+  }
+});
+
+// Registry endpoint – list all submitted violations (reports)
+app.get('/api/registry', async (req, res) => {
+  try {
+    const reports = await db.getReports(500);
+    res.json(reports);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Failed to fetch registry' });
   }
 });
 
@@ -243,6 +257,23 @@ global.io = io;
 io.on('connection', (socket) => {
   console.log('Socket connected:', socket.id);
   socket.on('hello', (d) => console.log('hello', d));
+
+// Heatmap endpoint (public)
+app.get('/api/heatmap', async (req, res) => {
+  try {
+    const data = await heatmap.getHeatmapData();
+    res.json(data);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'Failed to fetch heatmap data' });
+  }
+});
+
+// Schedule daily fetch (at 02:00 AM server time)
+cron.schedule('0 2 * * *', () => {
+  console.log('Running daily heatmap data update');
+  heatmapFetcher.fetchAndStoreStatcounter();
+});
 });
 
 server.listen(PORT, () => {
@@ -258,5 +289,4 @@ process.on('unhandledRejection', (reason, p) => {
 
 process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
->>>>>>> dc1cfb84edbbf876fd06b388c0c8363f0aae386d
 });

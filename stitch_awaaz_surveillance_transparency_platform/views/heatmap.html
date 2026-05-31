@@ -112,7 +112,8 @@
         const mapEl = document.getElementById('leaflet-map');
         if (!mapEl || typeof L === 'undefined') return;
 
-        const map = L.map('leaflet-map', { zoomControl: false, preferCanvas: true }).setView([28.6139, 77.2090], 11);
+        // Set view to Hyderabad region as per project requirements
+        const map = L.map('leaflet-map', { zoomControl: false, preferCanvas: true }).setView([17.3850, 78.4867], 12);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'

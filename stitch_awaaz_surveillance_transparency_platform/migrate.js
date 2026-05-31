@@ -19,16 +19,36 @@ db.serialize(() => {
     )
   `);
 
+  // Heatmap table for surveillance camera data with detailed fields
+  db.run(`
+    CREATE TABLE IF NOT EXISTS heatmap (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      source TEXT,
+      city TEXT,
+      latitude REAL NOT NULL,
+      longitude REAL NOT NULL,
+      camera_type TEXT,
+      operator TEXT,
+      database_linked TEXT,
+      rti_status TEXT,
+      breach_count INTEGER,
+      broker_count INTEGER,
+      risk_score REAL,
+      updated_at TEXT NOT NULL
+    )
+  `);
+
   // Users table
   db.run(`
     CREATE TABLE IF NOT EXISTS users (
       id INTEGER PRIMARY KEY AUTOINCREMENT,
       username TEXT UNIQUE NOT NULL,
       password_hash TEXT NOT NULL,
-      role TEXT NOT NULL DEFAULT 'reporter',
+      role TEXT NOT NULL,
       createdAt TEXT NOT NULL
     )
   `);
+
   // Insert default admin user if not exists (password: adminpass) - useful for hackathon demo
   const bcrypt = require('bcrypt');
   const defaultAdmin = 'admin';
