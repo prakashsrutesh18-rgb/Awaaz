@@ -1,0 +1,20 @@
+<div class="p-12 flex items-center justify-center">
+  <div class="w-full max-w-md bg-white border-4 border-black p-8 brutalist-card">
+    <h2 class="font-headline-md text-headline-md font-bold mb-4">Sign In / Register</h2>
+    <p class="font-data-mono text-[12px] text-on-surface-variant mb-4">Use an alias to register quickly for the demo. Passwords are stored hashed locally.</p>
+
+    <div class="flex flex-col gap-3">
+      <label class="text-[12px] font-bold">Alias</label>
+      <input id="login-username" class="border-2 border-on-surface p-3 font-data-mono" placeholder="your_alias" />
+      <label class="text-[12px] font-bold">Password</label>
+      <input id="login-password" type="password" class="border-2 border-on-surface p-3 font-data-mono" placeholder="password" />
+
+      <div class="flex gap-3 mt-4">
+        <button id="btn-login-submit" class="flex-1 bg-primary text-on-primary px-4 py-3 font-bold">Login</button>
+        <button id="btn-register-submit" class="flex-1 bg-on-surface text-surface px-4 py-3 font-bold">Register</button>
+      </div>
+
+      <div class="text-[12px] text-on-surface-variant mt-4">After login you'll be able to submit reports and interact with the live map. This demo stores data locally in a SQLite DB.</div>
+    </div>
+  </div>
+</div>
