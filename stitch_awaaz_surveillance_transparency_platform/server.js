@@ -1,7 +1,18 @@
+const fs = require('fs');
+const crypto = require('crypto');
+const path = require('path');
+
+// Ensure a .env file exists with sensible development defaults
+const ENV_PATH = path.join(__dirname, '.env');
+if (!fs.existsSync(ENV_PATH)) {
+  const defaultJwt = crypto.randomBytes(24).toString('hex');
+  const adminPass = process.env.ADMIN_PASS || 'adminpass';
+  const content = `JWT_SECRET=${defaultJwt}\nPORT=3000\nADMIN_PASS=${adminPass}\nOPENAI_API_KEY=\n`;
+  try { fs.writeFileSync(ENV_PATH, content, { flag: 'wx', mode: 0o600 }); console.log('.env created with secure defaults'); } catch (e) { /* ignore if race */ }
+}
 require('dotenv').config();
 const express = require('express');
 const http = require('http');
-const path = require('path');
 const cors = require('cors');
 const { Server } = require('socket.io');
 const rateLimit = require('express-rate-limit');
@@ -23,6 +34,13 @@ if (process.env.OPENAI_API_KEY) {
 }
 
 const PORT = process.env.PORT || 3000;
+
+// Ensure database exists (run migrations automatically if missing)
+const DB_PATH = path.join(__dirname, 'awaaz.db');
+if (!fs.existsSync(DB_PATH)) {
+  console.log('Database not found at', DB_PATH, '- running migrations');
+  try { require('./migrate'); } catch (e) { console.warn('Migration step failed:', e && e.message ? e.message : e); }
+}
 
 const app = express();
 app.use(helmet({
@@ -228,5 +246,16 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`AWAAZ//OS backend running at http://localhost:${PORT}`);
+  console.log(`AWAAZ//OS backend running at http://0.0.0.0:${PORT}`);
+});
+
+// Bind to 0.0.0.0 so other machines on the network can access (if firewall allows)
+// Note: when deployed, ensure environment and firewall rules permit external access.
+
+process.on('unhandledRejection', (reason, p) => {
+  console.error('Unhandled Rejection at:', p, 'reason:', reason);
+});
+
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught Exception:', err);
 });

@@ -93,7 +93,12 @@ function flagReportById(id) {
   });
 }
 
-module.exports = { getReports, addReport, createUser, findUserByUsername, deleteReportById, flagReportById };
-
-module.exports = { getReports, addReport, createUser, findUserByUsername };
+module.exports = {
+  getReports,
+  addReport,
+  createUser,
+  findUserByUsername,
+  deleteReportById,
+  flagReportById
+};
 

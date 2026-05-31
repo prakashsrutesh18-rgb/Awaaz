@@ -71,7 +71,36 @@ document.addEventListener('DOMContentLoaded', () => {
     setupShellButtons();
     // Initialize chat widget handlers
     initChatWidget();
+    // Load current user (if logged in)
+    loadCurrentUser();
 });
+
+// Load current user info and update UI
+async function loadCurrentUser() {
+    const token = localStorage.getItem('awaaz_token');
+    const opId = document.getElementById('operator-id');
+    const opUplink = document.getElementById('operator-uplink');
+    const adminLink = document.querySelector('a[href="#admin"]');
+    if (!token) {
+        if (opId) opId.textContent = 'GUEST';
+        if (opUplink) opUplink.textContent = 'UPLINK: DISCONNECTED';
+        if (adminLink) adminLink.style.display = 'none';
+        return;
+    }
+    try {
+        const r = await fetch('/api/me', { headers: { 'Authorization': 'Bearer ' + token } });
+        if (!r.ok) throw new Error('unauth');
+        const j = await r.json();
+        if (opId) opId.textContent = j.username || 'OPERATOR';
+        if (opUplink) opUplink.textContent = `Role: ${j.role || 'reporter'}`;
+        if (adminLink) adminLink.style.display = (j.role === 'admin') ? '' : 'none';
+    } catch (e) {
+        localStorage.removeItem('awaaz_token');
+        if (opId) opId.textContent = 'GUEST';
+        if (opUplink) opUplink.textContent = 'UPLINK: DISCONNECTED';
+        if (adminLink) adminLink.style.display = 'none';
+    }
+}
 
 // Setup Clock in Footer
 function setupClock() {
@@ -770,6 +799,7 @@ function initLoginController() {
                 const j = await r.json();
                 if (!r.ok) return showToast('Login failed: ' + (j.error || 'unknown'), 'error');
                 localStorage.setItem('awaaz_token', j.token);
+                await loadCurrentUser();
                 showToast('Login successful', 'success');
                 window.location.hash = '#dashboard';
             } catch (e) {
@@ -789,6 +819,8 @@ function initLoginController() {
                 const j = await r.json();
                 if (!r.ok) return showToast('Register failed: ' + (j.error || 'unknown'), 'error');
                 showToast('Registration successful — you can now log in', 'success');
+                // no token yet, but refresh UI
+                await loadCurrentUser();
             } catch (e) {
                 console.error(e);
                 showToast('Registration error', 'error');
