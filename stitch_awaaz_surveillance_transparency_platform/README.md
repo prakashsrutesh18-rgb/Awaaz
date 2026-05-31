@@ -1,4 +1,4 @@
-# AWAAZ//OS - Local Setup
+# AWAAZ — OS - Local Setup
 
 This repository runs a simple Express + SQLite demo backend and static frontend. It includes automatic migrations and a default admin user for quick setup.
 

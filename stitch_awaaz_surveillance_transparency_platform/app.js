@@ -1,5 +1,6 @@
 /**
- * AWAAZ//OS - Core Application Controller
+ * AWAAZ — OS - Core Application Controller
+ * Human-friendly wording and separators
  */
 
 // Global State
@@ -48,7 +49,7 @@ const routes = {
 
 // Initialize Application
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("AWAAZ//OS KERNEL INITIALIZED // SECURE CHANNEL LOADED");
+    console.log("AWAAZ — OS kernel initialized — secure channel loaded");
     
     // Setup Global Clock
     setupClock();

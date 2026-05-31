@@ -246,7 +246,7 @@ io.on('connection', (socket) => {
 });
 
 server.listen(PORT, () => {
-  console.log(`AWAAZ//OS backend running at http://0.0.0.0:${PORT}`);
+  console.log(`AWAAZ — OS backend running at http://0.0.0.0:${PORT}`);
 });
 
 // Bind to 0.0.0.0 so other machines on the network can access (if firewall allows)
