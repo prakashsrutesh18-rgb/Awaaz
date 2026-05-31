@@ -4,7 +4,7 @@ BASE_URL=${1:-http://localhost:3000}
 
 echo "Using base URL: $BASE_URL"
 
-USERNAME="ci_test_$(date +%s)"
+USERNAME="citest$(date +%s)"
 PASSWORD="testpass123"
 
 echo "Registering user: $USERNAME"
